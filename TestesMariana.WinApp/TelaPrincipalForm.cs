@@ -55,7 +55,7 @@ namespace TestesMariana.WinApp
         {
             string tipo = escolha.Text;
             controlador = controladores![tipo];
-
+            
             ConfigurarToolbox();
             ConfigurarListagem();
         }
@@ -76,6 +76,7 @@ namespace TestesMariana.WinApp
         private void ConfigurarToolbox()
         {
             ConfigToolboxBase config = controlador!.ObtemConfiguracaoToolbox();
+
             if (config != null)
             {
                 toolStripToolbox.Enabled = true;
@@ -93,6 +94,7 @@ namespace TestesMariana.WinApp
             buttonInserir.Enabled = config.StatusInserir;
             buttonEditar.Enabled = config.StatusEditar;
             buttonExcluir.Enabled = config.StatusExcluir;
+            buttonExportarPDF.Enabled = config.statusPDF;
         }
 
         private void ConfigurarTooltips(ConfigToolboxBase config) //Pega status de cada config das classes específicas [TOOLTIP]
@@ -100,6 +102,7 @@ namespace TestesMariana.WinApp
             buttonInserir.ToolTipText = config.toolStripButtonInserir;
             buttonEditar.ToolTipText = config.toolStripButtonEditar;
             buttonExcluir.ToolTipText = config.toolStripButtonExcluir;
+            buttonExportarPDF.ToolTipText = config.toolStripButtonExportarPDF;
         }
 
         private void buttonInserir_Click(object sender, EventArgs e)
@@ -111,9 +114,9 @@ namespace TestesMariana.WinApp
             controlador!.Editar();
         }
 
-        private void toolStripButtonDeletar_Click(object sender, EventArgs e)
+        private void buttonExcluir_Click(object sender, EventArgs e)
         {
-
+            controlador!.Excluir();
         }
 
         private void toolStripButtonExportarPDF_Click(object sender, EventArgs e)

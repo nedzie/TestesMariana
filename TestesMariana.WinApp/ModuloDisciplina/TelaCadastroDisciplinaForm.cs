@@ -1,12 +1,5 @@
 ﻿using FluentValidation.Results;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TestesMariana.Dominio.ModuloDisciplina;
 
@@ -29,15 +22,16 @@ namespace TestesMariana.WinApp.ModuloDisciplina
             }
         }
 
+        public TelaCadastroDisciplinaForm()
+        {
+            InitializeComponent();
+
+        }
         public TelaCadastroDisciplinaForm(Disciplina temp)
         {
             InitializeComponent();
             Disciplina = temp;
-        }
-        public TelaCadastroDisciplinaForm()
-        {
-            InitializeComponent();
-            if(_disciplina != null)
+            if (_disciplina != null)
             {
                 textBoxNumero.Text = Disciplina.Numero.ToString();
                 textBoxNome.Text = Disciplina.Nome;

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestesMariana.WinApp.Compartilhado;
+﻿using TestesMariana.WinApp.Compartilhado;
 
 namespace TestesMariana.WinApp.ModuloDisciplina
 {
@@ -16,5 +11,9 @@ namespace TestesMariana.WinApp.ModuloDisciplina
         public override string toolStripButtonEditar { get { return "Editar uma disciplina existente"; } }
 
         public override string toolStripButtonExcluir { get { return "Excluir uma disciplina existente"; } }
+
+        public override string toolStripButtonExportarPDF { get { return string.Empty; } }
+        
+        public override bool statusPDF { get { return false; } }
     }
 }

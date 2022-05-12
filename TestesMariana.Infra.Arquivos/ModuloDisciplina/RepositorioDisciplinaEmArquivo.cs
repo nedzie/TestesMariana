@@ -1,10 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Infra.Arquivos.Compartilhado;
 
@@ -20,7 +17,7 @@ namespace TestesMariana.Infra.Arquivos.ModuloDisciplina
 
         public override ValidationResult Inserir(Disciplina novoRegistro)
         {
-            var resultadoValidacao = Validar(novoRegistro);
+            ValidationResult resultadoValidacao = Validar(novoRegistro);
 
             if (resultadoValidacao.IsValid)
             {
@@ -70,6 +67,12 @@ namespace TestesMariana.Infra.Arquivos.ModuloDisciplina
             var validator = ObterValidador();
 
             var resultadoValidacao = validator.Validate(registro);
+
+            foreach (var item in dataContext.Disciplinas)
+            {
+                if (item.Nome == registro.Nome && item.Numero != registro.Numero)
+                    resultadoValidacao.Errors.Add(new ValidationFailure("", "Nome já cadastrado"));
+            }
 
             if (resultadoValidacao.IsValid == false)
                 return resultadoValidacao;

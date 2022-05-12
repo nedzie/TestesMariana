@@ -1,8 +1,5 @@
-﻿using System;
+﻿using FluentValidation.Results;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Infra.Arquivos.ModuloDisciplina;
@@ -12,16 +9,21 @@ namespace TestesMariana.WinApp.ModuloDisciplina
 {
     public class ControladorDisciplina : ControladorBase
     {
-        
+        #region Atributos
         private RepositorioDisciplinaEmArquivo _repositorioDisciplina;
         private TabelaDisciplinasControl? tabelaDisciplinas;
+        #endregion
 
 
+        #region CTOR
         public ControladorDisciplina(RepositorioDisciplinaEmArquivo repositorioDisciplina)
         {
             this._repositorioDisciplina = repositorioDisciplina;
         }
+        #endregion
 
+
+        #region Métodos públicos
         public override void Inserir()
         {
             TelaCadastroDisciplinaForm tela = new();
@@ -31,21 +33,23 @@ namespace TestesMariana.WinApp.ModuloDisciplina
 
             DialogResult res = tela.ShowDialog(); // Daqui vai para os códigos da 'TelaCadastroDisciplinaForm'
 
-            if(res == DialogResult.OK)
+            if (res == DialogResult.OK)
                 CarregarDisciplinas();
-
         }
-
 
         public override void Editar()
         {
-            Disciplina temp = new();
+            TelaCadastroDisciplinaForm tela = new();
+
             Disciplina disciplinaSelecionada = ObtemDisciplinaSelecionada();
 
-            temp.Numero = disciplinaSelecionada.Numero;
-            temp.Nome = disciplinaSelecionada.Nome;
+            if (disciplinaSelecionada == null)
+            {
+                TelaPrincipalForm.Instancia!.AtualizarRodape("Seleciona uma disciplina!");
+                return;
+            }
 
-            TelaCadastroDisciplinaForm tela = new(temp);
+            tela.Disciplina = (Disciplina)disciplinaSelecionada.Clone();
 
             tela.GravarRegistro = _repositorioDisciplina.Editar;
 
@@ -58,29 +62,23 @@ namespace TestesMariana.WinApp.ModuloDisciplina
         {
             Disciplina disciplinaSelecionada = ObtemDisciplinaSelecionada();
 
-            if(disciplinaSelecionada != null)
+            if (disciplinaSelecionada == null)
             {
-                DialogResult res = MessageBox.Show("Excluir disciplina?",
+                TelaPrincipalForm.Instancia!.AtualizarRodape("Seleciona uma disciplina!");
+                return;
+            }
+
+            DialogResult res = MessageBox.Show("Excluir disciplina?",
                 "Excluir", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
-                if (res == DialogResult.OK)
-                    _repositorioDisciplina.Excluir(disciplinaSelecionada);
+            if (res == DialogResult.OK)
+            {
+                ValidationResult deuCerto = _repositorioDisciplina.Excluir(disciplinaSelecionada);
+                if (deuCerto.IsValid)
+                    CarregarDisciplinas();
             }
-        }
-        private void CarregarDisciplinas()
-        {
-            List<Disciplina> disciplinas = _repositorioDisciplina.SelecionarTodos();
-            tabelaDisciplinas!.AtualizarRegistros(disciplinas);
 
-            TelaPrincipalForm.Instancia!.AtualizarRodape($"Visualizando {disciplinas.Count} disciplina(s)");
         }
-
-        private Disciplina ObtemDisciplinaSelecionada()
-        {
-            var numero = tabelaDisciplinas!.ObtemNumeroTarefaSelecionada();
-            return _repositorioDisciplina.SelecionarPorNumero(numero);
-        }
-
 
         public override ConfigToolboxBase ObtemConfiguracaoToolbox() // Responsável por carregar o padrão da tela
         {
@@ -96,5 +94,26 @@ namespace TestesMariana.WinApp.ModuloDisciplina
 
             return tabelaDisciplinas;
         }
+
+        #endregion
+
+
+        #region Métodos privados
+
+        private void CarregarDisciplinas()
+        {
+            List<Disciplina> disciplinas = _repositorioDisciplina.SelecionarTodos();
+            tabelaDisciplinas!.AtualizarRegistros(disciplinas);
+
+            TelaPrincipalForm.Instancia!.AtualizarRodape($"Visualizando {disciplinas.Count} disciplina(s)");
+        }
+
+        private Disciplina ObtemDisciplinaSelecionada()
+        {
+            var numero = tabelaDisciplinas!.ObtemNumeroTarefaSelecionada();
+            return _repositorioDisciplina.SelecionarPorNumero(numero);
+        }
+
+        #endregion
     }
 }

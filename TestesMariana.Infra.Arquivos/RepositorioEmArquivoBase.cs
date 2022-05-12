@@ -10,17 +10,12 @@ namespace TestesMariana.Infra.Arquivos
     public abstract class RepositorioEmArquivoBase<T> where T : EntidadeBase<T>
     {
         protected DataContext dataContext;
-
         protected int contador = 0;
 
         public RepositorioEmArquivoBase(DataContext dataContext)
         {
             this.dataContext = dataContext;
         }
-
-        public abstract List<T> ObterRegistros();
-
-        public abstract AbstractValidator<T> ObterValidador();
 
         public virtual ValidationResult Inserir(T novoRegistro)
         {
@@ -69,7 +64,7 @@ namespace TestesMariana.Infra.Arquivos
 
             var registros = ObterRegistros();
 
-            if (registros.Remove(registro) == false)
+            if (!registros.Remove(registro))
                 resultadoValidacao.Errors.Add(new ValidationFailure("", "Não foi possível remover o registro"));
 
             return resultadoValidacao;
@@ -85,5 +80,9 @@ namespace TestesMariana.Infra.Arquivos
             return ObterRegistros()
                 .FirstOrDefault(x => x.Numero == numero);
         }
+
+        public abstract List<T> ObterRegistros();
+
+        public abstract AbstractValidator<T> ObterValidador();
     }
 }

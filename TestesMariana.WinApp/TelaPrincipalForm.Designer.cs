@@ -103,6 +103,7 @@
             // 
             // toolStripToolbox
             // 
+            this.toolStripToolbox.Enabled = false;
             this.toolStripToolbox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonInserir,
             this.buttonEditar,
@@ -146,7 +147,7 @@
             this.buttonExcluir.Name = "buttonExcluir";
             this.buttonExcluir.Size = new System.Drawing.Size(28, 28);
             this.buttonExcluir.Text = "Deletar";
-            this.buttonExcluir.Click += new System.EventHandler(this.toolStripButtonDeletar_Click);
+            this.buttonExcluir.Click += new System.EventHandler(this.buttonExcluir_Click);
             // 
             // buttonExportarPDF
             // 
@@ -156,14 +157,14 @@
             this.buttonExportarPDF.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonExportarPDF.Name = "buttonExportarPDF";
             this.buttonExportarPDF.Size = new System.Drawing.Size(28, 28);
-            this.buttonExportarPDF.Text = "PDF";
             this.buttonExportarPDF.Click += new System.EventHandler(this.toolStripButtonExportarPDF_Click);
             // 
             // toolStripLabelTipo
             // 
+            this.toolStripLabelTipo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.toolStripLabelTipo.Name = "toolStripLabelTipo";
-            this.toolStripLabelTipo.Size = new System.Drawing.Size(86, 28);
-            this.toolStripLabelTipo.Text = "toolStripLabel1";
+            this.toolStripLabelTipo.Size = new System.Drawing.Size(106, 28);
+            this.toolStripLabelTipo.Text = "[Tipo do cadastro]";
             // 
             // statusStrip1
             // 
