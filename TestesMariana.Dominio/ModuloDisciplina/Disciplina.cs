@@ -6,6 +6,7 @@ namespace TestesMariana.Dominio.ModuloDisciplina
     public class Disciplina : EntidadeBase<Disciplina>, ICloneable
     {
         public string Nome { get; set; }
+
         public Disciplina()
         {
 

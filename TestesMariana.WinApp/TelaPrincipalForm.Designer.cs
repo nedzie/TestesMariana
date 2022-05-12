@@ -54,7 +54,7 @@
             this.menuStripCadastros});
             this.menuStripContextoGeral.Location = new System.Drawing.Point(0, 0);
             this.menuStripContextoGeral.Name = "menuStripContextoGeral";
-            this.menuStripContextoGeral.Size = new System.Drawing.Size(710, 24);
+            this.menuStripContextoGeral.Size = new System.Drawing.Size(1004, 24);
             this.menuStripContextoGeral.TabIndex = 2;
             this.menuStripContextoGeral.Text = "Menu";
             // 
@@ -72,33 +72,38 @@
             // buttonDisciplinas
             // 
             this.buttonDisciplinas.Name = "buttonDisciplinas";
-            this.buttonDisciplinas.Size = new System.Drawing.Size(130, 22);
+            this.buttonDisciplinas.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.buttonDisciplinas.Size = new System.Drawing.Size(180, 22);
             this.buttonDisciplinas.Text = "Disciplinas";
             this.buttonDisciplinas.Click += new System.EventHandler(this.toolStripMenuItemDisciplinas_Click);
             // 
             // buttonMaterias
             // 
             this.buttonMaterias.Name = "buttonMaterias";
-            this.buttonMaterias.Size = new System.Drawing.Size(130, 22);
+            this.buttonMaterias.ShortcutKeys = System.Windows.Forms.Keys.F2;
+            this.buttonMaterias.Size = new System.Drawing.Size(180, 22);
             this.buttonMaterias.Text = "Matérias";
             // 
             // buttonQuestoes
             // 
             this.buttonQuestoes.Name = "buttonQuestoes";
-            this.buttonQuestoes.Size = new System.Drawing.Size(130, 22);
+            this.buttonQuestoes.ShortcutKeys = System.Windows.Forms.Keys.F3;
+            this.buttonQuestoes.Size = new System.Drawing.Size(180, 22);
             this.buttonQuestoes.Text = "Questões";
             // 
             // buttonTestes
             // 
             this.buttonTestes.Name = "buttonTestes";
-            this.buttonTestes.Size = new System.Drawing.Size(130, 22);
+            this.buttonTestes.ShortcutKeys = System.Windows.Forms.Keys.F4;
+            this.buttonTestes.Size = new System.Drawing.Size(180, 22);
             this.buttonTestes.Text = "Testes";
             // 
             // panelContextoGeral
             // 
-            this.panelContextoGeral.Location = new System.Drawing.Point(0, 58);
+            this.panelContextoGeral.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelContextoGeral.Location = new System.Drawing.Point(0, 55);
             this.panelContextoGeral.Name = "panelContextoGeral";
-            this.panelContextoGeral.Size = new System.Drawing.Size(710, 457);
+            this.panelContextoGeral.Size = new System.Drawing.Size(1004, 469);
             this.panelContextoGeral.TabIndex = 3;
             // 
             // toolStripToolbox
@@ -112,7 +117,7 @@
             this.toolStripLabelTipo});
             this.toolStripToolbox.Location = new System.Drawing.Point(0, 24);
             this.toolStripToolbox.Name = "toolStripToolbox";
-            this.toolStripToolbox.Size = new System.Drawing.Size(710, 31);
+            this.toolStripToolbox.Size = new System.Drawing.Size(1004, 31);
             this.toolStripToolbox.TabIndex = 0;
             this.toolStripToolbox.Text = "toolStrip1";
             // 
@@ -161,9 +166,9 @@
             // 
             // toolStripLabelTipo
             // 
-            this.toolStripLabelTipo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.toolStripLabelTipo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.toolStripLabelTipo.Name = "toolStripLabelTipo";
-            this.toolStripLabelTipo.Size = new System.Drawing.Size(106, 28);
+            this.toolStripLabelTipo.Size = new System.Drawing.Size(101, 28);
             this.toolStripLabelTipo.Text = "[Tipo do cadastro]";
             // 
             // statusStrip1
@@ -172,25 +177,25 @@
             this.labelRodape});
             this.statusStrip1.Location = new System.Drawing.Point(0, 524);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(710, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1004, 22);
             this.statusStrip1.TabIndex = 4;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // labelRodape
             // 
             this.labelRodape.Name = "labelRodape";
-            this.labelRodape.Size = new System.Drawing.Size(118, 17);
-            this.labelRodape.Text = "toolStripStatusLabel1";
+            this.labelRodape.Size = new System.Drawing.Size(55, 17);
+            this.labelRodape.Text = "[Rodapé]";
             // 
             // TelaPrincipalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(710, 546);
-            this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.toolStripToolbox);
+            this.ClientSize = new System.Drawing.Size(1004, 546);
             this.Controls.Add(this.panelContextoGeral);
+            this.Controls.Add(this.toolStripToolbox);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStripContextoGeral);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStripContextoGeral;

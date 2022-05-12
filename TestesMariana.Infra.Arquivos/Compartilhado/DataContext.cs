@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TestesMariana.Dominio.ModuloDisciplina;
+using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Infra.Arquivos.Compartilhado.Serializadores;
 
 namespace TestesMariana.Infra.Arquivos.Compartilhado
@@ -25,7 +26,7 @@ namespace TestesMariana.Infra.Arquivos.Compartilhado
 
         public List<Disciplina> Disciplinas { get; set; }
 
-        //public List<Materia> Contatos { get; set; }
+        public List<Materia> Materias { get; set; }
 
         //public List<Questao> Compromissos { get; set; }
 
@@ -43,8 +44,8 @@ namespace TestesMariana.Infra.Arquivos.Compartilhado
             if (ctx.Disciplinas.Any())
                 this.Disciplinas.AddRange(ctx.Disciplinas);
 
-            //if (ctx.Contatos.Any())
-            //    this.Materia.AddRange(ctx.Materia);
+            if (ctx.Materias.Any())
+                this.Materias.AddRange(ctx.Materias);
 
             //if (ctx.Compromissos.Any())
             //    this.Questao.AddRange(ctx.Questao);

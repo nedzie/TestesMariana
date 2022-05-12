@@ -3,9 +3,8 @@ using FluentValidation.Results;
 using System.Collections.Generic;
 using System.Linq;
 using TestesMariana.Dominio.Compartilhado;
-using TestesMariana.Infra.Arquivos.Compartilhado;
 
-namespace TestesMariana.Infra.Arquivos
+namespace TestesMariana.Infra.Arquivos.Compartilhado
 {
     public abstract class RepositorioEmArquivoBase<T> where T : EntidadeBase<T>
     {

@@ -9,21 +9,14 @@ namespace TestesMariana.WinApp.ModuloDisciplina
 {
     public class ControladorDisciplina : ControladorBase
     {
-        #region Atributos
         private RepositorioDisciplinaEmArquivo _repositorioDisciplina;
         private TabelaDisciplinasControl? tabelaDisciplinas;
-        #endregion
 
-
-        #region CTOR
         public ControladorDisciplina(RepositorioDisciplinaEmArquivo repositorioDisciplina)
         {
             this._repositorioDisciplina = repositorioDisciplina;
         }
-        #endregion
 
-
-        #region Métodos públicos
         public override void Inserir()
         {
             TelaCadastroDisciplinaForm tela = new();
@@ -95,11 +88,6 @@ namespace TestesMariana.WinApp.ModuloDisciplina
             return tabelaDisciplinas;
         }
 
-        #endregion
-
-
-        #region Métodos privados
-
         private void CarregarDisciplinas()
         {
             List<Disciplina> disciplinas = _repositorioDisciplina.SelecionarTodos();
@@ -113,7 +101,5 @@ namespace TestesMariana.WinApp.ModuloDisciplina
             var numero = tabelaDisciplinas!.ObtemNumeroTarefaSelecionada();
             return _repositorioDisciplina.SelecionarPorNumero(numero);
         }
-
-        #endregion
     }
 }
