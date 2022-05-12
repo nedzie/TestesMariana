@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TestesMariana.Dominio;
+using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Infra.Arquivos.Compartilhado.Serializadores;
 
 namespace TestesMariana.Infra.Arquivos.Compartilhado
@@ -11,19 +11,9 @@ namespace TestesMariana.Infra.Arquivos.Compartilhado
     {
         private readonly ISerializador serializador;
 
-        //public DataContext()
-        //{
-        //    Tarefas = new List<Tarefa>();
-
-        //    Contatos = new List<Contato>();
-
-        //    Compromissos = new List<Compromisso>();
-
-        //    Despesas = new List<Despesa>();
-        //}
         public DataContext()
         {
-
+            Disciplinas = new List<Disciplina>();
         }
 
         public DataContext(ISerializador serializador) : this()
@@ -33,7 +23,7 @@ namespace TestesMariana.Infra.Arquivos.Compartilhado
             CarregarDados();
         }
 
-        public List<Disciplina> Tarefas { get; set; }
+        public List<Disciplina> Disciplinas { get; set; }
 
         //public List<Materia> Contatos { get; set; }
 
@@ -48,10 +38,10 @@ namespace TestesMariana.Infra.Arquivos.Compartilhado
 
         private void CarregarDados()
         {
-            //var ctx = serializador.CarregarDadosDoArquivo();
+            var ctx = serializador.CarregarDadosDoArquivo();
 
-            //if (ctx.Tarefas.Any())
-            //    this.Disciplina.AddRange(ctx.Disciplina);
+            if (ctx.Disciplinas.Any())
+                this.Disciplinas.AddRange(ctx.Disciplinas);
 
             //if (ctx.Contatos.Any())
             //    this.Materia.AddRange(ctx.Materia);

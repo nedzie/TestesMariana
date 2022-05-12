@@ -33,9 +33,6 @@ namespace TestesMariana.WinApp
             controladores = new Dictionary<string, ControladorBase>();
 
             controladores.Add("Disciplinas", new ControladorDisciplina(repositorioDisciplina));
-            //controladores.Add("Contatos", new ControladorContato(repositorioContato));
-            //controladores.Add("Compromissos", new ControladorCompromisso(repositorioCompromisso, repositorioContato));
-            //controladores.Add("Despesas", new ControladorDespesa(repositorioDespesa));
         }
 
         public static TelaPrincipalForm? Instancia
@@ -60,6 +57,20 @@ namespace TestesMariana.WinApp
             controlador = controladores![tipo];
 
             ConfigurarToolbox();
+            ConfigurarListagem();
+        }
+
+        private void ConfigurarListagem()
+        {
+            AtualizarRodape("");
+
+            var listagemControl = controlador!.ObtemListagem();
+
+            panelContextoGeral.Controls.Clear();
+
+            listagemControl.Dock = DockStyle.Fill;
+
+            panelContextoGeral.Controls.Add(listagemControl);
         }
 
         private void ConfigurarToolbox()
@@ -77,23 +88,27 @@ namespace TestesMariana.WinApp
             }
         }
 
-        private void ConfigurarBotoes(ConfigToolboxBase config)
+        private void ConfigurarBotoes(ConfigToolboxBase config) // Pega status de cada config das classes específicas [BOTÕES]
         {
             buttonInserir.Enabled = config.StatusInserir;
             buttonEditar.Enabled = config.StatusEditar;
             buttonExcluir.Enabled = config.StatusExcluir;
         }
 
-        private void ConfigurarTooltips(ConfigToolboxBase config)
+        private void ConfigurarTooltips(ConfigToolboxBase config) //Pega status de cada config das classes específicas [TOOLTIP]
         {
             buttonInserir.ToolTipText = config.toolStripButtonInserir;
             buttonEditar.ToolTipText = config.toolStripButtonEditar;
             buttonExcluir.ToolTipText = config.toolStripButtonExcluir;
         }
 
+        private void buttonInserir_Click(object sender, EventArgs e)
+        {
+            controlador!.Inserir();
+        }
         private void toolStripButtonEditar_Click(object sender, EventArgs e)
         {
-
+            controlador!.Editar();
         }
 
         private void toolStripButtonDeletar_Click(object sender, EventArgs e)
@@ -107,5 +122,6 @@ namespace TestesMariana.WinApp
         }
 
         #endregion
+
     }
 }

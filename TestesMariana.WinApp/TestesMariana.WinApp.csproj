@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TestesMariana.Dominio\TestesMariana.Dominio.csproj" />
     <ProjectReference Include="..\TestesMariana.Infra.Arquivos\TestesMariana.Infra.Arquivos.csproj" />
   </ItemGroup>

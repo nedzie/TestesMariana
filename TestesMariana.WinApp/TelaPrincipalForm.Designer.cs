@@ -72,26 +72,26 @@
             // buttonDisciplinas
             // 
             this.buttonDisciplinas.Name = "buttonDisciplinas";
-            this.buttonDisciplinas.Size = new System.Drawing.Size(180, 22);
+            this.buttonDisciplinas.Size = new System.Drawing.Size(130, 22);
             this.buttonDisciplinas.Text = "Disciplinas";
             this.buttonDisciplinas.Click += new System.EventHandler(this.toolStripMenuItemDisciplinas_Click);
             // 
             // buttonMaterias
             // 
             this.buttonMaterias.Name = "buttonMaterias";
-            this.buttonMaterias.Size = new System.Drawing.Size(180, 22);
+            this.buttonMaterias.Size = new System.Drawing.Size(130, 22);
             this.buttonMaterias.Text = "Matérias";
             // 
             // buttonQuestoes
             // 
             this.buttonQuestoes.Name = "buttonQuestoes";
-            this.buttonQuestoes.Size = new System.Drawing.Size(180, 22);
+            this.buttonQuestoes.Size = new System.Drawing.Size(130, 22);
             this.buttonQuestoes.Text = "Questões";
             // 
             // buttonTestes
             // 
             this.buttonTestes.Name = "buttonTestes";
-            this.buttonTestes.Size = new System.Drawing.Size(180, 22);
+            this.buttonTestes.Size = new System.Drawing.Size(130, 22);
             this.buttonTestes.Text = "Testes";
             // 
             // panelContextoGeral
@@ -124,6 +124,7 @@
             this.buttonInserir.Name = "buttonInserir";
             this.buttonInserir.Size = new System.Drawing.Size(28, 28);
             this.buttonInserir.Text = "Inserir";
+            this.buttonInserir.Click += new System.EventHandler(this.buttonInserir_Click);
             // 
             // buttonEditar
             // 

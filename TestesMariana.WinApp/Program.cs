@@ -20,6 +20,8 @@ namespace TestesMariana.WinApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new TelaPrincipalForm(contexto));
+
+            contexto.GravarDados();
         }
     }
 }

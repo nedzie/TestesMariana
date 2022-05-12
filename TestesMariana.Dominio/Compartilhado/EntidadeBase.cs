@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestesMariana.Dominio
+namespace TestesMariana.Dominio.Compartilhado
 {
     public abstract class EntidadeBase<T>
     {

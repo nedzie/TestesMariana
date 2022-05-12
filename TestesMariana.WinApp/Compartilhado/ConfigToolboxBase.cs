@@ -13,9 +13,10 @@
         public virtual string? toolStripButtonExportarPDF { get; }
 
 
-
+        // Botões
         public virtual bool StatusInserir { get { return true; } }
         public virtual bool StatusEditar { get { return true; } }
         public virtual bool StatusExcluir {  get { return true; } }
+        public virtual bool statusPDF { get { return true; } }
     }
 }

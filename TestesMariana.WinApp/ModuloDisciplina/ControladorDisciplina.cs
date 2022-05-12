@@ -4,40 +4,97 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Infra.Arquivos.ModuloDisciplina;
 using TestesMariana.WinApp.Compartilhado;
 
 namespace TestesMariana.WinApp.ModuloDisciplina
 {
-    internal class ControladorDisciplina : ControladorBase
+    public class ControladorDisciplina : ControladorBase
     {
+        
         private RepositorioDisciplinaEmArquivo _repositorioDisciplina;
+        private TabelaDisciplinasControl? tabelaDisciplinas;
+
+
         public ControladorDisciplina(RepositorioDisciplinaEmArquivo repositorioDisciplina)
         {
             this._repositorioDisciplina = repositorioDisciplina;
         }
+
         public override void Inserir()
         {
-            throw new NotImplementedException();
+            TelaCadastroDisciplinaForm tela = new();
+            tela.Disciplina = new();
+
+            tela.GravarRegistro = _repositorioDisciplina.Inserir;
+
+            DialogResult res = tela.ShowDialog(); // Daqui vai para os códigos da 'TelaCadastroDisciplinaForm'
+
+            if(res == DialogResult.OK)
+                CarregarDisciplinas();
+
         }
+
+
         public override void Editar()
         {
-            throw new NotImplementedException();
-        }
+            Disciplina temp = new();
+            Disciplina disciplinaSelecionada = ObtemDisciplinaSelecionada();
 
+            temp.Numero = disciplinaSelecionada.Numero;
+            temp.Nome = disciplinaSelecionada.Nome;
+
+            TelaCadastroDisciplinaForm tela = new(temp);
+
+            tela.GravarRegistro = _repositorioDisciplina.Editar;
+
+            DialogResult res = tela.ShowDialog(); // Daqui vai para os códigos da 'TelaCadastroDisciplinaForm'
+
+            if (res == DialogResult.OK)
+                CarregarDisciplinas();
+        }
         public override void Excluir()
         {
-            throw new NotImplementedException();
+            Disciplina disciplinaSelecionada = ObtemDisciplinaSelecionada();
+
+            if(disciplinaSelecionada != null)
+            {
+                DialogResult res = MessageBox.Show("Excluir disciplina?",
+                "Excluir", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                if (res == DialogResult.OK)
+                    _repositorioDisciplina.Excluir(disciplinaSelecionada);
+            }
+        }
+        private void CarregarDisciplinas()
+        {
+            List<Disciplina> disciplinas = _repositorioDisciplina.SelecionarTodos();
+            tabelaDisciplinas!.AtualizarRegistros(disciplinas);
+
+            TelaPrincipalForm.Instancia!.AtualizarRodape($"Visualizando {disciplinas.Count} disciplina(s)");
         }
 
-        public override ConfigToolboxBase ObtemConfiguracaoToolbox()
+        private Disciplina ObtemDisciplinaSelecionada()
         {
-            throw new NotImplementedException();
+            var numero = tabelaDisciplinas!.ObtemNumeroTarefaSelecionada();
+            return _repositorioDisciplina.SelecionarPorNumero(numero);
+        }
+
+
+        public override ConfigToolboxBase ObtemConfiguracaoToolbox() // Responsável por carregar o padrão da tela
+        {
+            return new ConfigToolboxDisciplina();
         }
 
         public override UserControl ObtemListagem()
         {
-            throw new NotImplementedException();
+            if (tabelaDisciplinas == null)
+                tabelaDisciplinas = new TabelaDisciplinasControl();
+
+            CarregarDisciplinas();
+
+            return tabelaDisciplinas;
         }
     }
 }
