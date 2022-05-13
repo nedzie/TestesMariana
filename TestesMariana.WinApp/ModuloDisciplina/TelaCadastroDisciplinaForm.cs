@@ -26,16 +26,6 @@ namespace TestesMariana.WinApp.ModuloDisciplina
         {
             InitializeComponent();
         }
-        public TelaCadastroDisciplinaForm(Disciplina temp)
-        {
-            InitializeComponent();
-            Disciplina = temp;
-            if (_disciplina != null)
-            {
-                textBoxNumero.Text = Disciplina.Numero.ToString();
-                textBoxNome.Text = Disciplina.Nome;
-            }
-        }
 
         public Func<Disciplina, ValidationResult>? GravarRegistro { get; set; }
 

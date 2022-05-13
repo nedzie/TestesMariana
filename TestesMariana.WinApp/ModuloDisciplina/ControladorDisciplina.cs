@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using TestesMariana.Dominio.ModuloDisciplina;
+using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Infra.Arquivos.ModuloDisciplina;
+using TestesMariana.Infra.Arquivos.ModuloMateria;
 using TestesMariana.WinApp.Compartilhado;
 
 namespace TestesMariana.WinApp.ModuloDisciplina
@@ -10,11 +12,14 @@ namespace TestesMariana.WinApp.ModuloDisciplina
     public class ControladorDisciplina : ControladorBase
     {
         private RepositorioDisciplinaEmArquivo _repositorioDisciplina;
+        private RepositorioMateriaEmArquivo _repositorioMateria;
+
         private TabelaDisciplinasControl? tabelaDisciplinas;
 
-        public ControladorDisciplina(RepositorioDisciplinaEmArquivo repositorioDisciplina)
+        public ControladorDisciplina(RepositorioDisciplinaEmArquivo repositorioDisciplina, RepositorioMateriaEmArquivo repositorioMateria)
         {
             this._repositorioDisciplina = repositorioDisciplina;
+            this._repositorioMateria = repositorioMateria;
         }
 
         public override void Inserir()
@@ -55,6 +60,21 @@ namespace TestesMariana.WinApp.ModuloDisciplina
         {
             Disciplina disciplinaSelecionada = ObtemDisciplinaSelecionada();
 
+            List<Materia> materias = _repositorioMateria.ObterRegistros();
+            List<Disciplina> disciplinasComMaterias = new List<Disciplina>();
+            foreach (var materia in materias)
+            {
+                disciplinasComMaterias.Add(materia.Disciplina);
+            }
+            foreach (var item in disciplinasComMaterias)
+            {
+                if (item == disciplinaSelecionada)
+                {
+                    TelaPrincipalForm.Instancia!.AtualizarRodape("Esta disciplina não pode ser excluída pois está atrelada a alguma matéria");
+                    return;
+                }
+            }
+            
             if (disciplinaSelecionada == null)
             {
                 TelaPrincipalForm.Instancia!.AtualizarRodape("Seleciona uma disciplina!");
@@ -70,7 +90,6 @@ namespace TestesMariana.WinApp.ModuloDisciplina
                 if (deuCerto.IsValid)
                     CarregarDisciplinas();
             }
-
         }
 
         public override ConfigToolboxBase ObtemConfiguracaoToolbox() // Responsável por carregar o padrão da tela

@@ -1,32 +1,32 @@
-﻿using FluentValidation.Results;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
-using TestesMariana.Dominio.ModuloDisciplina;
-using TestesMariana.Dominio.ModuloMateria;
+using TestesMariana.Dominio.ModuloQuestao;
 using TestesMariana.Infra.Arquivos.ModuloDisciplina;
 using TestesMariana.Infra.Arquivos.ModuloMateria;
+using TestesMariana.Infra.Arquivos.ModuloQuestao;
 using TestesMariana.WinApp.Compartilhado;
 
-namespace TestesMariana.WinApp.ModuloMateria
+namespace TestesMariana.WinApp.ModuloQuestao
 {
-    public class ControladorMateria : ControladorBase
+    public class ControladorQuestao : ControladorBase
     {
+        private RepositorioQuestaoEmArquivo _repositorioQuestao;
         private RepositorioMateriaEmArquivo _repositorioMateria;
         private RepositorioDisciplinaEmArquivo _repositorioDisciplina;
-        private TabelaMateriaControl tabelaMateria;
 
-        public ControladorMateria(RepositorioMateriaEmArquivo repositorioMateria, RepositorioDisciplinaEmArquivo repositorioDisciplina)
+        public ControladorQuestao(RepositorioQuestaoEmArquivo repositorioQuestao, RepositorioMateriaEmArquivo repositorioMateria, RepositorioDisciplinaEmArquivo repositorioDisciplina)
         {
+            this._repositorioQuestao = repositorioQuestao;
             this._repositorioMateria = repositorioMateria;
             this._repositorioDisciplina = repositorioDisciplina;
         }
 
+
         public override void Inserir()
         {
-            List<Disciplina> disciplinas = _repositorioDisciplina.ObterRegistros();
-            TelaCadastroMateriaForm tela = new(disciplinas);
+            TelaCadastroQuestaoForm tela = new();
 
-            tela.Materia = new();
+            tela.Questao = new();
             tela.GravarRegistro = _repositorioMateria.Inserir;
 
             DialogResult res = tela.ShowDialog(); // Daqui vai para os códigos da 'TelaCadastroDisciplinaForm'
@@ -58,9 +58,9 @@ namespace TestesMariana.WinApp.ModuloMateria
         }
         public override void Excluir()
         {
-            Materia materiaSelecionada = ObtemMateriaSelecionada();
+            Questao questaoSelecionada = ObtemMateriaSelecionada();
 
-            if (materiaSelecionada == null)
+            if (questaoSelecionada == null)
             {
                 TelaPrincipalForm.Instancia!.AtualizarRodape("Selecione uma matéria!");
                 return;
@@ -71,7 +71,7 @@ namespace TestesMariana.WinApp.ModuloMateria
 
             if (res == DialogResult.OK)
             {
-                ValidationResult deuCerto = _repositorioMateria.Excluir(materiaSelecionada);
+                ValidationResult deuCerto = _repositorioMateria.Excluir(questaoSelecionada);
                 if (deuCerto.IsValid)
                     CarregarMaterias();
             }

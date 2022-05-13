@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
+using TestesMariana.Dominio.ModuloQuestao;
 using TestesMariana.Infra.Arquivos.Compartilhado.Serializadores;
 
 namespace TestesMariana.Infra.Arquivos.Compartilhado
@@ -16,6 +17,7 @@ namespace TestesMariana.Infra.Arquivos.Compartilhado
         {
             Disciplinas = new List<Disciplina>();
             Materias = new List<Materia>();
+            Questoes = new List<Questao>();
         }
 
         public DataContext(ISerializador serializador) : this()
@@ -29,7 +31,7 @@ namespace TestesMariana.Infra.Arquivos.Compartilhado
 
         public List<Materia> Materias { get; set; }
 
-        //public List<Questao> Compromissos { get; set; }
+        public List<Questao> Questoes { get; set; }
 
         //public List<Teste> Despesas { get; set; }
 
