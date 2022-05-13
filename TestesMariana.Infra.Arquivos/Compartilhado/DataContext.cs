@@ -15,6 +15,7 @@ namespace TestesMariana.Infra.Arquivos.Compartilhado
         public DataContext()
         {
             Disciplinas = new List<Disciplina>();
+            Materias = new List<Materia>();
         }
 
         public DataContext(ISerializador serializador) : this()
@@ -47,11 +48,11 @@ namespace TestesMariana.Infra.Arquivos.Compartilhado
             if (ctx.Materias.Any())
                 this.Materias.AddRange(ctx.Materias);
 
-            //if (ctx.Compromissos.Any())
-            //    this.Questao.AddRange(ctx.Questao);
+            //if (ctx.Questoes.Any())
+            //    this.Questoes.AddRange(ctx.Questoes);
 
-            //if (ctx.Despesas.Any())
-            //    this.Teste.AddRange(ctx.Teste);
+            //if (ctx.Testes.Any())
+            //    this.Testes.AddRange(ctx.Testes);
         }
     }
 }

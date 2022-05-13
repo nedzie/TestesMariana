@@ -75,7 +75,7 @@
             this.buttonDisciplinas.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.buttonDisciplinas.Size = new System.Drawing.Size(180, 22);
             this.buttonDisciplinas.Text = "Disciplinas";
-            this.buttonDisciplinas.Click += new System.EventHandler(this.toolStripMenuItemDisciplinas_Click);
+            this.buttonDisciplinas.Click += new System.EventHandler(this.buttonDisciplinas_Click);
             // 
             // buttonMaterias
             // 
@@ -83,6 +83,7 @@
             this.buttonMaterias.ShortcutKeys = System.Windows.Forms.Keys.F2;
             this.buttonMaterias.Size = new System.Drawing.Size(180, 22);
             this.buttonMaterias.Text = "Matérias";
+            this.buttonMaterias.Click += new System.EventHandler(this.buttonMaterias_Click);
             // 
             // buttonQuestoes
             // 

@@ -42,7 +42,7 @@ namespace TestesMariana.WinApp.ModuloDisciplina
                 return;
             }
 
-            tela.Disciplina = (Disciplina)disciplinaSelecionada.Clone();
+            tela.Disciplina = disciplinaSelecionada.Clone();
 
             tela.GravarRegistro = _repositorioDisciplina.Editar;
 

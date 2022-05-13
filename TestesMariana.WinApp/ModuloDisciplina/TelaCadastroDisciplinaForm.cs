@@ -25,7 +25,6 @@ namespace TestesMariana.WinApp.ModuloDisciplina
         public TelaCadastroDisciplinaForm()
         {
             InitializeComponent();
-
         }
         public TelaCadastroDisciplinaForm(Disciplina temp)
         {

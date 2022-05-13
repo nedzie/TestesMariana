@@ -12,7 +12,20 @@ namespace TestesMariana.Dominio.ModuloMateria
 
         public override void Atualizar(Materia registro)
         {
-            throw new NotImplementedException();
+            this.Nome = registro.Nome;
+            this.Serie = registro.Serie;
+            this.Disciplina = registro.Disciplina;
+        }
+
+        public Materia Clone()
+        {
+            return new Materia
+            {
+                Numero = this.Numero,
+                Nome = this.Nome,
+                Serie = this.Serie,
+                Disciplina = this.Disciplina
+            };
         }
     }
 }

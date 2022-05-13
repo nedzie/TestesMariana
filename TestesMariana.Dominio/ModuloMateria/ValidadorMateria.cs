@@ -9,9 +9,6 @@ namespace TestesMariana.Dominio.ModuloMateria
             RuleFor(x => x.Nome)
                 .NotNull()
                 .NotEmpty();
-            RuleFor(x => x.Serie)
-                .NotNull()
-                .NotEmpty();
         }
     }
 }

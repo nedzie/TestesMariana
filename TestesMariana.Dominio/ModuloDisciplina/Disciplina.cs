@@ -3,7 +3,7 @@ using TestesMariana.Dominio.Compartilhado;
 
 namespace TestesMariana.Dominio.ModuloDisciplina
 {
-    public class Disciplina : EntidadeBase<Disciplina>, ICloneable
+    public class Disciplina : EntidadeBase<Disciplina>
     {
         public string Nome { get; set; }
 
@@ -22,7 +22,7 @@ namespace TestesMariana.Dominio.ModuloDisciplina
             return $"Numero: {Numero}, Nome: {Nome}";
         }
 
-        public object Clone()
+        public Disciplina Clone()
         {
             return new Disciplina
             {

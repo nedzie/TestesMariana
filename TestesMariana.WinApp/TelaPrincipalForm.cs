@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using TestesMariana.Infra.Arquivos.Compartilhado;
 using TestesMariana.Infra.Arquivos.ModuloDisciplina;
+using TestesMariana.Infra.Arquivos.ModuloMateria;
 using TestesMariana.WinApp.Compartilhado;
 using TestesMariana.WinApp.ModuloDisciplina;
+using TestesMariana.WinApp.ModuloMateria;
 
 namespace TestesMariana.WinApp
 {
@@ -29,10 +31,12 @@ namespace TestesMariana.WinApp
         private void InicializarControladores()
         {
             var repositorioDisciplina = new RepositorioDisciplinaEmArquivo(contextoDados);
+            var repositorioMateria = new RepositorioMateriaEmArquivo(contextoDados);
 
             controladores = new Dictionary<string, ControladorBase>();
 
             controladores.Add("Disciplinas", new ControladorDisciplina(repositorioDisciplina));
+            controladores.Add("Matérias", new ControladorMateria(repositorioMateria, repositorioDisciplina));
         }
 
         public static TelaPrincipalForm? Instancia
@@ -46,7 +50,12 @@ namespace TestesMariana.WinApp
             labelRodape.Text = mensagem;
         }
         #region Alterações aqui precisam ser atualizadas no ConfigToolboxBase.cs
-        private void toolStripMenuItemDisciplinas_Click(object sender, EventArgs e)
+        private void buttonDisciplinas_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
+        }
+
+        private void buttonMaterias_Click(object sender, EventArgs e)
         {
             ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
         }
@@ -126,5 +135,6 @@ namespace TestesMariana.WinApp
 
         #endregion
 
+        
     }
 }

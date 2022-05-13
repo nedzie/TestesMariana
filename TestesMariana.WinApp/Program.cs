@@ -9,13 +9,14 @@ namespace TestesMariana.WinApp
     {
         static ISerializador serializador = new SerializadorJson();
 
-        static DataContext contexto = new DataContext(serializador);
+        static DataContext contexto;
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
+            contexto = new DataContext(serializador);
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
