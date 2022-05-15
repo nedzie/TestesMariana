@@ -64,6 +64,11 @@ namespace TestesMariana.WinApp
             ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
         }
 
+        private void buttonQuestoes_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
+        }
+
         private void ConfigurarTelaPrincipal(ToolStripMenuItem escolha)
         {
             string tipo = escolha.Text;
@@ -137,8 +142,8 @@ namespace TestesMariana.WinApp
 
         }
 
+
         #endregion
 
-        
     }
 }

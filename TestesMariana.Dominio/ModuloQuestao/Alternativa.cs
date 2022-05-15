@@ -12,5 +12,10 @@ namespace TestesMariana.Dominio.ModuloQuestao
             this.Opcao = registro.Opcao;
             this.EstaCerta = registro.EstaCerta;
         }
+
+        public override string ToString()
+        {
+            return Opcao;
+        }
     }
 }

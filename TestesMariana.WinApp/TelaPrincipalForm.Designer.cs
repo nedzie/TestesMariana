@@ -91,6 +91,7 @@
             this.buttonQuestoes.ShortcutKeys = System.Windows.Forms.Keys.F3;
             this.buttonQuestoes.Size = new System.Drawing.Size(180, 22);
             this.buttonQuestoes.Text = "Questões";
+            this.buttonQuestoes.Click += new System.EventHandler(this.buttonQuestoes_Click);
             // 
             // buttonTestes
             // 

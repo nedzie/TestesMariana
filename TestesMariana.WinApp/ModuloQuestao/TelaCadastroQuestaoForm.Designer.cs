@@ -146,11 +146,13 @@
             // 
             // checkedListBoxAlternativas
             // 
+            this.checkedListBoxAlternativas.CheckOnClick = true;
             this.checkedListBoxAlternativas.FormattingEnabled = true;
             this.checkedListBoxAlternativas.Location = new System.Drawing.Point(12, 280);
             this.checkedListBoxAlternativas.Name = "checkedListBoxAlternativas";
             this.checkedListBoxAlternativas.Size = new System.Drawing.Size(229, 94);
             this.checkedListBoxAlternativas.TabIndex = 26;
+            this.checkedListBoxAlternativas.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxAlternativas_SelectedIndexChanged);
             // 
             // labelAlternativas
             // 
@@ -174,7 +176,6 @@
             // buttonAdicionar
             // 
             this.buttonAdicionar.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.buttonAdicionar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonAdicionar.FlatAppearance.BorderSize = 0;
             this.buttonAdicionar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAdicionar.Location = new System.Drawing.Point(166, 240);
@@ -183,6 +184,7 @@
             this.buttonAdicionar.TabIndex = 29;
             this.buttonAdicionar.Text = "Adicionar";
             this.buttonAdicionar.UseVisualStyleBackColor = false;
+            this.buttonAdicionar.Click += new System.EventHandler(this.buttonAdicionar_Click);
             // 
             // textBoxAlternativa
             // 

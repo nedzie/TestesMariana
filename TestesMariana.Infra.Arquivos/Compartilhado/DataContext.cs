@@ -50,8 +50,8 @@ namespace TestesMariana.Infra.Arquivos.Compartilhado
             if (ctx.Materias.Any())
                 this.Materias.AddRange(ctx.Materias);
 
-            //if (ctx.Questoes.Any())
-            //    this.Questoes.AddRange(ctx.Questoes);
+            if (ctx.Questoes.Any())
+                this.Questoes.AddRange(ctx.Questoes);
 
             //if (ctx.Testes.Any())
             //    this.Testes.AddRange(ctx.Testes);

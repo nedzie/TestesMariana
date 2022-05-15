@@ -32,7 +32,7 @@ namespace TestesMariana.WinApp.ModuloQuestao
         {
             TelaCadastroQuestaoForm tela = new();
 
-            tela.Questao = new();
+            tela.Questao = new Questao();
             tela.GravarRegistro = _repositorioQuestao.Inserir;
 
             DialogResult res = tela.ShowDialog(); // Daqui vai para os códigos da 'TelaCadastroQuestaoForm'
@@ -50,7 +50,7 @@ namespace TestesMariana.WinApp.ModuloQuestao
 
             if (questaoSelecionada == null)
             {
-                TelaPrincipalForm.Instancia!.AtualizarRodape("Selecione uma matéria!");
+                TelaPrincipalForm.Instancia!.AtualizarRodape("Selecione uma questão!");
                 return;
             }
             tela.Questao = questaoSelecionada.Clone();
@@ -68,11 +68,11 @@ namespace TestesMariana.WinApp.ModuloQuestao
 
             if (questaoSelecionada == null)
             {
-                TelaPrincipalForm.Instancia!.AtualizarRodape("Selecione uma matéria!");
+                TelaPrincipalForm.Instancia!.AtualizarRodape("Selecione uma questão!");
                 return;
             }
 
-            DialogResult res = MessageBox.Show("Excluir matéria?",
+            DialogResult res = MessageBox.Show("Excluir questão?",
                 "Excluir", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
             if (res == DialogResult.OK)
@@ -86,7 +86,7 @@ namespace TestesMariana.WinApp.ModuloQuestao
 
         public override ConfigToolboxBase ObtemConfiguracaoToolbox() // Responsável por carregar o padrão da tela
         {
-            return new ConfigToolboxMateria();
+            return new ConfigToolboxQuestao();
         }
 
         public override UserControl ObtemListagem()
@@ -109,7 +109,7 @@ namespace TestesMariana.WinApp.ModuloQuestao
             List<Questao> questoes = _repositorioQuestao.SelecionarTodos();
             _tabelaQuestao!.AtualizarRegistros(questoes);
 
-            TelaPrincipalForm.Instancia!.AtualizarRodape($"Visualizando {questoes.Count} materia(s)");
+            TelaPrincipalForm.Instancia!.AtualizarRodape($"Visualizando {questoes.Count} questão(ões)");
         }
 
         private Questao ObtemQuestaoSelecionada()
