@@ -35,7 +35,7 @@ namespace TestesMariana.WinApp.ModuloDisciplina
 
             var resultadoValidacao = GravarRegistro!(Disciplina); // _repositorioDisciplina.Inserir();
 
-            if (resultadoValidacao.IsValid == false)
+            if (!resultadoValidacao.IsValid)
             {
                 string erro = resultadoValidacao.Errors[0].ErrorMessage;
 

@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using FluentValidation.Results;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using TestesMariana.Dominio.ModuloDisciplina;
+using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Dominio.ModuloQuestao;
 using TestesMariana.Infra.Arquivos.ModuloDisciplina;
 using TestesMariana.Infra.Arquivos.ModuloMateria;
 using TestesMariana.Infra.Arquivos.ModuloQuestao;
 using TestesMariana.WinApp.Compartilhado;
+using TestesMariana.WinApp.ModuloMateria;
 
 namespace TestesMariana.WinApp.ModuloQuestao
 {
@@ -13,6 +17,8 @@ namespace TestesMariana.WinApp.ModuloQuestao
         private RepositorioQuestaoEmArquivo _repositorioQuestao;
         private RepositorioMateriaEmArquivo _repositorioMateria;
         private RepositorioDisciplinaEmArquivo _repositorioDisciplina;
+
+        private TabelaQuestaoControl _tabelaQuestao;
 
         public ControladorQuestao(RepositorioQuestaoEmArquivo repositorioQuestao, RepositorioMateriaEmArquivo repositorioMateria, RepositorioDisciplinaEmArquivo repositorioDisciplina)
         {
@@ -27,38 +33,38 @@ namespace TestesMariana.WinApp.ModuloQuestao
             TelaCadastroQuestaoForm tela = new();
 
             tela.Questao = new();
-            tela.GravarRegistro = _repositorioMateria.Inserir;
+            tela.GravarRegistro = _repositorioQuestao.Inserir;
 
-            DialogResult res = tela.ShowDialog(); // Daqui vai para os códigos da 'TelaCadastroDisciplinaForm'
+            DialogResult res = tela.ShowDialog(); // Daqui vai para os códigos da 'TelaCadastroQuestaoForm'
 
             if (res == DialogResult.OK)
-                CarregarMaterias();
+                CarregarQuestoes();
         }
 
         public override void Editar()
         {
             List<Disciplina> disciplinas = _repositorioDisciplina.ObterRegistros();
-            TelaCadastroMateriaForm tela = new(disciplinas);
+            TelaCadastroQuestaoForm tela = new();
 
-            Materia materiaSelecionada = ObtemMateriaSelecionada();
+            Questao questaoSelecionada = ObtemQuestaoSelecionada();
 
-            if (materiaSelecionada == null)
+            if (questaoSelecionada == null)
             {
                 TelaPrincipalForm.Instancia!.AtualizarRodape("Selecione uma matéria!");
                 return;
             }
-            tela.Materia = materiaSelecionada.Clone();
+            tela.Questao = questaoSelecionada.Clone();
 
-            tela.GravarRegistro = _repositorioMateria.Editar;
+            tela.GravarRegistro = _repositorioQuestao.Editar;
 
             DialogResult res = tela.ShowDialog(); // Daqui vai para os códigos da 'TelaCadastroDisciplinaForm'
 
             if (res == DialogResult.OK)
-                CarregarMaterias();
+                CarregarQuestoes();
         }
         public override void Excluir()
         {
-            Questao questaoSelecionada = ObtemMateriaSelecionada();
+            Questao questaoSelecionada = ObtemQuestaoSelecionada();
 
             if (questaoSelecionada == null)
             {
@@ -71,9 +77,9 @@ namespace TestesMariana.WinApp.ModuloQuestao
 
             if (res == DialogResult.OK)
             {
-                ValidationResult deuCerto = _repositorioMateria.Excluir(questaoSelecionada);
+                ValidationResult deuCerto = _repositorioQuestao.Excluir(questaoSelecionada);
                 if (deuCerto.IsValid)
-                    CarregarMaterias();
+                    CarregarQuestoes();
             }
 
         }
@@ -85,12 +91,12 @@ namespace TestesMariana.WinApp.ModuloQuestao
 
         public override UserControl ObtemListagem()
         {
-            if (tabelaMateria == null)
-                tabelaMateria = new TabelaMateriaControl();
+            if (_tabelaQuestao == null)
+                _tabelaQuestao = new TabelaQuestaoControl();
 
-            CarregarMaterias();
+            CarregarQuestoes();
 
-            return tabelaMateria;
+            return _tabelaQuestao;
         }
 
         private List<Disciplina> CarregarDisciplinas()
@@ -98,18 +104,18 @@ namespace TestesMariana.WinApp.ModuloQuestao
             return _repositorioDisciplina.ObterRegistros();
         }
 
-        private void CarregarMaterias()
+        private void CarregarQuestoes()
         {
-            List<Materia> materias = _repositorioMateria.SelecionarTodos();
-            tabelaMateria!.AtualizarRegistros(materias);
+            List<Questao> questoes = _repositorioQuestao.SelecionarTodos();
+            _tabelaQuestao!.AtualizarRegistros(questoes);
 
-            TelaPrincipalForm.Instancia!.AtualizarRodape($"Visualizando {materias.Count} materia(s)");
+            TelaPrincipalForm.Instancia!.AtualizarRodape($"Visualizando {questoes.Count} materia(s)");
         }
 
-        private Materia ObtemMateriaSelecionada()
+        private Questao ObtemQuestaoSelecionada()
         {
-            var numero = tabelaMateria!.ObtemNumeroMateriaSelecionada();
-            return _repositorioMateria.SelecionarPorNumero(numero);
+            var numero = _tabelaQuestao!.ObtemNumeroMateriaSelecionada();
+            return _repositorioQuestao.SelecionarPorNumero(numero);
         }
     }
 }

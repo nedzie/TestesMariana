@@ -1,6 +1,7 @@
 ﻿using eAgenda.WinApp.Compartilhado;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using TestesMariana.Dominio.ModuloQuestao;
 
 namespace TestesMariana.WinApp.ModuloQuestao
 {
@@ -41,7 +42,7 @@ namespace TestesMariana.WinApp.ModuloQuestao
 
             foreach (Questao questao in questoes)
             {
-                grid.Rows.Add(questao.Numero, questao.Nome, questao.Disciplina, questao.Serie);
+                grid.Rows.Add(questao.Numero, questao.Enunciado, questao.Disciplina, questao.Materia);
             }
 
         }

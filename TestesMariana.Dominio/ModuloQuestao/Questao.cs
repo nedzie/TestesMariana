@@ -19,5 +19,17 @@ namespace TestesMariana.Dominio.ModuloQuestao
             this.Materia = registro.Materia;
             this.Alternativa = registro.Alternativa;
         }
+
+        public Questao Clone()
+        {
+            return new Questao
+            {
+                Numero = this.Numero,
+                Enunciado = this.Enunciado,
+                Disciplina = this.Disciplina,
+                Materia = this.Materia,
+                Alternativa = this.Alternativa
+            };
+        }
     }
 }

@@ -60,25 +60,19 @@ namespace TestesMariana.WinApp.ModuloDisciplina
         {
             Disciplina disciplinaSelecionada = ObtemDisciplinaSelecionada();
 
-            List<Materia> materias = _repositorioMateria.ObterRegistros();
-            List<Disciplina> disciplinasComMaterias = new List<Disciplina>();
-            foreach (var materia in materias)
-            {
-                disciplinasComMaterias.Add(materia.Disciplina);
-            }
-            foreach (var item in disciplinasComMaterias)
-            {
-                if (item == disciplinaSelecionada)
-                {
-                    TelaPrincipalForm.Instancia!.AtualizarRodape("Esta disciplina não pode ser excluída pois está atrelada a alguma matéria");
-                    return;
-                }
-            }
-            
             if (disciplinaSelecionada == null)
             {
                 TelaPrincipalForm.Instancia!.AtualizarRodape("Seleciona uma disciplina!");
                 return;
+            }
+            List<Materia> materias = _repositorioMateria.ObterRegistros();
+            foreach (var item in materias)
+            {
+                if (item.Disciplina == disciplinaSelecionada)
+                {
+                    TelaPrincipalForm.Instancia!.AtualizarRodape("Esta disciplina não pode ser excluída pois está atrelada a alguma matéria");
+                    return;
+                }
             }
 
             DialogResult res = MessageBox.Show("Excluir disciplina?",
