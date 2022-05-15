@@ -30,7 +30,7 @@ namespace TestesMariana.WinApp.ModuloQuestao
 
         public override void Inserir()
         {
-            TelaCadastroQuestaoForm tela = new();
+            TelaCadastroQuestaoForm tela = new(_repositorioDisciplina, _repositorioMateria);
 
             tela.Questao = new Questao();
             tela.GravarRegistro = _repositorioQuestao.Inserir;
@@ -44,7 +44,7 @@ namespace TestesMariana.WinApp.ModuloQuestao
         public override void Editar()
         {
             List<Disciplina> disciplinas = _repositorioDisciplina.ObterRegistros();
-            TelaCadastroQuestaoForm tela = new();
+            TelaCadastroQuestaoForm tela = new(_repositorioDisciplina, _repositorioMateria);
 
             Questao questaoSelecionada = ObtemQuestaoSelecionada();
 

@@ -69,10 +69,8 @@ namespace TestesMariana.Infra.Arquivos.ModuloMateria
             var resultadoValidacao = validator.Validate(registro);
 
             foreach (var item in dataContext.Materias)
-            {
                 if (item.Nome == registro.Nome && item.Numero != registro.Numero)
                     resultadoValidacao.Errors.Add(new ValidationFailure("", "Nome já cadastrado"));
-            }
 
             if (resultadoValidacao.IsValid == false)
                 return resultadoValidacao;

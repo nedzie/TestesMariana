@@ -82,6 +82,7 @@
             this.comboBoxDisciplinas.Name = "comboBoxDisciplinas";
             this.comboBoxDisciplinas.Size = new System.Drawing.Size(147, 23);
             this.comboBoxDisciplinas.TabIndex = 22;
+            this.comboBoxDisciplinas.SelectedValueChanged += new System.EventHandler(this.comboBoxDisciplinas_SelectedValueChanged);
             // 
             // buttonCancelar
             // 

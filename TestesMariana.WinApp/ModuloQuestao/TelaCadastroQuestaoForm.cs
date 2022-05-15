@@ -6,12 +6,16 @@ using System.Windows.Forms;
 using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Dominio.ModuloQuestao;
+using TestesMariana.Infra.Arquivos.ModuloDisciplina;
+using TestesMariana.Infra.Arquivos.ModuloMateria;
 
 namespace TestesMariana.WinApp.ModuloQuestao
 {
     public partial class TelaCadastroQuestaoForm : Form
     {
         private Questao _questao;
+        private RepositorioDisciplinaEmArquivo _repositorioDisciplina;
+        private RepositorioMateriaEmArquivo _repositorioMateria;
 
         public Questao Questao
         {
@@ -36,12 +40,36 @@ namespace TestesMariana.WinApp.ModuloQuestao
             }
         }
 
-        public TelaCadastroQuestaoForm()
+        public TelaCadastroQuestaoForm(RepositorioDisciplinaEmArquivo rd, RepositorioMateriaEmArquivo rm)
         {
             InitializeComponent();
+            this._repositorioDisciplina = rd;
+            this._repositorioMateria = rm;
+            PovoarDisciplinas();
+            comboBoxDisciplinas.SelectedItem = 0;
+        }
+
+
+        public void PovoarDisciplinas()
+        {
+            List<Disciplina> disciplinas = _repositorioDisciplina.SelecionarTodos();
+            foreach (var item in disciplinas)
+                comboBoxDisciplinas.Items.Add(item);
+        }
+
+        public void PovoarMaterias(Disciplina disc)
+        {
+            List<Materia> materiasEspecificas = (List<Materia>)_repositorioMateria.SelecionarTodos().Select(x => x.Disciplina == disc);
+            foreach (var item in materiasEspecificas)
+                comboBoxMaterias.Items.Add(item);
         }
 
         public Func<Questao, ValidationResult>? GravarRegistro { get; set; }
+
+
+
+
+
 
         public List<Alternativa> AlternativasAdicionadas
         {
@@ -50,7 +78,6 @@ namespace TestesMariana.WinApp.ModuloQuestao
                 return checkedListBoxAlternativas.CheckedItems.Cast<Alternativa>().ToList();
             }
         }
-
 
         private void buttonGravar_Click(object sender, EventArgs e)
         {
@@ -101,6 +128,12 @@ namespace TestesMariana.WinApp.ModuloQuestao
                 foreach (int i in checkedListBoxAlternativas.CheckedIndices)
                     checkedListBoxAlternativas.SetItemCheckState(i, CheckState.Unchecked);
             }
+        }
+
+        private void comboBoxDisciplinas_SelectedValueChanged(object sender, EventArgs e)
+        {
+            //PovoarMaterias((Disciplina)comboBoxDisciplinas.SelectedItem);
+            comboBoxMaterias.Enabled = true;
         }
     }
 }
