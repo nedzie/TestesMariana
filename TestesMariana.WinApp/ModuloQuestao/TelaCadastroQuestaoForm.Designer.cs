@@ -83,7 +83,7 @@
             // 
             // buttonCancelar
             // 
-            this.buttonCancelar.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonCancelar.BackColor = System.Drawing.Color.IndianRed;
             this.buttonCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancelar.FlatAppearance.BorderSize = 0;
             this.buttonCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -173,7 +173,7 @@
             // 
             // buttonAdicionar
             // 
-            this.buttonAdicionar.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonAdicionar.BackColor = System.Drawing.Color.GreenYellow;
             this.buttonAdicionar.FlatAppearance.BorderSize = 0;
             this.buttonAdicionar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAdicionar.Location = new System.Drawing.Point(166, 240);

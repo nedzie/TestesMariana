@@ -14,6 +14,7 @@ namespace TestesMariana.Dominio.ModuloTeste
         public Materia Materia { get; set; }
         public int QtdeQuestoes { get; set; }
         public List<Questao> Questoes { get; set; }
+        public DateTime Data { get; set; }
         public Teste()
         {
 

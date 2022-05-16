@@ -99,11 +99,6 @@ namespace TestesMariana.WinApp.ModuloQuestao
             return _tabelaQuestao;
         }
 
-        private List<Disciplina> CarregarDisciplinas()
-        {
-            return _repositorioDisciplina.ObterRegistros();
-        }
-
         private void CarregarQuestoes()
         {
             List<Questao> questoes = _repositorioQuestao.SelecionarTodos();

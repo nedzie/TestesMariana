@@ -38,7 +38,13 @@
             this.labelNumero = new System.Windows.Forms.Label();
             this.textBoxQtdeQuestoes = new System.Windows.Forms.TextBox();
             this.labelQtdQuestoes = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBoxQuestoes = new System.Windows.Forms.ListBox();
+            this.textBoxNome = new System.Windows.Forms.TextBox();
+            this.labelNome = new System.Windows.Forms.Label();
+            this.maskedTextBoxData = new System.Windows.Forms.MaskedTextBox();
+            this.labelData = new System.Windows.Forms.Label();
+            this.checkBoxRecuperacao = new System.Windows.Forms.CheckBox();
+            this.buttonQuestoes = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // comboBoxMaterias
@@ -75,14 +81,15 @@
             this.comboBoxDisciplinas.Name = "comboBoxDisciplinas";
             this.comboBoxDisciplinas.Size = new System.Drawing.Size(147, 23);
             this.comboBoxDisciplinas.TabIndex = 37;
+            this.comboBoxDisciplinas.SelectedValueChanged += new System.EventHandler(this.comboBoxDisciplinas_SelectedValueChanged);
             // 
             // buttonCancelar
             // 
-            this.buttonCancelar.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonCancelar.BackColor = System.Drawing.Color.IndianRed;
             this.buttonCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancelar.FlatAppearance.BorderSize = 0;
             this.buttonCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCancelar.Location = new System.Drawing.Point(145, 505);
+            this.buttonCancelar.Location = new System.Drawing.Point(246, 568);
             this.buttonCancelar.Name = "buttonCancelar";
             this.buttonCancelar.Size = new System.Drawing.Size(75, 23);
             this.buttonCancelar.TabIndex = 36;
@@ -95,7 +102,7 @@
             this.buttonGravar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonGravar.FlatAppearance.BorderSize = 0;
             this.buttonGravar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonGravar.Location = new System.Drawing.Point(62, 505);
+            this.buttonGravar.Location = new System.Drawing.Point(163, 568);
             this.buttonGravar.Name = "buttonGravar";
             this.buttonGravar.Size = new System.Drawing.Size(75, 23);
             this.buttonGravar.TabIndex = 35;
@@ -121,36 +128,100 @@
             // 
             // textBoxQtdeQuestoes
             // 
-            this.textBoxQtdeQuestoes.Enabled = false;
-            this.textBoxQtdeQuestoes.Location = new System.Drawing.Point(120, 95);
+            this.textBoxQtdeQuestoes.Location = new System.Drawing.Point(120, 157);
             this.textBoxQtdeQuestoes.Name = "textBoxQtdeQuestoes";
-            this.textBoxQtdeQuestoes.Size = new System.Drawing.Size(55, 23);
+            this.textBoxQtdeQuestoes.Size = new System.Drawing.Size(80, 23);
             this.textBoxQtdeQuestoes.TabIndex = 42;
             // 
             // labelQtdQuestoes
             // 
             this.labelQtdQuestoes.AutoSize = true;
-            this.labelQtdQuestoes.Location = new System.Drawing.Point(12, 98);
+            this.labelQtdQuestoes.Location = new System.Drawing.Point(12, 160);
             this.labelQtdQuestoes.Name = "labelQtdQuestoes";
             this.labelQtdQuestoes.Size = new System.Drawing.Size(102, 15);
             this.labelQtdQuestoes.TabIndex = 41;
             this.labelQtdQuestoes.Text = "Qtde de questões:";
             // 
-            // listBox1
+            // listBoxQuestoes
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 15;
-            this.listBox1.Location = new System.Drawing.Point(12, 124);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(207, 364);
-            this.listBox1.TabIndex = 43;
+            this.listBoxQuestoes.FormattingEnabled = true;
+            this.listBoxQuestoes.ItemHeight = 15;
+            this.listBoxQuestoes.Location = new System.Drawing.Point(12, 197);
+            this.listBoxQuestoes.Name = "listBoxQuestoes";
+            this.listBoxQuestoes.Size = new System.Drawing.Size(309, 364);
+            this.listBoxQuestoes.TabIndex = 43;
+            // 
+            // textBoxNome
+            // 
+            this.textBoxNome.Enabled = false;
+            this.textBoxNome.Location = new System.Drawing.Point(72, 95);
+            this.textBoxNome.Name = "textBoxNome";
+            this.textBoxNome.Size = new System.Drawing.Size(249, 23);
+            this.textBoxNome.TabIndex = 45;
+            // 
+            // labelNome
+            // 
+            this.labelNome.AutoSize = true;
+            this.labelNome.Location = new System.Drawing.Point(23, 98);
+            this.labelNome.Name = "labelNome";
+            this.labelNome.Size = new System.Drawing.Size(43, 15);
+            this.labelNome.TabIndex = 44;
+            this.labelNome.Text = "Nome:";
+            // 
+            // maskedTextBoxData
+            // 
+            this.maskedTextBoxData.Location = new System.Drawing.Point(75, 124);
+            this.maskedTextBoxData.Mask = "00/00/0000";
+            this.maskedTextBoxData.Name = "maskedTextBoxData";
+            this.maskedTextBoxData.Size = new System.Drawing.Size(89, 23);
+            this.maskedTextBoxData.TabIndex = 46;
+            this.maskedTextBoxData.ValidatingType = typeof(System.DateTime);
+            // 
+            // labelData
+            // 
+            this.labelData.AutoSize = true;
+            this.labelData.Location = new System.Drawing.Point(32, 127);
+            this.labelData.Name = "labelData";
+            this.labelData.Size = new System.Drawing.Size(34, 15);
+            this.labelData.TabIndex = 47;
+            this.labelData.Text = "Data:";
+            // 
+            // checkBoxRecuperacao
+            // 
+            this.checkBoxRecuperacao.AutoSize = true;
+            this.checkBoxRecuperacao.Location = new System.Drawing.Point(222, 159);
+            this.checkBoxRecuperacao.Name = "checkBoxRecuperacao";
+            this.checkBoxRecuperacao.Size = new System.Drawing.Size(99, 19);
+            this.checkBoxRecuperacao.TabIndex = 48;
+            this.checkBoxRecuperacao.Text = "Recuperação?";
+            this.checkBoxRecuperacao.UseVisualStyleBackColor = true;
+            // 
+            // buttonQuestoes
+            // 
+            this.buttonQuestoes.BackColor = System.Drawing.Color.GreenYellow;
+            this.buttonQuestoes.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonQuestoes.FlatAppearance.BorderSize = 0;
+            this.buttonQuestoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonQuestoes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.buttonQuestoes.Location = new System.Drawing.Point(12, 568);
+            this.buttonQuestoes.Name = "buttonQuestoes";
+            this.buttonQuestoes.Size = new System.Drawing.Size(92, 23);
+            this.buttonQuestoes.TabIndex = 49;
+            this.buttonQuestoes.Text = "Povoar";
+            this.buttonQuestoes.UseVisualStyleBackColor = false;
             // 
             // TelaCadastroTesteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(240, 537);
-            this.Controls.Add(this.listBox1);
+            this.ClientSize = new System.Drawing.Size(333, 603);
+            this.Controls.Add(this.buttonQuestoes);
+            this.Controls.Add(this.checkBoxRecuperacao);
+            this.Controls.Add(this.labelData);
+            this.Controls.Add(this.maskedTextBoxData);
+            this.Controls.Add(this.textBoxNome);
+            this.Controls.Add(this.labelNome);
+            this.Controls.Add(this.listBoxQuestoes);
             this.Controls.Add(this.textBoxQtdeQuestoes);
             this.Controls.Add(this.labelQtdQuestoes);
             this.Controls.Add(this.comboBoxMaterias);
@@ -180,6 +251,12 @@
         private System.Windows.Forms.Label labelNumero;
         private System.Windows.Forms.TextBox textBoxQtdeQuestoes;
         private System.Windows.Forms.Label labelQtdQuestoes;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBoxQuestoes;
+        private System.Windows.Forms.TextBox textBoxNome;
+        private System.Windows.Forms.Label labelNome;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxData;
+        private System.Windows.Forms.Label labelData;
+        private System.Windows.Forms.CheckBox checkBoxRecuperacao;
+        private System.Windows.Forms.Button buttonQuestoes;
     }
 }

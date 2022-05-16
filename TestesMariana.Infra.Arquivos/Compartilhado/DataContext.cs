@@ -4,6 +4,7 @@ using System.Linq;
 using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Dominio.ModuloQuestao;
+using TestesMariana.Dominio.ModuloTeste;
 using TestesMariana.Infra.Arquivos.Compartilhado.Serializadores;
 
 namespace TestesMariana.Infra.Arquivos.Compartilhado
@@ -18,6 +19,7 @@ namespace TestesMariana.Infra.Arquivos.Compartilhado
             Disciplinas = new List<Disciplina>();
             Materias = new List<Materia>();
             Questoes = new List<Questao>();
+            Testes = new List<Teste>();
         }
 
         public DataContext(ISerializador serializador) : this()
@@ -33,7 +35,7 @@ namespace TestesMariana.Infra.Arquivos.Compartilhado
 
         public List<Questao> Questoes { get; set; }
 
-        //public List<Teste> Despesas { get; set; }
+        public List<Teste> Testes { get; set; }
 
         public void GravarDados()
         {
@@ -53,8 +55,8 @@ namespace TestesMariana.Infra.Arquivos.Compartilhado
             if (ctx.Questoes.Any())
                 this.Questoes.AddRange(ctx.Questoes);
 
-            //if (ctx.Testes.Any())
-            //    this.Testes.AddRange(ctx.Testes);
+            if (ctx.Testes.Any())
+                this.Testes.AddRange(ctx.Testes);
         }
     }
 }

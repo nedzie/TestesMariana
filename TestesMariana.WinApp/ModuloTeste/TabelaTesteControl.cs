@@ -1,6 +1,7 @@
 ﻿using eAgenda.WinApp.Compartilhado;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using TestesMariana.Dominio.ModuloTeste;
 
 namespace TestesMariana.WinApp.ModuloTeste
 {
@@ -20,11 +21,11 @@ namespace TestesMariana.WinApp.ModuloTeste
             {
                 new DataGridViewTextBoxColumn { DataPropertyName = "Numero", HeaderText = "Número"},
 
-                new DataGridViewTextBoxColumn { DataPropertyName = "Enunciado", HeaderText = "Enunciado"},
-
                 new DataGridViewTextBoxColumn { DataPropertyName = "Disciplina", HeaderText = "Disciplina"},
 
-                new DataGridViewTextBoxColumn { DataPropertyName = "Materia", HeaderText = "Matéria"}
+                new DataGridViewTextBoxColumn { DataPropertyName = "Materia", HeaderText = "Matéria"},
+
+                new DataGridViewTextBoxColumn { DataPropertyName = "Quantidade", HeaderText = "Quantidade questões"}
             };
 
             return colunas;
@@ -41,7 +42,7 @@ namespace TestesMariana.WinApp.ModuloTeste
 
             foreach (Teste teste in testes)
             {
-                grid.Rows.Add(teste.Numero, teste.Enunciado, teste.Disciplina, teste.Materia);
+                grid.Rows.Add(teste.Numero, teste.Nome, teste.Disciplina, teste.Materia, teste.QtdeQuestoes);
             }
 
         }

@@ -176,7 +176,6 @@
             this.buttonDuplicar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonDuplicar.Name = "buttonDuplicar";
             this.buttonDuplicar.Size = new System.Drawing.Size(32, 28);
-            this.buttonDuplicar.Text = "toolStripSplitButton1";
             this.buttonDuplicar.ButtonClick += new System.EventHandler(this.buttonDuplicar_ButtonClick);
             // 
             // toolStripLabelTipo
