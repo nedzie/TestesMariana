@@ -40,6 +40,7 @@
             this.buttonEditar = new System.Windows.Forms.ToolStripButton();
             this.buttonExcluir = new System.Windows.Forms.ToolStripButton();
             this.buttonExportarPDF = new System.Windows.Forms.ToolStripButton();
+            this.buttonDuplicar = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripLabelTipo = new System.Windows.Forms.ToolStripLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.labelRodape = new System.Windows.Forms.ToolStripStatusLabel();
@@ -99,6 +100,7 @@
             this.buttonTestes.ShortcutKeys = System.Windows.Forms.Keys.F4;
             this.buttonTestes.Size = new System.Drawing.Size(180, 22);
             this.buttonTestes.Text = "Testes";
+            this.buttonTestes.Click += new System.EventHandler(this.buttonTestes_Click);
             // 
             // panelContextoGeral
             // 
@@ -116,6 +118,7 @@
             this.buttonEditar,
             this.buttonExcluir,
             this.buttonExportarPDF,
+            this.buttonDuplicar,
             this.toolStripLabelTipo});
             this.toolStripToolbox.Location = new System.Drawing.Point(0, 24);
             this.toolStripToolbox.Name = "toolStripToolbox";
@@ -143,7 +146,7 @@
             this.buttonEditar.Name = "buttonEditar";
             this.buttonEditar.Size = new System.Drawing.Size(28, 28);
             this.buttonEditar.Text = "Editar";
-            this.buttonEditar.Click += new System.EventHandler(this.toolStripButtonEditar_Click);
+            this.buttonEditar.Click += new System.EventHandler(this.buttonEditar_Click);
             // 
             // buttonExcluir
             // 
@@ -164,7 +167,17 @@
             this.buttonExportarPDF.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonExportarPDF.Name = "buttonExportarPDF";
             this.buttonExportarPDF.Size = new System.Drawing.Size(28, 28);
-            this.buttonExportarPDF.Click += new System.EventHandler(this.toolStripButtonExportarPDF_Click);
+            this.buttonExportarPDF.Click += new System.EventHandler(this.buttonExportarPDF_Click);
+            // 
+            // buttonDuplicar
+            // 
+            this.buttonDuplicar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonDuplicar.Image = global::TestesMariana.WinApp.Properties.Resources.content_copy_FILL1_wght400_GRAD0_opsz48;
+            this.buttonDuplicar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonDuplicar.Name = "buttonDuplicar";
+            this.buttonDuplicar.Size = new System.Drawing.Size(32, 28);
+            this.buttonDuplicar.Text = "toolStripSplitButton1";
+            this.buttonDuplicar.ButtonClick += new System.EventHandler(this.buttonDuplicar_ButtonClick);
             // 
             // toolStripLabelTipo
             // 
@@ -234,5 +247,6 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabelTipo;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel labelRodape;
+        private System.Windows.Forms.ToolStripSplitButton buttonDuplicar;
     }
 }

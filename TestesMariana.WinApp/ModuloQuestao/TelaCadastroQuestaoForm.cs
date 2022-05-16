@@ -79,11 +79,6 @@ namespace TestesMariana.WinApp.ModuloQuestao
 
         public Func<Questao, ValidationResult>? GravarRegistro { get; set; }
 
-
-
-
-
-
         public List<Alternativa> AlternativasAdicionadas
         {
             get

@@ -12,10 +12,14 @@
 
         public abstract string? toolStripButtonExportarPDF { get; }
 
+        public abstract string toolStripButtonDuplicar { get; }
+
         // Botões
         public virtual bool StatusInserir { get { return true; } }
         public virtual bool StatusEditar { get { return true; } }
         public virtual bool StatusExcluir {  get { return true; } }
         public abstract bool statusPDF { get; }
+
+        public abstract bool StatusDuplicar { get; }
     }
 }

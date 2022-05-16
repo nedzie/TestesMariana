@@ -69,6 +69,11 @@ namespace TestesMariana.WinApp
             ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
         }
 
+        private void buttonTestes_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
+        }
+
         private void ConfigurarTelaPrincipal(ToolStripMenuItem escolha)
         {
             string tipo = escolha.Text;
@@ -113,6 +118,7 @@ namespace TestesMariana.WinApp
             buttonEditar.Enabled = config.StatusEditar;
             buttonExcluir.Enabled = config.StatusExcluir;
             buttonExportarPDF.Enabled = config.statusPDF;
+            buttonDuplicar.Enabled = config.StatusDuplicar;
         }
 
         private void ConfigurarTooltips(ConfigToolboxBase config) //Pega status de cada config das classes específicas [TOOLTIP]
@@ -121,13 +127,14 @@ namespace TestesMariana.WinApp
             buttonEditar.ToolTipText = config.toolStripButtonEditar;
             buttonExcluir.ToolTipText = config.toolStripButtonExcluir;
             buttonExportarPDF.ToolTipText = config.toolStripButtonExportarPDF;
+            buttonDuplicar.ToolTipText = config.toolStripButtonDuplicar;
         }
 
         private void buttonInserir_Click(object sender, EventArgs e)
         {
             controlador!.Inserir();
         }
-        private void toolStripButtonEditar_Click(object sender, EventArgs e)
+        private void buttonEditar_Click(object sender, EventArgs e)
         {
             controlador!.Editar();
         }
@@ -137,7 +144,11 @@ namespace TestesMariana.WinApp
             controlador!.Excluir();
         }
 
-        private void toolStripButtonExportarPDF_Click(object sender, EventArgs e)
+        private void buttonExportarPDF_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void buttonDuplicar_ButtonClick(object sender, EventArgs e)
         {
 
         }
