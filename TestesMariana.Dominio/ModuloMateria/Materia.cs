@@ -27,5 +27,10 @@ namespace TestesMariana.Dominio.ModuloMateria
                 Disciplina = this.Disciplina
             };
         }
+
+        public override string ToString()
+        {
+            return $"Número: {Numero}, Nome: {Nome}, Série: {Serie}, Disciplina: {Disciplina}";
+        }
     }
 }

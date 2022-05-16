@@ -10,14 +10,27 @@ namespace TestesMariana.Dominio.ModuloQuestao
         public string Enunciado { get; set; }
         public Disciplina Disciplina { get; set; }
         public Materia Materia { get; set; }
-        public List<Alternativa> Alternativa { get; set; }
+        public List<Alternativa> Alternativas { get; set; }
+
+
+        public Questao()
+        {
+            Alternativas = new();
+        }
+
+        public void AdicionarAlternativas(List<Alternativa> alts)
+        {
+            foreach (var item in alts)
+                if(Alternativas.Exists(x => x.Equals(item)) == false)
+                    this.Alternativas.Add(item);
+        }
 
         public override void Atualizar(Questao registro)
         {
             this.Enunciado = registro.Enunciado;
             this.Disciplina = registro.Disciplina;
             this.Materia = registro.Materia;
-            this.Alternativa = registro.Alternativa;
+            this.Alternativas = registro.Alternativas;
         }
 
         public Questao Clone()
@@ -28,7 +41,7 @@ namespace TestesMariana.Dominio.ModuloQuestao
                 Enunciado = this.Enunciado,
                 Disciplina = this.Disciplina,
                 Materia = this.Materia,
-                Alternativa = this.Alternativa
+                Alternativas = this.Alternativas
             };
         }
     }

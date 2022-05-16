@@ -30,13 +30,7 @@ namespace TestesMariana.WinApp.ModuloQuestao
                 comboBoxDisciplinas.SelectedItem = _questao.Disciplina;
                 comboBoxMaterias.SelectedItem = _questao.Materia;
                 textBoxEnunciado.Text = _questao.Enunciado;
-                /* List de questões 
-                foreach(var item in checkedListBoxAlternativas.Items.Cast<Alternativa>().ToList()
-                {
-                if (Itens.Exists(x => x.Equals(item)) == false)
-                    itens.Add(item);
-                }
-                */
+                PovoarAlternativas();
             }
         }
 
@@ -59,9 +53,28 @@ namespace TestesMariana.WinApp.ModuloQuestao
 
         public void PovoarMaterias(Disciplina disc)
         {
-            List<Materia> materiasEspecificas = (List<Materia>)_repositorioMateria.SelecionarTodos().Select(x => x.Disciplina == disc);
+            List<Materia> materias = _repositorioMateria.SelecionarTodos();
+            List<Materia> materiasEspecificas = new();
+
+            foreach (var item in materias)
+                if (item.Disciplina == disc)
+                    materiasEspecificas.Add(item);
+
             foreach (var item in materiasEspecificas)
                 comboBoxMaterias.Items.Add(item);
+        }
+
+        public void PovoarAlternativas()
+        {
+            int i = 0;
+            foreach (var item in Questao.Alternativas)
+            {
+                checkedListBoxAlternativas.Items.Add(item);
+                if (item.EstaCerta)
+                    checkedListBoxAlternativas.SetItemChecked(i, true);
+
+                i++;
+            }
         }
 
         public Func<Questao, ValidationResult>? GravarRegistro { get; set; }
@@ -75,7 +88,7 @@ namespace TestesMariana.WinApp.ModuloQuestao
         {
             get
             {
-                return checkedListBoxAlternativas.CheckedItems.Cast<Alternativa>().ToList();
+                return checkedListBoxAlternativas.Items.Cast<Alternativa>().ToList();
             }
         }
 
@@ -85,9 +98,14 @@ namespace TestesMariana.WinApp.ModuloQuestao
             Questao.Disciplina = (Disciplina)comboBoxDisciplinas.SelectedItem;
             Questao.Materia = (Materia)comboBoxMaterias.SelectedItem;
 
-            /* List questões */
+            List<Alternativa> alts = AlternativasAdicionadas;
+            foreach (var item in alts)
+                if (checkedListBoxAlternativas.SelectedItem == item)
+                    item.EstaCerta = true;
 
-            var resultadoValidacao = GravarRegistro!(Questao); // _repositorioDisciplina.Inserir();
+            Questao.AdicionarAlternativas(alts);
+
+            var resultadoValidacao = GravarRegistro!(Questao);
 
             if (!resultadoValidacao.IsValid)
             {
@@ -127,12 +145,20 @@ namespace TestesMariana.WinApp.ModuloQuestao
             {
                 foreach (int i in checkedListBoxAlternativas.CheckedIndices)
                     checkedListBoxAlternativas.SetItemCheckState(i, CheckState.Unchecked);
+
+                List<Alternativa> alts = AlternativasAdicionadas;
+
+                foreach (var item in alts)
+                    if (checkedListBoxAlternativas.SelectedItem != item)
+                        item.EstaCerta = false;
             }
         }
 
         private void comboBoxDisciplinas_SelectedValueChanged(object sender, EventArgs e)
         {
-            //PovoarMaterias((Disciplina)comboBoxDisciplinas.SelectedItem);
+            comboBoxMaterias.Items.Clear();
+            comboBoxMaterias.ResetText();
+            PovoarMaterias((Disciplina)comboBoxDisciplinas.SelectedItem);
             comboBoxMaterias.Enabled = true;
         }
     }

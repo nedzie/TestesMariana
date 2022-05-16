@@ -49,9 +49,6 @@
             // 
             this.comboBoxMaterias.Enabled = false;
             this.comboBoxMaterias.FormattingEnabled = true;
-            this.comboBoxMaterias.Items.AddRange(new object[] {
-            "1ª Série",
-            "2ª Série"});
             this.comboBoxMaterias.Location = new System.Drawing.Point(94, 66);
             this.comboBoxMaterias.Name = "comboBoxMaterias";
             this.comboBoxMaterias.Size = new System.Drawing.Size(147, 23);
