@@ -1,10 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestesMariana.Dominio.ModuloTeste;
 using TestesMariana.Infra.Arquivos.Compartilhado;
 

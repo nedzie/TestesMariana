@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.0.1" />
+    <PackageReference Include="PdfSharp" Version="1.50.5147" />
   </ItemGroup>
 
 </Project>

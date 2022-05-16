@@ -44,5 +44,10 @@ namespace TestesMariana.Dominio.ModuloQuestao
                 Alternativas = this.Alternativas
             };
         }
+
+        public override string ToString()
+        {
+            return Enunciado;
+        }
     }
 }

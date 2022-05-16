@@ -55,6 +55,7 @@
             this.comboBoxMaterias.Name = "comboBoxMaterias";
             this.comboBoxMaterias.Size = new System.Drawing.Size(147, 23);
             this.comboBoxMaterias.TabIndex = 40;
+            this.comboBoxMaterias.SelectedValueChanged += new System.EventHandler(this.comboBoxMaterias_SelectedValueChanged);
             // 
             // labelMateria
             // 
@@ -108,6 +109,7 @@
             this.buttonGravar.TabIndex = 35;
             this.buttonGravar.Text = "Gravar";
             this.buttonGravar.UseVisualStyleBackColor = false;
+            this.buttonGravar.Click += new System.EventHandler(this.buttonGravar_Click);
             // 
             // textBoxNumero
             // 
@@ -153,7 +155,6 @@
             // 
             // textBoxNome
             // 
-            this.textBoxNome.Enabled = false;
             this.textBoxNome.Location = new System.Drawing.Point(72, 95);
             this.textBoxNome.Name = "textBoxNome";
             this.textBoxNome.Size = new System.Drawing.Size(249, 23);
@@ -199,7 +200,6 @@
             // buttonQuestoes
             // 
             this.buttonQuestoes.BackColor = System.Drawing.Color.GreenYellow;
-            this.buttonQuestoes.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonQuestoes.FlatAppearance.BorderSize = 0;
             this.buttonQuestoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonQuestoes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
@@ -209,6 +209,7 @@
             this.buttonQuestoes.TabIndex = 49;
             this.buttonQuestoes.Text = "Povoar";
             this.buttonQuestoes.UseVisualStyleBackColor = false;
+            this.buttonQuestoes.Click += new System.EventHandler(this.buttonQuestoes_Click);
             // 
             // TelaCadastroTesteForm
             // 

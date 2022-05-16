@@ -1,9 +1,11 @@
 ﻿using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
+using TestesMariana.Dominio.ModuloQuestao;
 using TestesMariana.Dominio.ModuloTeste;
 using TestesMariana.Infra.Arquivos.ModuloDisciplina;
 using TestesMariana.Infra.Arquivos.ModuloMateria;
@@ -75,6 +77,78 @@ namespace TestesMariana.WinApp.ModuloTeste
             comboBoxMaterias.ResetText();
             PovoarMaterias((Disciplina)comboBoxDisciplinas.SelectedItem);
             comboBoxMaterias.Enabled = true;
+        }
+
+        public List<Questao> QuestoesAdicionadas
+        {
+            get
+            {
+                return listBoxQuestoes.Items.Cast<Questao>().ToList();
+            }
+        }
+
+        private void buttonGravar_Click(object sender, EventArgs e)
+        {
+            Teste.Nome = textBoxNome.Text;
+            Teste.Disciplina = (Disciplina)comboBoxDisciplinas.SelectedItem;
+            Teste.Materia = (Materia)comboBoxMaterias.SelectedItem;
+            Teste.Nome = textBoxNome.Text;
+            Teste.Data = DateTime.Parse(maskedTextBoxData.Text);
+
+            Teste.QtdeQuestoes = int.Parse(textBoxQtdeQuestoes.Text);
+
+            List<Questao> questoes = QuestoesAdicionadas;
+
+            Teste.AdicionarQuestoes(questoes);
+
+            var resultadoValidacao = GravarRegistro!(Teste);
+
+            if (!resultadoValidacao.IsValid)
+            {
+                string erro = resultadoValidacao.Errors[0].ErrorMessage;
+
+                TelaPrincipalForm.Instancia!.AtualizarRodape(erro);
+
+                DialogResult = DialogResult.None;
+            }
+        }
+
+        private void comboBoxMaterias_SelectedValueChanged(object sender, EventArgs e)
+        {
+            listBoxQuestoes.Items.Clear();
+
+            List<Questao> temp = _repositorioQuestao.SelecionarTodos();
+
+            List<Questao> perm = temp.FindAll(x => x.Materia == comboBoxMaterias.SelectedItem);
+
+            foreach (var item in perm)
+            {
+                listBoxQuestoes.Items.Add(item);
+            }
+        }
+
+        private void buttonQuestoes_Click(object sender, EventArgs e)
+        {
+            int qtde = int.Parse(textBoxQtdeQuestoes.Text);
+            if (qtde > listBoxQuestoes.Items.Count)
+            {
+                TelaPrincipalForm.Instancia.AtualizarRodape("Quantia de questões excedida!");
+                return;
+            }
+
+            Random rnd = new();
+            if (!checkBoxRecuperacao.Checked)
+            {
+                Materia m = (Materia)comboBoxMaterias.SelectedItem;
+
+                List<Questao> temp = _repositorioQuestao.SelecionarTodos();
+                List<Questao> perm = temp.FindAll(x => x.Materia == m);
+                for (int i = 0; i < qtde; i++)
+                {
+                    int y = rnd.Next(perm.Count - 1);
+                    Teste.AdicionarQuestao(perm[y]);
+                }
+            }
         }
     }
 }
