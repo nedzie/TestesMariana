@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TestesMariana.Dominio\TestesMariana.Dominio.csproj" />
     <ProjectReference Include="..\TestesMariana.Infra.Arquivos\TestesMariana.Infra.Arquivos.csproj" />
+    <ProjectReference Include="..\TestesMariana.Infra.BancoDeDados\TestesMariana.Infra.BancoDeDados.csproj" />
   </ItemGroup>
 
   <ItemGroup>

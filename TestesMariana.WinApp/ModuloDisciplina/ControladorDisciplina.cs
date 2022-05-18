@@ -5,20 +5,23 @@ using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Infra.Arquivos.ModuloDisciplina;
 using TestesMariana.Infra.Arquivos.ModuloMateria;
+using TestesMariana.Infra.BancoDeDados;
 using TestesMariana.WinApp.Compartilhado;
 
 namespace TestesMariana.WinApp.ModuloDisciplina
 {
     public class ControladorDisciplina : ControladorBase
     {
-        private RepositorioDisciplinaEmArquivo _repositorioDisciplina;
+        //private RepositorioDisciplinaEmArquivo _repositorioDisciplina;
         private RepositorioMateriaEmArquivo _repositorioMateria;
+
+        private RepositorioDiscplinaEmBancoDeDados _repositorioDisciplinaBD;
 
         private TabelaDisciplinasControl? tabelaDisciplinas;
 
-        public ControladorDisciplina(RepositorioDisciplinaEmArquivo repositorioDisciplina, RepositorioMateriaEmArquivo repositorioMateria)
+        public ControladorDisciplina(RepositorioDiscplinaEmBancoDeDados repositorioDisciplina, RepositorioMateriaEmArquivo repositorioMateria)
         {
-            this._repositorioDisciplina = repositorioDisciplina;
+            this._repositorioDisciplinaBD = repositorioDisciplina;
             this._repositorioMateria = repositorioMateria;
         }
 
@@ -27,7 +30,7 @@ namespace TestesMariana.WinApp.ModuloDisciplina
             TelaCadastroDisciplinaForm tela = new();
             tela.Disciplina = new();
 
-            tela.GravarRegistro = _repositorioDisciplina.Inserir;
+            tela.GravarRegistro = _repositorioDisciplinaBD.Inserir;
 
             DialogResult res = tela.ShowDialog(); // Daqui vai para os códigos da 'TelaCadastroDisciplinaForm'
 
@@ -49,7 +52,7 @@ namespace TestesMariana.WinApp.ModuloDisciplina
 
             tela.Disciplina = disciplinaSelecionada.Clone();
 
-            tela.GravarRegistro = _repositorioDisciplina.Editar;
+            tela.GravarRegistro = _repositorioDisciplinaBD.Editar;
 
             DialogResult res = tela.ShowDialog(); // Daqui vai para os códigos da 'TelaCadastroDisciplinaForm'
 
@@ -80,7 +83,7 @@ namespace TestesMariana.WinApp.ModuloDisciplina
 
             if (res == DialogResult.OK)
             {
-                ValidationResult deuCerto = _repositorioDisciplina.Excluir(disciplinaSelecionada);
+                ValidationResult deuCerto = _repositorioDisciplinaBD.Excluir(disciplinaSelecionada);
                 if (deuCerto.IsValid)
                     CarregarDisciplinas();
             }
@@ -103,7 +106,7 @@ namespace TestesMariana.WinApp.ModuloDisciplina
 
         private void CarregarDisciplinas()
         {
-            List<Disciplina> disciplinas = _repositorioDisciplina.SelecionarTodos();
+            List<Disciplina> disciplinas = _repositorioDisciplinaBD.SelecionarTodos();
             tabelaDisciplinas!.AtualizarRegistros(disciplinas);
 
             TelaPrincipalForm.Instancia!.AtualizarRodape($"Visualizando {disciplinas.Count} disciplina(s)");
@@ -112,7 +115,7 @@ namespace TestesMariana.WinApp.ModuloDisciplina
         private Disciplina ObtemDisciplinaSelecionada()
         {
             var numero = tabelaDisciplinas!.ObtemNumeroTarefaSelecionada();
-            return _repositorioDisciplina.SelecionarPorNumero(numero);
+            return _repositorioDisciplinaBD.SelecionarPorNumero(numero);
         }
     }
 }

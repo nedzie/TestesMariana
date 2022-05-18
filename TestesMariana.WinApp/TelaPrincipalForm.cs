@@ -6,6 +6,7 @@ using TestesMariana.Infra.Arquivos.ModuloDisciplina;
 using TestesMariana.Infra.Arquivos.ModuloMateria;
 using TestesMariana.Infra.Arquivos.ModuloQuestao;
 using TestesMariana.Infra.Arquivos.ModuloTeste;
+using TestesMariana.Infra.BancoDeDados;
 using TestesMariana.WinApp.Compartilhado;
 using TestesMariana.WinApp.ModuloDisciplina;
 using TestesMariana.WinApp.ModuloMateria;
@@ -39,9 +40,13 @@ namespace TestesMariana.WinApp
             var repositorioQuestao = new RepositorioQuestaoEmArquivo(contextoDados);
             var repositorioTeste = new RepositorioTesteEmArquivo(contextoDados);
 
+            // AQUI
+            var repositorioDisciplina2 = new RepositorioDiscplinaEmBancoDeDados();
+            //
+
             controladores = new Dictionary<string, ControladorBase>();
 
-            controladores.Add("Disciplinas", new ControladorDisciplina(repositorioDisciplina, repositorioMateria));
+            controladores.Add("Disciplinas", new ControladorDisciplina(repositorioDisciplina2, repositorioMateria));
             controladores.Add("Matérias", new ControladorMateria(repositorioMateria, repositorioDisciplina));
             controladores.Add("Questões", new ControladorQuestao(repositorioQuestao, repositorioMateria, repositorioDisciplina));
             controladores.Add("Testes", new ControladorTeste(repositorioTeste, repositorioDisciplina, repositorioMateria, repositorioQuestao));
