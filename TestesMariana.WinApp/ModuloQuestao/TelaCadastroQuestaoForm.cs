@@ -8,14 +8,15 @@ using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Dominio.ModuloQuestao;
 using TestesMariana.Infra.Arquivos.ModuloDisciplina;
 using TestesMariana.Infra.Arquivos.ModuloMateria;
+using TestesMariana.Infra.BancoDeDados;
 
 namespace TestesMariana.WinApp.ModuloQuestao
 {
     public partial class TelaCadastroQuestaoForm : Form
     {
         private Questao _questao;
-        private RepositorioDisciplinaEmArquivo _repositorioDisciplina;
-        private RepositorioMateriaEmArquivo _repositorioMateria;
+        private RepositorioDiscplinaEmBancoDeDados _repositorioDisciplina;
+        private RepositorioMateriaEmBancoDeDados _repositorioMateria;
 
         public Questao Questao
         {
@@ -34,7 +35,7 @@ namespace TestesMariana.WinApp.ModuloQuestao
             }
         }
 
-        public TelaCadastroQuestaoForm(RepositorioDisciplinaEmArquivo rd, RepositorioMateriaEmArquivo rm)
+        public TelaCadastroQuestaoForm(RepositorioDiscplinaEmBancoDeDados rd, RepositorioMateriaEmBancoDeDados rm)
         {
             InitializeComponent();
             this._repositorioDisciplina = rd;

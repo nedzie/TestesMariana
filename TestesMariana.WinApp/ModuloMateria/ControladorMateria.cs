@@ -5,17 +5,18 @@ using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Infra.Arquivos.ModuloDisciplina;
 using TestesMariana.Infra.Arquivos.ModuloMateria;
+using TestesMariana.Infra.BancoDeDados;
 using TestesMariana.WinApp.Compartilhado;
 
 namespace TestesMariana.WinApp.ModuloMateria
 {
     public class ControladorMateria : ControladorBase
     {
-        private RepositorioMateriaEmArquivo _repositorioMateria;
-        private RepositorioDisciplinaEmArquivo _repositorioDisciplina;
+        private RepositorioMateriaEmBancoDeDados _repositorioMateria;
+        private RepositorioDiscplinaEmBancoDeDados _repositorioDisciplina;
         private TabelaMateriaControl tabelaMateria;
 
-        public ControladorMateria(RepositorioMateriaEmArquivo repositorioMateria, RepositorioDisciplinaEmArquivo repositorioDisciplina)
+        public ControladorMateria(RepositorioMateriaEmBancoDeDados repositorioMateria, RepositorioDiscplinaEmBancoDeDados repositorioDisciplina)
         {
             this._repositorioMateria = repositorioMateria;
             this._repositorioDisciplina = repositorioDisciplina;
@@ -23,7 +24,7 @@ namespace TestesMariana.WinApp.ModuloMateria
 
         public override void Inserir()
         {
-            List<Disciplina> disciplinas = _repositorioDisciplina.ObterRegistros();
+            List<Disciplina> disciplinas = _repositorioDisciplina.SelecionarTodos();
             TelaCadastroMateriaForm tela = new(disciplinas);
 
             tela.Materia = new();
@@ -37,7 +38,7 @@ namespace TestesMariana.WinApp.ModuloMateria
 
         public override void Editar()
         {
-            List<Disciplina> disciplinas = _repositorioDisciplina.ObterRegistros();
+            List<Disciplina> disciplinas = _repositorioDisciplina.SelecionarTodos();
             TelaCadastroMateriaForm tela = new(disciplinas);
 
             Materia materiaSelecionada = ObtemMateriaSelecionada();
@@ -95,7 +96,7 @@ namespace TestesMariana.WinApp.ModuloMateria
 
         private List<Disciplina> CarregarDisciplinas()
         {
-            return _repositorioDisciplina.ObterRegistros();
+            return _repositorioDisciplina.SelecionarTodos();
         }
 
         private void CarregarMaterias()

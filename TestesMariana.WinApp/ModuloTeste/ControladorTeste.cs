@@ -6,6 +6,7 @@ using TestesMariana.Infra.Arquivos.ModuloDisciplina;
 using TestesMariana.Infra.Arquivos.ModuloMateria;
 using TestesMariana.Infra.Arquivos.ModuloQuestao;
 using TestesMariana.Infra.Arquivos.ModuloTeste;
+using TestesMariana.Infra.BancoDeDados;
 using TestesMariana.WinApp.Compartilhado;
 
 namespace TestesMariana.WinApp.ModuloTeste
@@ -13,13 +14,13 @@ namespace TestesMariana.WinApp.ModuloTeste
     public class ControladorTeste : ControladorBase
     {
         private RepositorioTesteEmArquivo _repositorioTeste;
-        private RepositorioDisciplinaEmArquivo _repositorioDisciplina;
-        private RepositorioMateriaEmArquivo _repositorioMateria;
+        private RepositorioDiscplinaEmBancoDeDados _repositorioDisciplina;
+        private RepositorioMateriaEmBancoDeDados _repositorioMateria;
         private RepositorioQuestaoEmArquivo _repositorioQuestao;
 
         private TabelaTesteControl _tabelaTeste;
 
-        public ControladorTeste(RepositorioTesteEmArquivo rt,RepositorioDisciplinaEmArquivo rd, RepositorioMateriaEmArquivo rm, RepositorioQuestaoEmArquivo rq)
+        public ControladorTeste(RepositorioTesteEmArquivo rt, RepositorioDiscplinaEmBancoDeDados rd, RepositorioMateriaEmBancoDeDados rm, RepositorioQuestaoEmArquivo rq)
         {
             this._repositorioTeste = rt;
             this._repositorioDisciplina = rd;
