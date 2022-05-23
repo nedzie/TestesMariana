@@ -22,8 +22,8 @@ namespace TestesMariana.WinApp.ModuloMateria
                 _materia = value;
                 textBoxNumero.Text = _materia.Numero.ToString();
                 textBoxNome.Text = _materia.Nome;
-                comboBoxSeries.SelectedItem = _materia.Serie;
-                comboBoxDisciplinas.SelectedItem = _materia.Disciplina;
+                comboBoxSeries.SelectedIndex = (int)_materia.Serie;
+                comboBoxDisciplinas.SelectedIndex = _materia.Disciplina.Numero;
             }
         }
 

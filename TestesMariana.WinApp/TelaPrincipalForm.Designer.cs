@@ -40,11 +40,10 @@
             this.buttonEditar = new System.Windows.Forms.ToolStripButton();
             this.buttonExcluir = new System.Windows.Forms.ToolStripButton();
             this.buttonExportarPDF = new System.Windows.Forms.ToolStripButton();
-            this.buttonDuplicar = new System.Windows.Forms.ToolStripSplitButton();
+            this.buttonDuplicar = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabelTipo = new System.Windows.Forms.ToolStripLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.labelRodape = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.menuStripContextoGeral.SuspendLayout();
             this.toolStripToolbox.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -119,7 +118,6 @@
             this.buttonEditar,
             this.buttonExcluir,
             this.buttonExportarPDF,
-            this.toolStripButton1,
             this.buttonDuplicar,
             this.toolStripLabelTipo});
             this.toolStripToolbox.Location = new System.Drawing.Point(0, 24);
@@ -177,8 +175,7 @@
             this.buttonDuplicar.Image = global::TestesMariana.WinApp.Properties.Resources.content_copy_FILL1_wght400_GRAD0_opsz48;
             this.buttonDuplicar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonDuplicar.Name = "buttonDuplicar";
-            this.buttonDuplicar.Size = new System.Drawing.Size(32, 28);
-            this.buttonDuplicar.ButtonClick += new System.EventHandler(this.buttonDuplicar_ButtonClick);
+            this.buttonDuplicar.Size = new System.Drawing.Size(23, 28);
             // 
             // toolStripLabelTipo
             // 
@@ -203,15 +200,6 @@
             this.labelRodape.Size = new System.Drawing.Size(55, 17);
             this.labelRodape.Text = "[Rodapé]";
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::TestesMariana.WinApp.Properties.Resources.content_copy_FILL1_wght400_GRAD0_opsz48;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 28);
-            this.toolStripButton1.Text = "toolStripButton1";
-            // 
             // TelaPrincipalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -222,6 +210,7 @@
             this.Controls.Add(this.toolStripToolbox);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStripContextoGeral);
+            this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStripContextoGeral;
             this.MaximizeBox = false;
@@ -257,7 +246,6 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabelTipo;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel labelRodape;
-        private System.Windows.Forms.ToolStripSplitButton buttonDuplicar;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton buttonDuplicar;
     }
 }
