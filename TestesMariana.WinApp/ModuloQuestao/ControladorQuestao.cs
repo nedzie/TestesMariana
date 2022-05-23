@@ -17,11 +17,11 @@ namespace TestesMariana.WinApp.ModuloQuestao
     {
         private RepositorioQuestaoEmArquivo _repositorioQuestao;
         private RepositorioMateriaEmBancoDeDados _repositorioMateria;
-        private RepositorioDiscplinaEmBancoDeDados _repositorioDisciplina;
+        private RepositorioDisciplinaEmBancoDeDados _repositorioDisciplina;
 
         private TabelaQuestaoControl _tabelaQuestao;
 
-        public ControladorQuestao(RepositorioQuestaoEmArquivo repositorioQuestao, RepositorioMateriaEmBancoDeDados repositorioMateria, RepositorioDiscplinaEmBancoDeDados repositorioDisciplina)
+        public ControladorQuestao(RepositorioQuestaoEmArquivo repositorioQuestao, RepositorioMateriaEmBancoDeDados repositorioMateria, RepositorioDisciplinaEmBancoDeDados repositorioDisciplina)
         {
             this._repositorioQuestao = repositorioQuestao;
             this._repositorioMateria = repositorioMateria;

@@ -15,7 +15,7 @@ namespace TestesMariana.WinApp.ModuloQuestao
     public partial class TelaCadastroQuestaoForm : Form
     {
         private Questao _questao;
-        private RepositorioDiscplinaEmBancoDeDados _repositorioDisciplina;
+        private RepositorioDisciplinaEmBancoDeDados _repositorioDisciplina;
         private RepositorioMateriaEmBancoDeDados _repositorioMateria;
 
         public Questao Questao
@@ -35,7 +35,7 @@ namespace TestesMariana.WinApp.ModuloQuestao
             }
         }
 
-        public TelaCadastroQuestaoForm(RepositorioDiscplinaEmBancoDeDados rd, RepositorioMateriaEmBancoDeDados rm)
+        public TelaCadastroQuestaoForm(RepositorioDisciplinaEmBancoDeDados rd, RepositorioMateriaEmBancoDeDados rm)
         {
             InitializeComponent();
             this._repositorioDisciplina = rd;

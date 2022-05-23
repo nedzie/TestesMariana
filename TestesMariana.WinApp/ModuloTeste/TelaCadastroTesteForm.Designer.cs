@@ -233,7 +233,12 @@
             this.Controls.Add(this.buttonGravar);
             this.Controls.Add(this.textBoxNumero);
             this.Controls.Add(this.labelNumero);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "TelaCadastroTesteForm";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TelaCadastroTesteForm";
             this.ResumeLayout(false);
             this.PerformLayout();

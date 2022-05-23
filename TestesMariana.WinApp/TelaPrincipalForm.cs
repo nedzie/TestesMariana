@@ -35,13 +35,13 @@ namespace TestesMariana.WinApp
 
         private void InicializarControladores()
         {
-            var repositorioDisciplina = new RepositorioDiscplinaEmBancoDeDados();
+            var repositorioDisciplina = new RepositorioDisciplinaEmBancoDeDados();
             var repositorioMateria = new RepositorioMateriaEmBancoDeDados();
             var repositorioQuestao = new RepositorioQuestaoEmArquivo(contextoDados);
             var repositorioTeste = new RepositorioTesteEmArquivo(contextoDados);
 
             // AQUI
-            var repositorioDisciplina2 = new RepositorioDiscplinaEmBancoDeDados();
+            var repositorioDisciplina2 = new RepositorioDisciplinaEmBancoDeDados();
             //
 
             controladores = new Dictionary<string, ControladorBase>();

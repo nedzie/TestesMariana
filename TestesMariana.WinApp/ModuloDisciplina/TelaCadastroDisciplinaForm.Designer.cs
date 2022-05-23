@@ -107,6 +107,9 @@
             this.Controls.Add(this.labelNumero);
             this.Controls.Add(this.textBoxNome);
             this.Controls.Add(this.labelNome);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "TelaCadastroDisciplinaForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastro Disciplina";

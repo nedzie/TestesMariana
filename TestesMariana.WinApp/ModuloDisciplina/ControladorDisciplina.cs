@@ -14,11 +14,11 @@ namespace TestesMariana.WinApp.ModuloDisciplina
     {
         private RepositorioMateriaEmBancoDeDados _repositorioMateria;
 
-        private RepositorioDiscplinaEmBancoDeDados _repositorioDisciplina;
+        private RepositorioDisciplinaEmBancoDeDados _repositorioDisciplina;
 
         private TabelaDisciplinasControl? tabelaDisciplinas;
 
-        public ControladorDisciplina(RepositorioDiscplinaEmBancoDeDados repositorioDisciplina, RepositorioMateriaEmBancoDeDados repositorioMateria)
+        public ControladorDisciplina(RepositorioDisciplinaEmBancoDeDados repositorioDisciplina, RepositorioMateriaEmBancoDeDados repositorioMateria)
         {
             this._repositorioDisciplina = repositorioDisciplina;
             this._repositorioMateria = repositorioMateria;

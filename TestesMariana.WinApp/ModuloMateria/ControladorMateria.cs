@@ -13,10 +13,10 @@ namespace TestesMariana.WinApp.ModuloMateria
     public class ControladorMateria : ControladorBase
     {
         private RepositorioMateriaEmBancoDeDados _repositorioMateria;
-        private RepositorioDiscplinaEmBancoDeDados _repositorioDisciplina;
+        private RepositorioDisciplinaEmBancoDeDados _repositorioDisciplina;
         private TabelaMateriaControl tabelaMateria;
 
-        public ControladorMateria(RepositorioMateriaEmBancoDeDados repositorioMateria, RepositorioDiscplinaEmBancoDeDados repositorioDisciplina)
+        public ControladorMateria(RepositorioMateriaEmBancoDeDados repositorioMateria, RepositorioDisciplinaEmBancoDeDados repositorioDisciplina)
         {
             this._repositorioMateria = repositorioMateria;
             this._repositorioDisciplina = repositorioDisciplina;

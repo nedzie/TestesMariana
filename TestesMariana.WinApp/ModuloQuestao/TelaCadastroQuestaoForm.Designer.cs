@@ -195,7 +195,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(281, 448);
+            this.ClientSize = new System.Drawing.Size(256, 441);
             this.Controls.Add(this.textBoxAlternativa);
             this.Controls.Add(this.buttonAdicionar);
             this.Controls.Add(this.labelCorreta);
@@ -211,8 +211,13 @@
             this.Controls.Add(this.labelNumero);
             this.Controls.Add(this.textBoxEnunciado);
             this.Controls.Add(this.labelEnunciado);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "TelaCadastroQuestaoForm";
-            this.Text = "TelaCadastroQuestaoForm";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Cadastro Questão";
             this.ResumeLayout(false);
             this.PerformLayout();
 

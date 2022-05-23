@@ -44,6 +44,7 @@
             this.toolStripLabelTipo = new System.Windows.Forms.ToolStripLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.labelRodape = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.menuStripContextoGeral.SuspendLayout();
             this.toolStripToolbox.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -74,7 +75,7 @@
             // 
             this.buttonDisciplinas.Name = "buttonDisciplinas";
             this.buttonDisciplinas.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.buttonDisciplinas.Size = new System.Drawing.Size(180, 22);
+            this.buttonDisciplinas.Size = new System.Drawing.Size(149, 22);
             this.buttonDisciplinas.Text = "Disciplinas";
             this.buttonDisciplinas.Click += new System.EventHandler(this.buttonDisciplinas_Click);
             // 
@@ -82,7 +83,7 @@
             // 
             this.buttonMaterias.Name = "buttonMaterias";
             this.buttonMaterias.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.buttonMaterias.Size = new System.Drawing.Size(180, 22);
+            this.buttonMaterias.Size = new System.Drawing.Size(149, 22);
             this.buttonMaterias.Text = "Matérias";
             this.buttonMaterias.Click += new System.EventHandler(this.buttonMaterias_Click);
             // 
@@ -90,7 +91,7 @@
             // 
             this.buttonQuestoes.Name = "buttonQuestoes";
             this.buttonQuestoes.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.buttonQuestoes.Size = new System.Drawing.Size(180, 22);
+            this.buttonQuestoes.Size = new System.Drawing.Size(149, 22);
             this.buttonQuestoes.Text = "Questões";
             this.buttonQuestoes.Click += new System.EventHandler(this.buttonQuestoes_Click);
             // 
@@ -98,7 +99,7 @@
             // 
             this.buttonTestes.Name = "buttonTestes";
             this.buttonTestes.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.buttonTestes.Size = new System.Drawing.Size(180, 22);
+            this.buttonTestes.Size = new System.Drawing.Size(149, 22);
             this.buttonTestes.Text = "Testes";
             this.buttonTestes.Click += new System.EventHandler(this.buttonTestes_Click);
             // 
@@ -118,6 +119,7 @@
             this.buttonEditar,
             this.buttonExcluir,
             this.buttonExportarPDF,
+            this.toolStripButton1,
             this.buttonDuplicar,
             this.toolStripLabelTipo});
             this.toolStripToolbox.Location = new System.Drawing.Point(0, 24);
@@ -201,6 +203,15 @@
             this.labelRodape.Size = new System.Drawing.Size(55, 17);
             this.labelRodape.Text = "[Rodapé]";
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = global::TestesMariana.WinApp.Properties.Resources.content_copy_FILL1_wght400_GRAD0_opsz48;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 28);
+            this.toolStripButton1.Text = "toolStripButton1";
+            // 
             // TelaPrincipalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -247,5 +258,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel labelRodape;
         private System.Windows.Forms.ToolStripSplitButton buttonDuplicar;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

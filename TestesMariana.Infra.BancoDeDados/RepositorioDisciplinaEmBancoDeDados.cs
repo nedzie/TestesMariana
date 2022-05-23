@@ -9,7 +9,7 @@ using TestesMariana.Dominio.ModuloDisciplina;
 
 namespace TestesMariana.Infra.BancoDeDados
 {
-    public class RepositorioDiscplinaEmBancoDeDados
+    public class RepositorioDisciplinaEmBancoDeDados
     {
         private const string enderecoBanco =
             "Data Source=MARCOS;Initial Catalog=mariana_db;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";

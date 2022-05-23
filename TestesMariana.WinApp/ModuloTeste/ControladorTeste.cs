@@ -14,13 +14,13 @@ namespace TestesMariana.WinApp.ModuloTeste
     public class ControladorTeste : ControladorBase
     {
         private RepositorioTesteEmArquivo _repositorioTeste;
-        private RepositorioDiscplinaEmBancoDeDados _repositorioDisciplina;
+        private RepositorioDisciplinaEmBancoDeDados _repositorioDisciplina;
         private RepositorioMateriaEmBancoDeDados _repositorioMateria;
         private RepositorioQuestaoEmArquivo _repositorioQuestao;
 
         private TabelaTesteControl _tabelaTeste;
 
-        public ControladorTeste(RepositorioTesteEmArquivo rt, RepositorioDiscplinaEmBancoDeDados rd, RepositorioMateriaEmBancoDeDados rm, RepositorioQuestaoEmArquivo rq)
+        public ControladorTeste(RepositorioTesteEmArquivo rt, RepositorioDisciplinaEmBancoDeDados rd, RepositorioMateriaEmBancoDeDados rm, RepositorioQuestaoEmArquivo rq)
         {
             this._repositorioTeste = rt;
             this._repositorioDisciplina = rd;
