@@ -15,7 +15,7 @@ namespace TestesMariana.Infra.BancoDeDados
             "Data Source=MARCOS;Initial Catalog=mariana_db;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         private const string sqlInserir =
-            @"INSERT INTO [tb_disciplina]
+            @"INSERT INTO [TB_DISCIPLINA]
                 (
                     [NOME]
                 )
@@ -25,22 +25,29 @@ namespace TestesMariana.Infra.BancoDeDados
                 ); SELECT SCOPE_IDENTITY();";
 
         private const string sqlEditar =
-            @"UPDATE [tb_disciplina]
+            @"UPDATE [TB_DISCIPLINA]
                 SET
                     [NOME] = @NOME
                 WHERE 
                     [NUMERO] = @NUMERO";
 
         private const string sqlExcluir =
-            @"DELETE FROM [tb_disciplina
+            @"DELETE FROM [TB_DISCIPLINA]
                 WHERE
                     [NUMERO] = @NUMERO";
 
         private const string sqlSelecionarTodos =
-            @"SELECT [NUMERO], [NOME] FROM [tb_disciplina]";
+            @"SELECT 
+                    [NUMERO], [NOME] 
+                FROM 
+                    [TB_DISCIPLINA]";
 
         private const string sqlSelecionarPorNumero =
-            @"SELECT [NUMERO], [NOME] FROM [tb_disciplina]
+            @"SELECT 
+                    [NUMERO],
+                    [NOME] 
+                FROM 
+                    [TB_DISCIPLINA]
                 WHERE
                     [NUMERO] = @NUMERO";
 

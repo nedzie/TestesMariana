@@ -21,7 +21,7 @@ namespace TestesMariana.WinApp.ModuloTeste
         private RepositorioTesteEmArquivo _repositorioTeste;
         private RepositorioDisciplinaEmBancoDeDados _repositorioDisciplina;
         private RepositorioMateriaEmBancoDeDados _repositorioMateria;
-        private RepositorioQuestaoEmArquivo _repositorioQuestao;
+        private RepositorioQuestaoEmBancoDeDados _repositorioQuestao;
 
         public Teste Teste
         {
@@ -40,7 +40,7 @@ namespace TestesMariana.WinApp.ModuloTeste
                 textBoxQtdeQuestoes.Text = _teste.QtdeQuestoes.ToString();
             }
         }
-        public TelaCadastroTesteForm(RepositorioTesteEmArquivo rt, RepositorioDisciplinaEmBancoDeDados rd, RepositorioMateriaEmBancoDeDados rm, RepositorioQuestaoEmArquivo rq)
+        public TelaCadastroTesteForm(RepositorioTesteEmArquivo rt, RepositorioDisciplinaEmBancoDeDados rd, RepositorioMateriaEmBancoDeDados rm, RepositorioQuestaoEmBancoDeDados rq)
         {
             InitializeComponent();
             this._repositorioTeste = rt;
@@ -133,7 +133,7 @@ namespace TestesMariana.WinApp.ModuloTeste
             int qtde = int.Parse(textBoxQtdeQuestoes.Text);
             if (qtde > listBoxQuestoes.Items.Count)
             {
-                TelaPrincipalForm.Instancia.AtualizarRodape("Quantia de questões excedida!");
+                TelaPrincipalForm.Instancia!.AtualizarRodape("Quantia de questões excedida!");
                 return;
             }
 

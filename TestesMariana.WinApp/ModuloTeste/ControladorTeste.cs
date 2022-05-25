@@ -16,11 +16,11 @@ namespace TestesMariana.WinApp.ModuloTeste
         private RepositorioTesteEmArquivo _repositorioTeste;
         private RepositorioDisciplinaEmBancoDeDados _repositorioDisciplina;
         private RepositorioMateriaEmBancoDeDados _repositorioMateria;
-        private RepositorioQuestaoEmArquivo _repositorioQuestao;
+        private RepositorioQuestaoEmBancoDeDados _repositorioQuestao;
 
         private TabelaTesteControl _tabelaTeste;
 
-        public ControladorTeste(RepositorioTesteEmArquivo rt, RepositorioDisciplinaEmBancoDeDados rd, RepositorioMateriaEmBancoDeDados rm, RepositorioQuestaoEmArquivo rq)
+        public ControladorTeste(RepositorioTesteEmArquivo rt, RepositorioDisciplinaEmBancoDeDados rd, RepositorioMateriaEmBancoDeDados rm, RepositorioQuestaoEmBancoDeDados rq)
         {
             this._repositorioTeste = rt;
             this._repositorioDisciplina = rd;

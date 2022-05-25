@@ -37,16 +37,12 @@ namespace TestesMariana.WinApp
         {
             var repositorioDisciplina = new RepositorioDisciplinaEmBancoDeDados();
             var repositorioMateria = new RepositorioMateriaEmBancoDeDados();
-            var repositorioQuestao = new RepositorioQuestaoEmArquivo(contextoDados);
+            var repositorioQuestao = new RepositorioQuestaoEmBancoDeDados();
             var repositorioTeste = new RepositorioTesteEmArquivo(contextoDados);
-
-            // AQUI
-            var repositorioDisciplina2 = new RepositorioDisciplinaEmBancoDeDados();
-            //
 
             controladores = new Dictionary<string, ControladorBase>();
 
-            controladores.Add("Disciplinas", new ControladorDisciplina(repositorioDisciplina2, repositorioMateria));
+            controladores.Add("Disciplinas", new ControladorDisciplina(repositorioDisciplina, repositorioMateria));
             controladores.Add("Matérias", new ControladorMateria(repositorioMateria, repositorioDisciplina));
             controladores.Add("Questões", new ControladorQuestao(repositorioQuestao, repositorioMateria, repositorioDisciplina));
             controladores.Add("Testes", new ControladorTeste(repositorioTeste, repositorioDisciplina, repositorioMateria, repositorioQuestao));

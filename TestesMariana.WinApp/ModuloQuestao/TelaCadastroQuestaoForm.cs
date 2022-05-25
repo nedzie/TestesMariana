@@ -28,7 +28,8 @@ namespace TestesMariana.WinApp.ModuloQuestao
             {
                 _questao = value;
                 textBoxNumero.Text = _questao.Numero.ToString();
-                comboBoxDisciplinas.SelectedItem = _questao.Disciplina;
+                if(_questao.Disciplina != null)
+                    comboBoxDisciplinas.SelectedIndex = _questao.Disciplina.Numero;
                 comboBoxMaterias.SelectedItem = _questao.Materia;
                 textBoxEnunciado.Text = _questao.Enunciado;
                 PovoarAlternativas();
@@ -58,7 +59,7 @@ namespace TestesMariana.WinApp.ModuloQuestao
             List<Materia> materiasEspecificas = new();
 
             foreach (var item in materias)
-                if (item.Disciplina == disc)
+                if (item.Disciplina.Nome == disc.Nome)
                     materiasEspecificas.Add(item);
 
             foreach (var item in materiasEspecificas)

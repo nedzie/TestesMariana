@@ -23,7 +23,8 @@ namespace TestesMariana.WinApp.ModuloMateria
                 textBoxNumero.Text = _materia.Numero.ToString();
                 textBoxNome.Text = _materia.Nome;
                 comboBoxSeries.SelectedIndex = (int)_materia.Serie;
-                comboBoxDisciplinas.SelectedIndex = _materia.Disciplina.Numero;
+                if(_materia.Disciplina != null)
+                    comboBoxDisciplinas.SelectedIndex = _materia.Disciplina.Numero;
             }
         }
 
@@ -33,6 +34,7 @@ namespace TestesMariana.WinApp.ModuloMateria
             this.Disciplinas = disciplinas;
             CarregarDisciplinas();
             comboBoxSeries.SelectedIndex = 0;
+            comboBoxDisciplinas.SelectedIndex = 0;
         }
 
         private void CarregarDisciplinas()

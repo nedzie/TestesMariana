@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using TestesMariana.Dominio.ModuloDisciplina;
-using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Dominio.ModuloQuestao;
-using TestesMariana.Infra.Arquivos.ModuloDisciplina;
-using TestesMariana.Infra.Arquivos.ModuloMateria;
-using TestesMariana.Infra.Arquivos.ModuloQuestao;
 using TestesMariana.Infra.BancoDeDados;
 using TestesMariana.WinApp.Compartilhado;
 using TestesMariana.WinApp.ModuloMateria;
@@ -15,13 +11,13 @@ namespace TestesMariana.WinApp.ModuloQuestao
 {
     public class ControladorQuestao : ControladorBase
     {
-        private RepositorioQuestaoEmArquivo _repositorioQuestao;
+        private RepositorioQuestaoEmBancoDeDados _repositorioQuestao;
         private RepositorioMateriaEmBancoDeDados _repositorioMateria;
         private RepositorioDisciplinaEmBancoDeDados _repositorioDisciplina;
 
         private TabelaQuestaoControl _tabelaQuestao;
 
-        public ControladorQuestao(RepositorioQuestaoEmArquivo repositorioQuestao, RepositorioMateriaEmBancoDeDados repositorioMateria, RepositorioDisciplinaEmBancoDeDados repositorioDisciplina)
+        public ControladorQuestao(RepositorioQuestaoEmBancoDeDados repositorioQuestao, RepositorioMateriaEmBancoDeDados repositorioMateria, RepositorioDisciplinaEmBancoDeDados repositorioDisciplina)
         {
             this._repositorioQuestao = repositorioQuestao;
             this._repositorioMateria = repositorioMateria;

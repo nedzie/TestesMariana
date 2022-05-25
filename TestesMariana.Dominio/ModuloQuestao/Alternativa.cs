@@ -6,7 +6,7 @@ namespace TestesMariana.Dominio.ModuloQuestao
     {
         public string Opcao { get; set; }
         public bool EstaCerta { get; set; }
-
+        public Questao Questao { get; set; }
         public override void Atualizar(Alternativa registro)
         {
             this.Opcao = registro.Opcao;

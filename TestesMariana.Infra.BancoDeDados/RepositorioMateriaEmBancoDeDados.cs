@@ -49,6 +49,9 @@ namespace TestesMariana.Infra.BancoDeDados
                          DBO.TB_MATERIA AS M 
                 ON D.NUMERO = M.DISCIPLINA_ID";
 
+                // tb_disciplina "D" innerjoineia tb_materia "M" em "ON" que é a condição, ou seja, mostre o nome ao invés do número
+                // onde tb_materia.disciplina_id (FK) seja igual a alguma tb_disciplina.disciplina_id (PK)
+
         private const string sqlSelecionarPorNumero =
             @"SELECT        
                     D.NUMERO AS NUMERODISCIPLINA, 
@@ -150,8 +153,8 @@ namespace TestesMariana.Infra.BancoDeDados
 
             while (leitor.Read())
             {
-                Materia disciplina = ConverterParaDisciplina(leitor);
-                materias.Add(disciplina);
+                Materia materia = ConverterParaDisciplina(leitor);
+                materias.Add(materia);
             }
 
             return materias;
@@ -170,20 +173,21 @@ namespace TestesMariana.Infra.BancoDeDados
 
             SqlDataReader leitor = comandoSelecao.ExecuteReader(); // Lê aqui
 
-            Materia disciplina = new();
+            Materia materia = new();
 
             if (leitor.Read())
-                disciplina = ConverterParaDisciplina(leitor);
+                materia = ConverterParaDisciplina(leitor);
 
             conexaoComBanco.Close();
 
-            return disciplina;
+            return materia;
         }
         private Materia ConverterParaDisciplina(SqlDataReader leitor)
         {
             int numero = Convert.ToInt32(leitor["NUMERO"]);
             string nome = Convert.ToString(leitor["NOME"]);
             int serie = Convert.ToInt32(leitor["SERIE"]);
+
             Disciplina d = new();
             d.Numero = Convert.ToInt32(leitor["NUMERODISCIPLINA"]);
             d.Nome = Convert.ToString(leitor["NOMEDISCIPLINA"]);

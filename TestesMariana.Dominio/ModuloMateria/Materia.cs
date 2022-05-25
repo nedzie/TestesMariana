@@ -30,7 +30,7 @@ namespace TestesMariana.Dominio.ModuloMateria
 
         public override string ToString()
         {
-            return $"Número: {Numero}, Nome: {Nome}, Série: {Serie}, Disciplina: {Disciplina}";
+            return Nome;
         }
     }
 }

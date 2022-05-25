@@ -87,7 +87,7 @@
             this.buttonCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancelar.FlatAppearance.BorderSize = 0;
             this.buttonCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCancelar.Location = new System.Drawing.Point(95, 408);
+            this.buttonCancelar.Location = new System.Drawing.Point(95, 460);
             this.buttonCancelar.Name = "buttonCancelar";
             this.buttonCancelar.Size = new System.Drawing.Size(75, 23);
             this.buttonCancelar.TabIndex = 21;
@@ -100,7 +100,7 @@
             this.buttonGravar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonGravar.FlatAppearance.BorderSize = 0;
             this.buttonGravar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonGravar.Location = new System.Drawing.Point(12, 408);
+            this.buttonGravar.Location = new System.Drawing.Point(12, 460);
             this.buttonGravar.Name = "buttonGravar";
             this.buttonGravar.Size = new System.Drawing.Size(75, 23);
             this.buttonGravar.TabIndex = 20;
@@ -148,7 +148,7 @@
             this.checkedListBoxAlternativas.FormattingEnabled = true;
             this.checkedListBoxAlternativas.Location = new System.Drawing.Point(12, 280);
             this.checkedListBoxAlternativas.Name = "checkedListBoxAlternativas";
-            this.checkedListBoxAlternativas.Size = new System.Drawing.Size(229, 94);
+            this.checkedListBoxAlternativas.Size = new System.Drawing.Size(229, 112);
             this.checkedListBoxAlternativas.TabIndex = 26;
             this.checkedListBoxAlternativas.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxAlternativas_SelectedIndexChanged);
             // 
@@ -165,7 +165,7 @@
             // 
             this.labelCorreta.AutoSize = true;
             this.labelCorreta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.labelCorreta.Location = new System.Drawing.Point(12, 377);
+            this.labelCorreta.Location = new System.Drawing.Point(12, 396);
             this.labelCorreta.Name = "labelCorreta";
             this.labelCorreta.Size = new System.Drawing.Size(210, 15);
             this.labelCorreta.TabIndex = 28;
@@ -195,7 +195,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(256, 441);
+            this.ClientSize = new System.Drawing.Size(256, 495);
             this.Controls.Add(this.textBoxAlternativa);
             this.Controls.Add(this.buttonAdicionar);
             this.Controls.Add(this.labelCorreta);
