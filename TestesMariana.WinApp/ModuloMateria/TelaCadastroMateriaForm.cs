@@ -1,6 +1,7 @@
 ﻿using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
@@ -22,9 +23,9 @@ namespace TestesMariana.WinApp.ModuloMateria
                 _materia = value;
                 textBoxNumero.Text = _materia.Numero.ToString();
                 textBoxNome.Text = _materia.Nome;
-                comboBoxSeries.SelectedIndex = (int)_materia.Serie;
-                if(_materia.Disciplina != null)
-                    comboBoxDisciplinas.SelectedIndex = _materia.Disciplina.Numero;
+                comboBoxSeries.SelectedIndex = (int)_materia.Serie; // Pra ENUM funciona ÍNDICE
+                if (_materia.Disciplina != null)
+                    comboBoxDisciplinas.SelectedItem = Disciplinas.Where(x => x.Nome == _materia.Disciplina.Nome).Single(); // Meu deus
             }
         }
 

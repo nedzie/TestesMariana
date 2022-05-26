@@ -6,8 +6,6 @@ using System.Windows.Forms;
 using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Dominio.ModuloQuestao;
-using TestesMariana.Infra.Arquivos.ModuloDisciplina;
-using TestesMariana.Infra.Arquivos.ModuloMateria;
 using TestesMariana.Infra.BancoDeDados;
 
 namespace TestesMariana.WinApp.ModuloQuestao
@@ -15,8 +13,8 @@ namespace TestesMariana.WinApp.ModuloQuestao
     public partial class TelaCadastroQuestaoForm : Form
     {
         private Questao _questao;
-        private RepositorioDisciplinaEmBancoDeDados _repositorioDisciplina;
-        private RepositorioMateriaEmBancoDeDados _repositorioMateria;
+        public List<Materia> Materias { get; set; }
+        public List<Disciplina> Disciplinas { get; set; }
 
         public Questao Questao
         {
@@ -29,18 +27,20 @@ namespace TestesMariana.WinApp.ModuloQuestao
                 _questao = value;
                 textBoxNumero.Text = _questao.Numero.ToString();
                 if(_questao.Disciplina != null)
-                    comboBoxDisciplinas.SelectedIndex = _questao.Disciplina.Numero;
-                comboBoxMaterias.SelectedItem = _questao.Materia;
+                    comboBoxDisciplinas.SelectedItem = Disciplinas.Where(x => x.Nome == _questao.Disciplina.Nome).Single();
+                if(_questao.Materia != null)
+                    comboBoxMaterias.SelectedItem = Materias.Where(x => x.Nome == _questao.Materia.Nome).Single();
+
                 textBoxEnunciado.Text = _questao.Enunciado;
                 PovoarAlternativas();
             }
         }
 
-        public TelaCadastroQuestaoForm(RepositorioDisciplinaEmBancoDeDados rd, RepositorioMateriaEmBancoDeDados rm)
+        public TelaCadastroQuestaoForm(List<Disciplina> disciplinas, List<Materia> materias)
         {
             InitializeComponent();
-            this._repositorioDisciplina = rd;
-            this._repositorioMateria = rm;
+            this.Disciplinas = disciplinas;
+            this.Materias = materias;
             PovoarDisciplinas();
             comboBoxDisciplinas.SelectedItem = 0;
         }
@@ -48,17 +48,15 @@ namespace TestesMariana.WinApp.ModuloQuestao
 
         public void PovoarDisciplinas()
         {
-            List<Disciplina> disciplinas = _repositorioDisciplina.SelecionarTodos();
-            foreach (var item in disciplinas)
+            foreach (var item in Disciplinas)
                 comboBoxDisciplinas.Items.Add(item);
         }
 
         public void PovoarMaterias(Disciplina disc)
         {
-            List<Materia> materias = _repositorioMateria.SelecionarTodos();
             List<Materia> materiasEspecificas = new();
 
-            foreach (var item in materias)
+            foreach (var item in Materias)
                 if (item.Disciplina.Nome == disc.Nome)
                     materiasEspecificas.Add(item);
 

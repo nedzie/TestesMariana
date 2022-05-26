@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using TestesMariana.Dominio.ModuloDisciplina;
+using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Dominio.ModuloQuestao;
 using TestesMariana.Infra.BancoDeDados;
 using TestesMariana.WinApp.Compartilhado;
@@ -27,7 +28,10 @@ namespace TestesMariana.WinApp.ModuloQuestao
 
         public override void Inserir()
         {
-            TelaCadastroQuestaoForm tela = new(_repositorioDisciplina, _repositorioMateria);
+            List<Disciplina> disciplinas = _repositorioDisciplina.SelecionarTodos();
+            List<Materia> materias = _repositorioMateria.SelecionarTodos();
+
+            TelaCadastroQuestaoForm tela = new(disciplinas, materias);
 
             tela.Questao = new Questao();
             tela.GravarRegistro = _repositorioQuestao.Inserir;
@@ -41,7 +45,9 @@ namespace TestesMariana.WinApp.ModuloQuestao
         public override void Editar()
         {
             List<Disciplina> disciplinas = _repositorioDisciplina.SelecionarTodos();
-            TelaCadastroQuestaoForm tela = new(_repositorioDisciplina, _repositorioMateria);
+            List<Materia> materias = _repositorioMateria.SelecionarTodos();
+
+            TelaCadastroQuestaoForm tela = new(disciplinas, materias);
 
             Questao questaoSelecionada = ObtemQuestaoSelecionada();
 

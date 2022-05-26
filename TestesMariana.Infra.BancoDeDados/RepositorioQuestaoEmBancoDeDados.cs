@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Dominio.ModuloQuestao;
@@ -44,11 +41,33 @@ namespace TestesMariana.Infra.BancoDeDados
                     @QUESTAO_ID
                 ); SELECT SCOPE_IDENTITY();";
 
-        private const string sqlEditar =
-            @"";
+        private const string sqlEditarQuestao =
+            @"UPDATE TB_QUESTAO
+                SET
+                    ENUNCIADO = @ENUNCIADO,
+                    MATERIA_ID = @MATERIA_ID,
+                    DISCIPLINA_ID = @DISCIPLINA_ID
+                WHERE
+                    NUMERO = @NUMERO";
 
-        private const string sqlExcluir =
-            @"";
+        private const string sqlEditarAlternativa =
+            @"UPDATE TB_ALTERNATIVA
+                SET
+                    OPCAO = @OPCAO,
+                    ESTA_CERTA = @ESTACERTA,
+                    QUESTAO_ID = @QUESTAO_ID
+                WHERE
+                    NUMERO = @NUMERO";
+
+        private const string sqlExcluirQuestao =
+            @"DELETE FROM TB_QUESTAO
+                WHERE
+                    NUMERO = @NUMERO";
+
+        private const string sqlExcluirAlternativas =
+            @"DELETE FROM TB_ALTERNATIVA
+                WHERE
+                    QUESTAO_ID = @NUMERO";
 
         private const string sqlSelecionarTodos =
             @"SELECT 
@@ -138,12 +157,21 @@ namespace TestesMariana.Infra.BancoDeDados
 
             SqlConnection conexaoComBanco = new(enderecoBanco);
 
-            SqlCommand comandoEdicao = new(sqlEditar, conexaoComBanco);
+            SqlCommand comandoEdicaoQuestao = new(sqlEditarQuestao, conexaoComBanco);
 
-            ConfigurarParametrosQuestao(Questao, comandoEdicao);
+            SqlCommand comandoEdicaoAlternativa = new(sqlEditarAlternativa, conexaoComBanco);
+
+            ConfigurarParametrosQuestao(Questao, comandoEdicaoQuestao);
+
+            foreach (var alternativa in Questao.Alternativas)
+            {
+                comandoEdicaoAlternativa.Parameters.Clear();
+                ConfirugarParametrosAlternativas(alternativa, Questao, comandoEdicaoAlternativa);
+                comandoEdicaoAlternativa.ExecuteNonQuery();
+            }
 
             conexaoComBanco.Open();
-            comandoEdicao.ExecuteNonQuery(); // Edita aqui
+            comandoEdicaoQuestao.ExecuteNonQuery(); // Edita aqui
             conexaoComBanco.Close();
 
             return resultado;
@@ -151,20 +179,26 @@ namespace TestesMariana.Infra.BancoDeDados
 
         public ValidationResult Excluir(Questao QuestaoSelecionada)
         {
-            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+            SqlConnection conexaoComBanco = new(enderecoBanco);
 
-            SqlCommand comandoExclusao = new SqlCommand(sqlExcluir, conexaoComBanco);
+            SqlCommand comandoExclusaoQuestao = new(sqlExcluirQuestao, conexaoComBanco);
 
-            comandoExclusao.Parameters.AddWithValue("NUMERO", QuestaoSelecionada.Numero);
+            SqlCommand comandoExclusaoAlternativas = new(sqlExcluirAlternativas, conexaoComBanco);
+
+            comandoExclusaoQuestao.Parameters.AddWithValue("NUMERO", QuestaoSelecionada.Numero);
+
+            comandoExclusaoAlternativas.Parameters.AddWithValue("NUMERO", QuestaoSelecionada.Numero);
 
             conexaoComBanco.Open();
 
-            int numeroRegistrosExcluidos = comandoExclusao.ExecuteNonQuery(); // Exclui aqui
+            int numeroRegistrosExcluidos = comandoExclusaoQuestao.ExecuteNonQuery(); // Exclui aqui
 
             var resultado = new ValidationResult();
 
             if (numeroRegistrosExcluidos == 0)
                 resultado.Errors.Add(new ValidationFailure("", "Não deu pra deletar"));
+            else
+                comandoExclusaoAlternativas.ExecuteNonQuery();
 
             conexaoComBanco.Close();
 
