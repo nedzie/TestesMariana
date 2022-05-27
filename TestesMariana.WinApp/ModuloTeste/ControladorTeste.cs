@@ -50,7 +50,7 @@ namespace TestesMariana.WinApp.ModuloTeste
 
             if (testeSelecionado == null)
             {
-                TelaPrincipalForm.Instancia!.AtualizarRodape("Selecione uma questão!");
+                TelaPrincipalForm.Instancia!.AtualizarRodape("Selecione um teste!");
                 return;
             }
             tela.Teste = testeSelecionado.Clone();
@@ -68,7 +68,7 @@ namespace TestesMariana.WinApp.ModuloTeste
 
             if (testeSelecionado == null)
             {
-                TelaPrincipalForm.Instancia!.AtualizarRodape("Selecione uma questão!");
+                TelaPrincipalForm.Instancia!.AtualizarRodape("Selecione um teste!");
                 return;
             }
 
@@ -104,7 +104,7 @@ namespace TestesMariana.WinApp.ModuloTeste
             List<Teste> questoes = _repositorioTeste.SelecionarTodos();
             _tabelaTeste!.AtualizarRegistros(questoes);
 
-            TelaPrincipalForm.Instancia!.AtualizarRodape($"Visualizando {questoes.Count} questão(ões)");
+            TelaPrincipalForm.Instancia!.AtualizarRodape(questoes.Count > 1 ? $"Visualizando {questoes.Count} testes." : $"Visualizando {questoes.Count} testes.");
         }
 
         private Teste ObtemTesteSelecionado()

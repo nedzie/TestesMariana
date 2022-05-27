@@ -10,12 +10,11 @@ namespace TestesMariana.Dominio.ModuloTeste
     public class Teste : EntidadeBase<Teste>
     {
         public string Nome { get; set; }
+        public int QtdeQuestoes { get; set; }
         public Disciplina Disciplina { get; set; }
         public Materia Materia { get; set; }
-        public int QtdeQuestoes { get; set; }
         public List<Questao> Questoes { get; set; }
         public DateTime Data { get; set; }
-
 
         public Teste()
         {

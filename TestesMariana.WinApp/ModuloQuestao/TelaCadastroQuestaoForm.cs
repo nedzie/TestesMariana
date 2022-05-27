@@ -32,6 +32,8 @@ namespace TestesMariana.WinApp.ModuloQuestao
                     comboBoxMaterias.SelectedItem = Materias.Where(x => x.Nome == _questao.Materia.Nome).Single();
 
                 textBoxEnunciado.Text = _questao.Enunciado;
+
+                //checkedListBoxAlternativas.Items.Add
                 PovoarAlternativas();
             }
         }

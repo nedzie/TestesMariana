@@ -109,6 +109,17 @@ namespace TestesMariana.Infra.BancoDeDados
                 WHERE
                     Q.NUMERO = @NUMERO";
 
+        private const string sqlSelecionarAlternativasDaQuestao =
+            @"SELECT
+                    A.NUMERO AS NUMERO,
+	                A.OPCAO AS OPCAO,
+	                A.ESTA_CERTA AS CORRETA,
+                    Q.NUMERO AS NUMEROQUESTAO
+                FROM 
+	                TB_QUESTAO AS Q
+                INNER JOIN TB_ALTERNATIVA AS A
+	                ON A.QUESTAO_ID = Q.NUMERO";
+
         public ValidationResult Inserir(Questao novaQuestao)
         {
             var validador = new ValidadorQuestao();
@@ -163,6 +174,8 @@ namespace TestesMariana.Infra.BancoDeDados
 
             ConfigurarParametrosQuestao(Questao, comandoEdicaoQuestao);
 
+            conexaoComBanco.Open();
+
             foreach (var alternativa in Questao.Alternativas)
             {
                 comandoEdicaoAlternativa.Parameters.Clear();
@@ -170,7 +183,6 @@ namespace TestesMariana.Infra.BancoDeDados
                 comandoEdicaoAlternativa.ExecuteNonQuery();
             }
 
-            conexaoComBanco.Open();
             comandoEdicaoQuestao.ExecuteNonQuery(); // Edita aqui
             conexaoComBanco.Close();
 
@@ -248,6 +260,48 @@ namespace TestesMariana.Infra.BancoDeDados
 
             return Questao;
         }
+
+        public List<Alternativa> AdicionarAlternativas(int numero)
+        {
+            SqlConnection conexaoComBanco = new(enderecoBanco);
+
+            SqlCommand comandoSelecaoAlternativas = new(sqlSelecionarAlternativasDaQuestao,conexaoComBanco);
+
+            comandoSelecaoAlternativas.Parameters.AddWithValue("NUMERO", numero);
+
+            conexaoComBanco.Open();
+
+            SqlDataReader leitor = comandoSelecaoAlternativas.ExecuteReader();
+
+            List<Alternativa> alternativas = new();
+            while (leitor.Read())
+                alternativas.Add(ConverterParaAlternativas(leitor));
+
+            conexaoComBanco.Close();
+
+            return alternativas;
+        }
+
+        private Alternativa ConverterParaAlternativas(SqlDataReader leitor)
+        {
+            int numero = Convert.ToInt32(leitor["NUMERO"]);
+            string opcao = Convert.ToString(leitor["OPCAO"]);
+            bool estaCerta = Convert.ToBoolean(leitor["CORRETA"]);
+
+            int numeroQuestao = Convert.ToInt32(leitor["NUMEROQUESTAO"]);
+
+            return new Alternativa
+            {
+                Numero = numero,
+                Opcao = opcao,
+                EstaCerta = estaCerta,
+                Questao = new Questao
+                {
+                    Numero = numeroQuestao,
+                }
+            };
+        }
+
         private Questao ConverterParaQuestao(SqlDataReader leitor)
         {
             int numero = Convert.ToInt32(leitor["NUMERO"]); // Isso vem da área 'Select...' dos comando SQL Sel. Todos/Por número
@@ -261,12 +315,15 @@ namespace TestesMariana.Infra.BancoDeDados
             m.Numero = Convert.ToInt32(leitor["NUMEROMATERIA"]);
             m.Nome = Convert.ToString(leitor["NOMEMATERIA"]);
 
+            List<Alternativa> alternativas = AdicionarAlternativas(numero);
+
             return new Questao
             {
                 Numero = numero,
                 Enunciado = enunciado,
                 Disciplina = d,
-                Materia = m
+                Materia = m,
+                Alternativas = alternativas
             };
         }
 

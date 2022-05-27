@@ -6,7 +6,6 @@ using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Dominio.ModuloQuestao;
 using TestesMariana.Infra.BancoDeDados;
 using TestesMariana.WinApp.Compartilhado;
-using TestesMariana.WinApp.ModuloMateria;
 
 namespace TestesMariana.WinApp.ModuloQuestao
 {
@@ -107,7 +106,7 @@ namespace TestesMariana.WinApp.ModuloQuestao
             List<Questao> questoes = _repositorioQuestao.SelecionarTodos();
             _tabelaQuestao!.AtualizarRegistros(questoes);
 
-            TelaPrincipalForm.Instancia!.AtualizarRodape($"Visualizando {questoes.Count} questão(ões)");
+            TelaPrincipalForm.Instancia!.AtualizarRodape(questoes.Count > 1 ? $"Visualizando {questoes.Count} questões" : $"Visualizando {questoes.Count} questão");
         }
 
         private Questao ObtemQuestaoSelecionada()

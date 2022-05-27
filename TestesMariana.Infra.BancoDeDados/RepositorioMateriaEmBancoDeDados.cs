@@ -23,7 +23,7 @@ namespace TestesMariana.Infra.BancoDeDados
                 ); SELECT SCOPE_IDENTITY();";
 
         private const string sqlEditar =
-            @"UPDATE [tb_materia]
+            @"UPDATE [TB_MATERIA]
                 SET
                     [NOME] = @NOME,
                     [SERIE] = @SERIE,
@@ -32,7 +32,7 @@ namespace TestesMariana.Infra.BancoDeDados
                     [NUMERO] = @NUMERO";
 
         private const string sqlExcluir =
-            @"DELETE FROM [tb_materia]
+            @"DELETE FROM [TB_MATERIA]
                 WHERE
                     [NUMERO] = @NUMERO";
 
