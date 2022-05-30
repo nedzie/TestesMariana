@@ -6,7 +6,6 @@ using System.Windows.Forms;
 using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Dominio.ModuloQuestao;
-using TestesMariana.Infra.BancoDeDados;
 
 namespace TestesMariana.WinApp.ModuloQuestao
 {
@@ -26,6 +25,7 @@ namespace TestesMariana.WinApp.ModuloQuestao
             {
                 _questao = value;
                 textBoxNumero.Text = _questao.Numero.ToString();
+
                 if(_questao.Disciplina != null)
                     comboBoxDisciplinas.SelectedItem = Disciplinas.Where(x => x.Nome == _questao.Disciplina.Nome).Single();
                 if(_questao.Materia != null)
@@ -33,7 +33,6 @@ namespace TestesMariana.WinApp.ModuloQuestao
 
                 textBoxEnunciado.Text = _questao.Enunciado;
 
-                //checkedListBoxAlternativas.Items.Add
                 PovoarAlternativas();
             }
         }
@@ -134,6 +133,9 @@ namespace TestesMariana.WinApp.ModuloQuestao
                     }
                 }
             }
+
+            if (checkedListBoxAlternativas.Items.Count == 4)
+                buttonAdicionar.Enabled = false;
         }
 
         private void checkedListBoxAlternativas_SelectedIndexChanged(object sender, EventArgs e)

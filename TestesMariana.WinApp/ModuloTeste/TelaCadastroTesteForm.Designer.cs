@@ -196,6 +196,7 @@
             this.checkBoxRecuperacao.TabIndex = 48;
             this.checkBoxRecuperacao.Text = "Recuperação?";
             this.checkBoxRecuperacao.UseVisualStyleBackColor = true;
+            this.checkBoxRecuperacao.CheckedChanged += new System.EventHandler(this.checkBoxRecuperacao_CheckedChanged);
             // 
             // buttonQuestoes
             // 

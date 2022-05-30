@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using TestesMariana.Dominio.ModuloTeste;
-using TestesMariana.Infra.Arquivos.ModuloDisciplina;
-using TestesMariana.Infra.Arquivos.ModuloMateria;
-using TestesMariana.Infra.Arquivos.ModuloQuestao;
-using TestesMariana.Infra.Arquivos.ModuloTeste;
 using TestesMariana.Infra.BancoDeDados;
 using TestesMariana.WinApp.Compartilhado;
 
@@ -13,14 +9,14 @@ namespace TestesMariana.WinApp.ModuloTeste
 {
     public class ControladorTeste : ControladorBase
     {
-        private RepositorioTesteEmArquivo _repositorioTeste;
+        private RepositorioTesteEmBancoDeDados _repositorioTeste;
         private RepositorioDisciplinaEmBancoDeDados _repositorioDisciplina;
         private RepositorioMateriaEmBancoDeDados _repositorioMateria;
         private RepositorioQuestaoEmBancoDeDados _repositorioQuestao;
 
         private TabelaTesteControl _tabelaTeste;
 
-        public ControladorTeste(RepositorioTesteEmArquivo rt, RepositorioDisciplinaEmBancoDeDados rd, RepositorioMateriaEmBancoDeDados rm, RepositorioQuestaoEmBancoDeDados rq)
+        public ControladorTeste(RepositorioTesteEmBancoDeDados rt, RepositorioDisciplinaEmBancoDeDados rd, RepositorioMateriaEmBancoDeDados rm, RepositorioQuestaoEmBancoDeDados rq)
         {
             this._repositorioTeste = rt;
             this._repositorioDisciplina = rd;
@@ -43,7 +39,7 @@ namespace TestesMariana.WinApp.ModuloTeste
 
         public override void Editar()
         {
-            List<Teste> testes = _repositorioTeste.ObterRegistros();
+            List<Teste> testes = _repositorioTeste.SelecionarTodos();
             TelaCadastroTesteForm tela = new(_repositorioTeste, _repositorioDisciplina, _repositorioMateria, _repositorioQuestao);
 
             Teste testeSelecionado = ObtemTesteSelecionado();

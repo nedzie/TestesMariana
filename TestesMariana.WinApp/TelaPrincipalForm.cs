@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using TestesMariana.Infra.Arquivos.Compartilhado;
-using TestesMariana.Infra.Arquivos.ModuloDisciplina;
-using TestesMariana.Infra.Arquivos.ModuloMateria;
-using TestesMariana.Infra.Arquivos.ModuloQuestao;
-using TestesMariana.Infra.Arquivos.ModuloTeste;
 using TestesMariana.Infra.BancoDeDados;
 using TestesMariana.WinApp.Compartilhado;
 using TestesMariana.WinApp.ModuloDisciplina;
@@ -19,11 +15,9 @@ namespace TestesMariana.WinApp
     {
         private ControladorBase? controlador;
         private Dictionary<string, ControladorBase>? controladores;
-        private DataContext? contextoDados;
-        public TelaPrincipalForm(DataContext contextoDados)
+        public TelaPrincipalForm()
         {
             InitializeComponent();
-            this.contextoDados = contextoDados;
 
             Instancia = this;
 
@@ -38,7 +32,7 @@ namespace TestesMariana.WinApp
             var repositorioDisciplina = new RepositorioDisciplinaEmBancoDeDados();
             var repositorioMateria = new RepositorioMateriaEmBancoDeDados();
             var repositorioQuestao = new RepositorioQuestaoEmBancoDeDados();
-            var repositorioTeste = new RepositorioTesteEmArquivo(contextoDados);
+            var repositorioTeste = new RepositorioTesteEmBancoDeDados();
 
             controladores = new Dictionary<string, ControladorBase>();
 

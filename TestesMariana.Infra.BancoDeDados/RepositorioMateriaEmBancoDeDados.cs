@@ -77,7 +77,6 @@ namespace TestesMariana.Infra.BancoDeDados
             if (!resultado.IsValid)
                 return resultado;
 
-
             SqlConnection conexaoComBanco = new(enderecoBanco);
 
             SqlCommand comandoInsercao = new(sqlInserir, conexaoComBanco); // Aqui cria
