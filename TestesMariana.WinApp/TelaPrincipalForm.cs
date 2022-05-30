@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using TestesMariana.Infra.Arquivos.Compartilhado;
-using TestesMariana.Infra.BancoDeDados;
+using TestesMariana.Infra.BancoDeDados.ModuloDisciplina;
+using TestesMariana.Infra.BancoDeDados.ModuloMateria;
+using TestesMariana.Infra.BancoDeDados.ModuloQuestao;
+using TestesMariana.Infra.BancoDeDados.ModuloTeste;
 using TestesMariana.WinApp.Compartilhado;
 using TestesMariana.WinApp.ModuloDisciplina;
 using TestesMariana.WinApp.ModuloMateria;
@@ -147,11 +149,10 @@ namespace TestesMariana.WinApp
         {
 
         }
-        private void buttonDuplicar_ButtonClick(object sender, EventArgs e)
+        private void buttonDuplicar_Click(object sender, EventArgs e)
         {
-
+            controlador!.Duplicar();
         }
-
 
         #endregion
 

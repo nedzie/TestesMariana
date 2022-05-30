@@ -4,7 +4,9 @@ using System.Windows.Forms;
 using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Dominio.ModuloQuestao;
-using TestesMariana.Infra.BancoDeDados;
+using TestesMariana.Infra.BancoDeDados.ModuloDisciplina;
+using TestesMariana.Infra.BancoDeDados.ModuloMateria;
+using TestesMariana.Infra.BancoDeDados.ModuloQuestao;
 using TestesMariana.WinApp.Compartilhado;
 
 namespace TestesMariana.WinApp.ModuloQuestao

@@ -7,8 +7,10 @@ using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Dominio.ModuloQuestao;
 using TestesMariana.Dominio.ModuloTeste;
-using TestesMariana.Infra.Arquivos.ModuloTeste;
-using TestesMariana.Infra.BancoDeDados;
+using TestesMariana.Infra.BancoDeDados.ModuloDisciplina;
+using TestesMariana.Infra.BancoDeDados.ModuloMateria;
+using TestesMariana.Infra.BancoDeDados.ModuloQuestao;
+using TestesMariana.Infra.BancoDeDados.ModuloTeste;
 
 namespace TestesMariana.WinApp.ModuloTeste
 {
@@ -17,6 +19,9 @@ namespace TestesMariana.WinApp.ModuloTeste
         private Teste _teste;
         private RepositorioTesteEmBancoDeDados _repositorioTeste;
         private RepositorioDisciplinaEmBancoDeDados _repositorioDisciplina;
+        List<Disciplina> Disciplinas;
+        List<Materia> Materias;
+        List<Questao> Questoes;
         private RepositorioMateriaEmBancoDeDados _repositorioMateria;
         private RepositorioQuestaoEmBancoDeDados _repositorioQuestao;
 
@@ -29,10 +34,16 @@ namespace TestesMariana.WinApp.ModuloTeste
             set
             {
                 _teste = value;
+
                 textBoxNumero.Text = _teste.Numero.ToString();
+
                 textBoxNome.Text = _teste.Nome;
-                comboBoxDisciplinas.SelectedItem = _teste.Disciplina;
-                comboBoxMaterias.SelectedItem = _teste.Materia;
+                if (_teste.Disciplina != null)
+                    comboBoxDisciplinas.SelectedItem = Disciplinas.Where(x => x.Nome == _teste.Disciplina.Nome).Single();
+
+                if (_teste.Materia != null)
+                    comboBoxMaterias.SelectedItem = Materias.Where(x => x.Nome == _teste.Materia.Nome).Single();
+
                 if (_teste.Data != DateTime.MinValue)
                     maskedTextBoxData.Text = _teste.Data.ToString();
                 else
@@ -41,13 +52,13 @@ namespace TestesMariana.WinApp.ModuloTeste
                 textBoxQtdeQuestoes.Text = _teste.QtdeQuestoes.ToString();
             }
         }
-        public TelaCadastroTesteForm(RepositorioTesteEmBancoDeDados rt, RepositorioDisciplinaEmBancoDeDados rd, RepositorioMateriaEmBancoDeDados rm, RepositorioQuestaoEmBancoDeDados rq)
+
+        public TelaCadastroTesteForm(List<Disciplina> disciplinas, List<Materia> materias, List<Questao> questoes)
         {
             InitializeComponent();
-            this._repositorioTeste = rt;
-            this._repositorioDisciplina = rd;
-            this._repositorioMateria = rm;
-            this._repositorioQuestao = rq;
+            Disciplinas = disciplinas;
+            Materias = materias;
+            Questoes = questoes;
             PovoarDisciplinas();
         }
 
@@ -55,16 +66,13 @@ namespace TestesMariana.WinApp.ModuloTeste
 
         public void PovoarDisciplinas()
         {
-            List<Disciplina> disciplinas = _repositorioDisciplina.SelecionarTodos();
-            foreach (var item in disciplinas)
+            foreach (var item in Disciplinas)
                 comboBoxDisciplinas.Items.Add(item);
         }
 
         public void PovoarMaterias(Disciplina disc)
         {
-            List<Materia> materias = _repositorioMateria.SelecionarTodos();
-
-            foreach (var item in materias)
+            foreach (var item in Materias)
                 if (item.Disciplina.Nome == disc.Nome)
                     comboBoxMaterias.Items.Add(item);
         }
@@ -88,9 +96,53 @@ namespace TestesMariana.WinApp.ModuloTeste
 
             Teste.QtdeQuestoes = int.Parse(textBoxQtdeQuestoes.Text);
 
-            List<Questao> questoes = QuestoesAdicionadas;
+            int qtde = int.Parse(textBoxQtdeQuestoes.Text);
+            Disciplina disciplinaSelecionada = (Disciplina)comboBoxDisciplinas.SelectedItem;
 
-            Teste.AdicionarQuestoes(questoes);
+            int questoes = Questoes.FindAll(x => x.Disciplina.Nome == disciplinaSelecionada.Nome).Count;
+
+            if (qtde > questoes)  //TODO: Encontrar uma solução melhor pra isso
+            {
+                MessageBox.Show("O número escolhido de questões excede o número de questões cadastradas para essa situação!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Random rnd = new();
+            if (!checkBoxRecuperacao.Checked)
+            {
+                Materia m = (Materia)comboBoxMaterias.SelectedItem;
+
+                List<Questao> perm = Questoes.FindAll(x => x.Materia.Nome == m.Nome);
+
+                for (int i = 0; i < qtde; i++)
+                {
+                    int y = rnd.Next(0, perm.Count - 1);
+
+                    if (Teste.Questoes.Exists(x => x.Equals(perm[y]) == false) && Teste.Questoes.Count > 1)
+                        Teste.Questoes.Add(perm[y]);
+                    else if (Teste.Questoes.Count == 0)
+                        Teste.Questoes.Add(perm[y]);
+                    else
+                        i--;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < qtde; i++)
+                {
+                    int y = rnd.Next(0, Questoes.Count - 1);
+
+                    if (Teste.Questoes.Count < 1) // Se for o primeiro registro
+                        Teste.Questoes.Add(Questoes[y]);
+                    else if (Teste.Questoes.Contains(Questoes[y])) // Se não for, verifica se já existe
+                    {
+                        i--;
+                        continue;
+                    }
+                    else
+                        Teste.Questoes.Add(Questoes[y]); // Se não existe, adiciona
+                }
+            }
 
             var resultadoValidacao = GravarRegistro!(Teste);
 
@@ -103,6 +155,7 @@ namespace TestesMariana.WinApp.ModuloTeste
                 DialogResult = DialogResult.None;
             }
         }
+
         private void comboBoxDisciplinas_SelectedValueChanged(object sender, EventArgs e)
         {
             comboBoxMaterias.Items.Clear();
@@ -116,54 +169,13 @@ namespace TestesMariana.WinApp.ModuloTeste
         {
             listBoxQuestoes.Items.Clear();
 
-            List<Questao> temp = _repositorioQuestao.SelecionarTodos();
+            //List<Questao> temp = _repositorioQuestao.SelecionarTodos();
 
-            List<Questao> perm = temp.FindAll(x => x.Materia.Nome == comboBoxMaterias.SelectedItem.ToString());
+            List<Questao> perm = Questoes.FindAll(x => x.Materia.Nome == comboBoxMaterias.SelectedItem.ToString());
 
             foreach (var item in perm)
                 listBoxQuestoes.Items.Add(item);
 
-        }
-
-        private void buttonQuestoes_Click(object sender, EventArgs e)
-        {
-            int qtde = int.Parse(textBoxQtdeQuestoes.Text);
-
-            if (qtde > listBoxQuestoes.Items.Count)
-            {
-                TelaPrincipalForm.Instancia!.AtualizarRodape("Quantia de questões excedida!");
-                return;
-            }
-
-            Random rnd = new();
-            if (!checkBoxRecuperacao.Checked)
-            {
-                Materia m = (Materia)comboBoxMaterias.SelectedItem;
-
-                List<Questao> temp = _repositorioQuestao.SelecionarTodos();
-                List<Questao> perm = temp.FindAll(x => x.Materia.Nome == m.Nome);
-
-                for (int i = 0; i < qtde; i++)
-                {
-                    int y = rnd.Next(perm.Count - 1);
-                    Teste.AdicionarQuestao(perm[y]);
-                }
-            }
-        }
-
-        private void checkBoxRecuperacao_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxRecuperacao.Checked)
-            {
-                textBoxQtdeQuestoes.Clear();
-                textBoxQtdeQuestoes.Enabled = false;
-                buttonQuestoes.Enabled = false;
-            }
-            else
-            {
-                textBoxQtdeQuestoes.Enabled = true;
-                buttonQuestoes.Enabled = true;
-            }
         }
     }
 }

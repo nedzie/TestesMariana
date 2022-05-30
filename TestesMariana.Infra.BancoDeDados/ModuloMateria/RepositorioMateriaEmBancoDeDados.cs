@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
 
-namespace TestesMariana.Infra.BancoDeDados
+namespace TestesMariana.Infra.BancoDeDados.ModuloMateria
 {
     public class RepositorioMateriaEmBancoDeDados
     {
@@ -49,8 +49,8 @@ namespace TestesMariana.Infra.BancoDeDados
                          DBO.TB_MATERIA AS M 
                 ON D.NUMERO = M.DISCIPLINA_ID";
 
-                // tb_disciplina "D" innerjoineia tb_materia "M" em "ON" que é a condição, ou seja, mostre o nome ao invés do número
-                // onde tb_materia.disciplina_id (FK) seja igual a alguma tb_disciplina.disciplina_id (PK)
+        // tb_disciplina "D" innerjoineia tb_materia "M" em "ON" que é a condição, ou seja, mostre o nome ao invés do número
+        // onde tb_materia.disciplina_id (FK) seja igual a alguma tb_disciplina.disciplina_id (PK)
 
         private const string sqlSelecionarPorNumero =
             @"SELECT        

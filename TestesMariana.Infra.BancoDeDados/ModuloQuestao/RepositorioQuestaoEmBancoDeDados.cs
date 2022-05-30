@@ -6,7 +6,7 @@ using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Dominio.ModuloQuestao;
 
-namespace TestesMariana.Infra.BancoDeDados
+namespace TestesMariana.Infra.BancoDeDados.ModuloQuestao
 {
     public class RepositorioQuestaoEmBancoDeDados
     {
@@ -118,7 +118,9 @@ namespace TestesMariana.Infra.BancoDeDados
                 FROM 
 	                TB_QUESTAO AS Q
                 INNER JOIN TB_ALTERNATIVA AS A
-	                ON A.QUESTAO_ID = Q.NUMERO";
+	                ON A.QUESTAO_ID = Q.NUMERO
+                WHERE
+                    QUESTAO_ID = @NUMERO";
 
         public ValidationResult Inserir(Questao novaQuestao)
         {
@@ -265,7 +267,7 @@ namespace TestesMariana.Infra.BancoDeDados
         {
             SqlConnection conexaoComBanco = new(enderecoBanco);
 
-            SqlCommand comandoSelecaoAlternativas = new(sqlSelecionarAlternativasDaQuestao,conexaoComBanco);
+            SqlCommand comandoSelecaoAlternativas = new(sqlSelecionarAlternativasDaQuestao, conexaoComBanco);
 
             comandoSelecaoAlternativas.Parameters.AddWithValue("NUMERO", numero);
 

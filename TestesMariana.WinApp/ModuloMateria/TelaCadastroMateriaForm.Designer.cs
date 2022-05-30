@@ -102,6 +102,7 @@
             // 
             // comboBoxDisciplinas
             // 
+            this.comboBoxDisciplinas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDisciplinas.FormattingEnabled = true;
             this.comboBoxDisciplinas.Location = new System.Drawing.Point(83, 82);
             this.comboBoxDisciplinas.Name = "comboBoxDisciplinas";
@@ -128,6 +129,7 @@
             // 
             // comboBoxSeries
             // 
+            this.comboBoxSeries.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSeries.FormattingEnabled = true;
             this.comboBoxSeries.Items.AddRange(new object[] {
             "1ª Série",

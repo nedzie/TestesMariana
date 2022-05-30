@@ -7,7 +7,7 @@ using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Dominio.ModuloQuestao;
 using TestesMariana.Dominio.ModuloTeste;
 
-namespace TestesMariana.Infra.BancoDeDados
+namespace TestesMariana.Infra.BancoDeDados.ModuloTeste
 {
     public class RepositorioTesteEmBancoDeDados
     {
@@ -44,11 +44,24 @@ namespace TestesMariana.Infra.BancoDeDados
                     @QUESTAO_ID
                 )";
 
-        private const string sqlEditar =
-            @"";
+        private const string sqlEditarTeste =
+            @"UPDATE TB_TESTE
+                SET
+                    NOME = @NOME,
+                    QUANTIDADE_QUESTOES = @QUANTIDADE_QUESTOES,
+                    DISCIPLINA_ID = @DISCIPLINA_ID,
+                    MATERIA_ID = @MATERIA_ID,
+                    DATA_CRIACAO = DATA_CRIACAO";
 
         private const string sqlExcluir =
-            @"";
+            @"DELETE FROM TB_TESTE
+                WHERE
+                    NUMERO = @NUMERO";
+
+        private const string sqlExcluirTabelaNN =
+            @"DELETE FROM TB_TESTE_QUESTAO
+                WHERE
+                    TESTE_ID = @NUMERO";
 
         private const string sqlSelecionarTodos =
             @"SELECT
@@ -62,14 +75,36 @@ namespace TestesMariana.Infra.BancoDeDados
 	            T.DATA_CRIACAO AS DATA_CRIACAO
             FROM
 	            TB_TESTE AS T
-	            INNER JOIN tb_disciplina AS D
-	            ON T.DISCIPLINA_ID = D.Numero
+	            INNER JOIN TB_DISCIPLINA AS D
+	            ON T.DISCIPLINA_ID = D.NUMERO
 	            INNER JOIN TB_MATERIA AS M
 	            ON T.MATERIA_ID = M.NUMERO";
 
         private const string sqlSelecionarPorNumero =
-            @"";
+            @"SELECT
+	            T.NOME AS NOME,
+                T.NUMERO AS NUMERO,
+	            D.NOME AS NOMEDISCIPLINA,
+	            D.NUMERO AS NUMERODISCIPLINA,
+	            M.NOME AS NOMEMATERIA,
+	            M.NUMERO AS NUMEROMATERIA,
+	            T.QUANTIDADE_QUESTOES AS QUANTIDADE_QUESTOES,
+	            T.DATA_CRIACAO AS DATA_CRIACAO
+            FROM
+	            TB_TESTE AS T
+	            INNER JOIN TB_DISCIPLINA AS D
+	            ON T.DISCIPLINA_ID = D.Numero
+	            INNER JOIN TB_MATERIA AS M
+	            ON T.MATERIA_ID = M.NUMERO
+            WHERE
+                T.NUMERO = @NUMERO";
 
+        private const string sqlPegarMaiorId =
+            @"SELECT 
+                TOP 1 NUMERO 
+            FROM 
+                TB_TESTE 
+            ORDER BY NUMERO DESC";
 
         public ValidationResult Inserir(Teste novoTeste)
         {
@@ -106,12 +141,6 @@ namespace TestesMariana.Infra.BancoDeDados
             return resultado;
         }
 
-        private void ConfigurarRegistroMultivalorado(Questao questao, Teste novoTeste, SqlCommand comandoInserirNParaN)
-        {
-            comandoInserirNParaN.Parameters.AddWithValue("TESTE_ID", novoTeste.Numero);
-            comandoInserirNParaN.Parameters.AddWithValue("QUESTAO_ID", questao.Numero);
-        }
-
         public ValidationResult Editar(Teste materia)
         {
             var validador = new ValidadorTeste();
@@ -123,7 +152,7 @@ namespace TestesMariana.Infra.BancoDeDados
 
             SqlConnection conexaoComBanco = new(enderecoBanco);
 
-            SqlCommand comandoEdicao = new(sqlEditar, conexaoComBanco);
+            SqlCommand comandoEdicao = new(sqlEditarTeste, conexaoComBanco);
 
             ConfigurarParametrosTeste(materia, comandoEdicao);
 
@@ -138,22 +167,44 @@ namespace TestesMariana.Infra.BancoDeDados
         {
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
 
-            SqlCommand comandoExclusao = new SqlCommand(sqlExcluir, conexaoComBanco);
+            SqlCommand comandoExclusaoTeste = new SqlCommand(sqlExcluir, conexaoComBanco);
 
-            comandoExclusao.Parameters.AddWithValue("NUMERO", materiaSelecionada.Numero);
+            SqlCommand comandoExclusaoNN = new(sqlExcluirTabelaNN, conexaoComBanco);
+
+            comandoExclusaoTeste.Parameters.AddWithValue("NUMERO", materiaSelecionada.Numero);
+
+            comandoExclusaoNN.Parameters.AddWithValue("NUMERO", materiaSelecionada.Numero);
 
             conexaoComBanco.Open();
 
-            int numeroRegistrosExcluidos = comandoExclusao.ExecuteNonQuery(); // Exclui aqui
+            int numeroRegistrosExcluidos = comandoExclusaoTeste.ExecuteNonQuery(); // Exclui aqui
 
             var resultado = new ValidationResult();
 
             if (numeroRegistrosExcluidos == 0)
                 resultado.Errors.Add(new ValidationFailure("", "Não deu pra deletar"));
+            else
+                comandoExclusaoNN.ExecuteNonQuery();
 
             conexaoComBanco.Close();
 
             return resultado;
+        }
+
+        public void Duplicar(Teste testeParaDuplicar)
+        {
+            SqlConnection conexaoComBanco = new(enderecoBanco);
+
+            SqlCommand comandoDuplicar = new(sqlPegarMaiorId, conexaoComBanco);
+
+            ConfigurarParametrosTeste(testeParaDuplicar, comandoDuplicar);
+
+            conexaoComBanco.Open();
+
+            var id = comandoDuplicar.ExecuteScalar();
+            testeParaDuplicar.Numero = Convert.ToInt32(id);
+
+            conexaoComBanco.Close();
         }
 
         public List<Teste> SelecionarTodos()
@@ -215,8 +266,6 @@ namespace TestesMariana.Infra.BancoDeDados
             m.Numero = Convert.ToInt32(leitor["NUMEROMATERIA"]);
             m.Nome = Convert.ToString(leitor["NOMEMATERIA"]);
 
-
-
             return new Teste
             {
                 Numero = numero,
@@ -238,6 +287,12 @@ namespace TestesMariana.Infra.BancoDeDados
 
             comando.Parameters.AddWithValue("DISCIPLINA_ID", teste.Disciplina.Numero);
             comando.Parameters.AddWithValue("MATERIA_ID", teste.Materia.Numero);
+        }
+
+        private void ConfigurarRegistroMultivalorado(Questao questao, Teste novoTeste, SqlCommand comandoInserirNParaN)
+        {
+            comandoInserirNParaN.Parameters.AddWithValue("TESTE_ID", novoTeste.Numero);
+            comandoInserirNParaN.Parameters.AddWithValue("QUESTAO_ID", questao.Numero);
         }
     }
 }

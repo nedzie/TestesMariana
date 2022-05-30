@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestesMariana.Dominio.ModuloDisciplina;
 
-namespace TestesMariana.Infra.BancoDeDados
+namespace TestesMariana.Infra.BancoDeDados.ModuloDisciplina
 {
     public class RepositorioDisciplinaEmBancoDeDados
     {
@@ -135,7 +135,7 @@ namespace TestesMariana.Infra.BancoDeDados
 
             List<Disciplina> disciplinas = new List<Disciplina>();
 
-            while(leitor.Read())
+            while (leitor.Read())
             {
                 Disciplina disciplina = ConverterParaDisciplina(leitor);
                 disciplinas.Add(disciplina);
@@ -159,7 +159,7 @@ namespace TestesMariana.Infra.BancoDeDados
 
             Disciplina disciplina = new();
 
-            if(leitor.Read())
+            if (leitor.Read())
                 disciplina = ConverterParaDisciplina(leitor);
 
             conexaoComBanco.Close();

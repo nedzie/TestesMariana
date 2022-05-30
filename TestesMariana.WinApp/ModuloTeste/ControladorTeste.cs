@@ -1,8 +1,14 @@
 ﻿using FluentValidation.Results;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using TestesMariana.Dominio.ModuloDisciplina;
+using TestesMariana.Dominio.ModuloMateria;
+using TestesMariana.Dominio.ModuloQuestao;
 using TestesMariana.Dominio.ModuloTeste;
-using TestesMariana.Infra.BancoDeDados;
+using TestesMariana.Infra.BancoDeDados.ModuloDisciplina;
+using TestesMariana.Infra.BancoDeDados.ModuloMateria;
+using TestesMariana.Infra.BancoDeDados.ModuloQuestao;
+using TestesMariana.Infra.BancoDeDados.ModuloTeste;
 using TestesMariana.WinApp.Compartilhado;
 
 namespace TestesMariana.WinApp.ModuloTeste
@@ -26,7 +32,11 @@ namespace TestesMariana.WinApp.ModuloTeste
 
         public override void Inserir()
         {
-            TelaCadastroTesteForm tela = new(_repositorioTeste, _repositorioDisciplina, _repositorioMateria, _repositorioQuestao);
+            List<Disciplina> Disciplinas = _repositorioDisciplina.SelecionarTodos();
+            List<Materia> Materias = _repositorioMateria.SelecionarTodos();
+            List<Questao> Questoes = _repositorioQuestao.SelecionarTodos();
+
+            TelaCadastroTesteForm tela = new(Disciplinas, Materias, Questoes);
 
             tela.Teste = new();
             tela.GravarRegistro = _repositorioTeste.Inserir;
@@ -40,7 +50,11 @@ namespace TestesMariana.WinApp.ModuloTeste
         public override void Editar()
         {
             List<Teste> testes = _repositorioTeste.SelecionarTodos();
-            TelaCadastroTesteForm tela = new(_repositorioTeste, _repositorioDisciplina, _repositorioMateria, _repositorioQuestao);
+            List<Disciplina> Disciplinas = _repositorioDisciplina.SelecionarTodos();
+            List<Materia> Materias = _repositorioMateria.SelecionarTodos();
+            List<Questao> Questoes = _repositorioQuestao.SelecionarTodos();
+
+            TelaCadastroTesteForm tela = new(Disciplinas, Materias, Questoes);
 
             Teste testeSelecionado = ObtemTesteSelecionado();
 
@@ -68,7 +82,7 @@ namespace TestesMariana.WinApp.ModuloTeste
                 return;
             }
 
-            DialogResult res = MessageBox.Show("Excluir questão?",
+            DialogResult res = MessageBox.Show("Excluir teste?",
                 "Excluir", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
             if (res == DialogResult.OK)
@@ -78,6 +92,13 @@ namespace TestesMariana.WinApp.ModuloTeste
                     CarregarQuestoes();
             }
 
+        }
+
+        public override void Duplicar()
+        {
+            Teste testeParaDuplicar = ObtemTesteSelecionado();
+
+            _repositorioTeste.Duplicar(testeParaDuplicar);
         }
 
         public override ConfigToolboxBase ObtemConfiguracaoToolbox() // Responsável por carregar o padrão da tela

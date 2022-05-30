@@ -5,7 +5,8 @@ using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Infra.Arquivos.ModuloDisciplina;
 using TestesMariana.Infra.Arquivos.ModuloMateria;
-using TestesMariana.Infra.BancoDeDados;
+using TestesMariana.Infra.BancoDeDados.ModuloDisciplina;
+using TestesMariana.Infra.BancoDeDados.ModuloMateria;
 using TestesMariana.WinApp.Compartilhado;
 
 namespace TestesMariana.WinApp.ModuloMateria

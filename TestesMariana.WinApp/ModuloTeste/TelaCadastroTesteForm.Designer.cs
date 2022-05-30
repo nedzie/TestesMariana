@@ -44,7 +44,6 @@
             this.maskedTextBoxData = new System.Windows.Forms.MaskedTextBox();
             this.labelData = new System.Windows.Forms.Label();
             this.checkBoxRecuperacao = new System.Windows.Forms.CheckBox();
-            this.buttonQuestoes = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // comboBoxMaterias
@@ -77,6 +76,7 @@
             // 
             // comboBoxDisciplinas
             // 
+            this.comboBoxDisciplinas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDisciplinas.FormattingEnabled = true;
             this.comboBoxDisciplinas.Location = new System.Drawing.Point(72, 34);
             this.comboBoxDisciplinas.Name = "comboBoxDisciplinas";
@@ -196,28 +196,12 @@
             this.checkBoxRecuperacao.TabIndex = 48;
             this.checkBoxRecuperacao.Text = "Recuperação?";
             this.checkBoxRecuperacao.UseVisualStyleBackColor = true;
-            this.checkBoxRecuperacao.CheckedChanged += new System.EventHandler(this.checkBoxRecuperacao_CheckedChanged);
-            // 
-            // buttonQuestoes
-            // 
-            this.buttonQuestoes.BackColor = System.Drawing.Color.GreenYellow;
-            this.buttonQuestoes.FlatAppearance.BorderSize = 0;
-            this.buttonQuestoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonQuestoes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.buttonQuestoes.Location = new System.Drawing.Point(12, 568);
-            this.buttonQuestoes.Name = "buttonQuestoes";
-            this.buttonQuestoes.Size = new System.Drawing.Size(92, 23);
-            this.buttonQuestoes.TabIndex = 49;
-            this.buttonQuestoes.Text = "Povoar";
-            this.buttonQuestoes.UseVisualStyleBackColor = false;
-            this.buttonQuestoes.Click += new System.EventHandler(this.buttonQuestoes_Click);
             // 
             // TelaCadastroTesteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(333, 603);
-            this.Controls.Add(this.buttonQuestoes);
             this.Controls.Add(this.checkBoxRecuperacao);
             this.Controls.Add(this.labelData);
             this.Controls.Add(this.maskedTextBoxData);
@@ -264,6 +248,5 @@
         private System.Windows.Forms.MaskedTextBox maskedTextBoxData;
         private System.Windows.Forms.Label labelData;
         private System.Windows.Forms.CheckBox checkBoxRecuperacao;
-        private System.Windows.Forms.Button buttonQuestoes;
     }
 }
