@@ -53,7 +53,9 @@ namespace TestesMariana.Infra.BancoDeDados.ModuloTeste
                     QUANTIDADE_QUESTOES = @QUANTIDADE_QUESTOES,
                     DISCIPLINA_ID = @DISCIPLINA_ID,
                     MATERIA_ID = @MATERIA_ID,
-                    DATA_CRIACAO = DATA_CRIACAO";
+                    DATA_CRIACAO = DATA_CRIACAO
+                WHERE
+                    NUMERO = @ESCOLHA";
 
         private const string sqlExcluir =
             @"DELETE FROM TB_TESTE
@@ -179,11 +181,11 @@ namespace TestesMariana.Infra.BancoDeDados.ModuloTeste
             return resultado;
         }
 
-        public ValidationResult Editar(Teste materia)
+        public ValidationResult Editar(Teste teste)
         {
             var validador = new ValidadorTeste();
 
-            var resultado = validador.Validate(materia);
+            var resultado = validador.Validate(teste);
 
             if (!resultado.IsValid)
                 return resultado;
@@ -192,7 +194,9 @@ namespace TestesMariana.Infra.BancoDeDados.ModuloTeste
 
             SqlCommand comandoEdicao = new(sqlEditarTeste, conexaoComBanco);
 
-            ConfigurarParametrosTeste(materia, comandoEdicao);
+            comandoEdicao.Parameters.AddWithValue("ESCOLHA", teste.Numero);
+
+            ConfigurarParametrosTeste(teste, comandoEdicao);
 
             conexaoComBanco.Open();
             comandoEdicao.ExecuteNonQuery(); // Edita aqui
@@ -241,6 +245,12 @@ namespace TestesMariana.Infra.BancoDeDados.ModuloTeste
 
             comandoInsercao.ExecuteNonQuery();
 
+            SqlCommand comandoAtualizarID = new(sqlSelecionarIdMaximo, conexaoComBanco);
+
+            var id = comandoAtualizarID.ExecuteScalar();
+
+            testeParaDuplicar.Numero = Convert.ToInt32(id);
+
             SqlCommand comandoInserirNParaN = new(sqlInserirQuestoesTabelaNN, conexaoComBanco);
 
             foreach (var questao in testeParaDuplicar.Questoes)
@@ -273,6 +283,43 @@ namespace TestesMariana.Infra.BancoDeDados.ModuloTeste
 
             string caminho = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Teste"
                 + teste2PDF.Numero.ToString() + ".pdf";
+
+            doc.Save(caminho, new PdfSaveOptions()
+            {
+                Compliance = PdfCompliance.PDF_A1a,
+                PreserveFormFields = true
+            });
+
+            string arquivoGerado = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            System.Diagnostics.Process.Start("Explorer", arquivoGerado);
+        }
+
+        public void Gabarito(Teste teste2PDF)
+        {
+            DocumentCore doc = new();
+
+            doc.Content.End.Insert($"{teste2PDF.Nome} - GABARITO\n");
+            int i = 1;
+            int z = 1;
+            foreach (var questao in teste2PDF.Questoes)
+            {
+                doc.Content.End.Insert($"{i}. {questao.Enunciado}\n");
+                i++;
+                foreach (var alternativa in questao.Alternativas)
+                {
+                    if (alternativa.EstaCerta == true)
+                        doc.Content.End.Insert($"{z}. {alternativa.Opcao} (CORRETA)\n");
+                    else
+                        doc.Content.End.Insert($"{z}. {alternativa.Opcao}\n");
+
+                    z++;
+                }
+                z = 1;
+            }
+
+            string caminho = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Teste"
+                + teste2PDF.Numero.ToString() + "GABARITO.pdf";
 
             doc.Save(caminho, new PdfSaveOptions()
             {
@@ -408,7 +455,7 @@ namespace TestesMariana.Infra.BancoDeDados.ModuloTeste
 
             SqlDataReader leitorQuestoes = comandoSelecionarQuestoesDoTeste.ExecuteReader();
 
-            while(leitorQuestoes.Read())
+            while (leitorQuestoes.Read())
             {
                 questoes.Add(ConverterParaQuestao(leitorQuestoes));
             }

@@ -77,7 +77,6 @@ namespace TestesMariana.WinApp.ModuloTeste
                     comboBoxMaterias.Items.Add(item);
         }
 
-
         public List<Questao> QuestoesAdicionadas
         {
             get
@@ -85,7 +84,6 @@ namespace TestesMariana.WinApp.ModuloTeste
                 return listBoxQuestoes.Items.Cast<Questao>().ToList();
             }
         }
-
         private void buttonGravar_Click(object sender, EventArgs e)
         {
             Teste.Nome = textBoxNome.Text;
@@ -108,7 +106,7 @@ namespace TestesMariana.WinApp.ModuloTeste
             }
 
             Random rnd = new();
-            if (!checkBoxRecuperacao.Checked)
+            if (!checkBoxRecuperacao.Checked && Teste.Numero == 0)
             {
                 Materia m = (Materia)comboBoxMaterias.SelectedItem;
 
@@ -128,19 +126,22 @@ namespace TestesMariana.WinApp.ModuloTeste
             }
             else
             {
-                for (int i = 0; i < qtde; i++)
+                if (Teste.Numero == 0)
                 {
-                    int y = rnd.Next(0, Questoes.Count - 1);
-
-                    if (Teste.Questoes.Count < 1) // Se for o primeiro registro
-                        Teste.Questoes.Add(Questoes[y]);
-                    else if (Teste.Questoes.Contains(Questoes[y])) // Se não for, verifica se já existe
+                    for (int i = 0; i < qtde; i++)
                     {
-                        i--;
-                        continue;
+                        int y = rnd.Next(0, Questoes.Count - 1);
+
+                        if (Teste.Questoes.Count < 1) // Se for o primeiro registro
+                            Teste.Questoes.Add(Questoes[y]);
+                        else if (Teste.Questoes.Contains(Questoes[y])) // Se não for, verifica se já existe
+                        {
+                            i--;
+                            continue;
+                        }
+                        else
+                            Teste.Questoes.Add(Questoes[y]); // Se não existe, adiciona
                     }
-                    else
-                        Teste.Questoes.Add(Questoes[y]); // Se não existe, adiciona
                 }
             }
 

@@ -44,7 +44,7 @@ namespace TestesMariana.WinApp.ModuloTeste
             DialogResult res = tela.ShowDialog(); // Daqui vai para os códigos da 'TelaCadastroQuestaoForm'
 
             if (res == DialogResult.OK)
-                CarregarQuestoes();
+                CarregarTestes();
         }
 
         public override void Editar()
@@ -70,7 +70,7 @@ namespace TestesMariana.WinApp.ModuloTeste
             DialogResult res = tela.ShowDialog(); // Daqui vai para os códigos da 'TelaCadastroDisciplinaForm'
 
             if (res == DialogResult.OK)
-                CarregarQuestoes();
+                CarregarTestes();
         }
         public override void Excluir()
         {
@@ -89,7 +89,7 @@ namespace TestesMariana.WinApp.ModuloTeste
             {
                 ValidationResult deuCerto = _repositorioTeste.Excluir(testeSelecionado);
                 if (deuCerto.IsValid)
-                    CarregarQuestoes();
+                    CarregarTestes();
             }
 
         }
@@ -98,6 +98,7 @@ namespace TestesMariana.WinApp.ModuloTeste
             Teste testeParaDuplicar = ObtemTesteSelecionado();
 
             _repositorioTeste.Duplicar(testeParaDuplicar);
+            CarregarTestes();
         }
 
         public override void ExtrairPDF()
@@ -105,6 +106,15 @@ namespace TestesMariana.WinApp.ModuloTeste
             Teste teste2PDF = ObtemTesteSelecionado();
 
             _repositorioTeste.PDF(teste2PDF);
+            CarregarTestes();
+        }
+
+        public override void Gabarito()
+        {
+            Teste teste2PDF = ObtemTesteSelecionado();
+
+            _repositorioTeste.Gabarito(teste2PDF);
+            CarregarTestes();
         }
 
         public override ConfigToolboxBase ObtemConfiguracaoToolbox() // Responsável por carregar o padrão da tela
@@ -117,17 +127,17 @@ namespace TestesMariana.WinApp.ModuloTeste
             if (_tabelaTeste == null)
                 _tabelaTeste = new TabelaTesteControl();
 
-            CarregarQuestoes();
+            CarregarTestes();
 
             return _tabelaTeste;
         }
 
-        private void CarregarQuestoes()
+        private void CarregarTestes()
         {
-            List<Teste> questoes = _repositorioTeste.SelecionarTodos();
-            _tabelaTeste!.AtualizarRegistros(questoes);
+            List<Teste> testes = _repositorioTeste.SelecionarTodos();
+            _tabelaTeste!.AtualizarRegistros(testes);
 
-            TelaPrincipalForm.Instancia!.AtualizarRodape(questoes.Count > 1 ? $"Visualizando {questoes.Count} testes." : $"Visualizando {questoes.Count} testes.");
+            TelaPrincipalForm.Instancia!.AtualizarRodape(testes.Count > 1 ? $"Visualizando {testes.Count} testes." : $"Visualizando {testes.Count} testes.");
         }
 
         private Teste ObtemTesteSelecionado()

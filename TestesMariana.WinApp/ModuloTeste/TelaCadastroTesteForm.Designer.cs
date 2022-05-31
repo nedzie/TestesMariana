@@ -48,6 +48,7 @@
             // 
             // comboBoxMaterias
             // 
+            this.comboBoxMaterias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMaterias.Enabled = false;
             this.comboBoxMaterias.FormattingEnabled = true;
             this.comboBoxMaterias.Location = new System.Drawing.Point(72, 66);

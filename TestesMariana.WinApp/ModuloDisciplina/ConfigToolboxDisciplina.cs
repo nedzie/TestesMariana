@@ -12,5 +12,7 @@ namespace TestesMariana.WinApp.ModuloDisciplina
         public override string toolStripButtonDuplicar { get { return string.Empty; } }
         public override bool statusPDF { get { return false; } }
         public override bool StatusDuplicar { get { return false; } }
+
+        public override string toolStripButtonExportarGabarito { get { return string.Empty; } }
     }
 }

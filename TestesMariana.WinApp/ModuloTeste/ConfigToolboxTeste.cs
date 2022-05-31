@@ -10,7 +10,9 @@ namespace TestesMariana.WinApp.ModuloTeste
         public override string toolStripButtonExcluir { get { return "Excluir um teste existente"; } }
         public override string? toolStripButtonExportarPDF { get { return "Exportar um teste para PDF"; } }
         public override string toolStripButtonDuplicar { get { return "Duplicar um teste existente"; } }
+        public override string toolStripButtonExportarGabarito { get { return "Exportar um gabarito para PDF"; } }
         public override bool statusPDF { get { return true; } }
         public override bool StatusDuplicar { get { return true; } }
+        public override bool StatusGabarito { get { return true; } }
     }
 }

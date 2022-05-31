@@ -54,6 +54,7 @@ namespace TestesMariana.WinApp
         {
             labelRodape.Text = mensagem;
         }
+
         #region Alterações aqui precisam ser atualizadas no ConfigToolboxBase.cs
         private void buttonDisciplinas_Click(object sender, EventArgs e)
         {
@@ -120,6 +121,7 @@ namespace TestesMariana.WinApp
             buttonExcluir.Enabled = config.StatusExcluir;
             buttonExportarPDF.Enabled = config.statusPDF;
             buttonDuplicar.Enabled = config.StatusDuplicar;
+            buttonExportarGabarito.Enabled = config.StatusGabarito;
         }
 
         private void ConfigurarTooltips(ConfigToolboxBase config) //Pega status de cada config das classes específicas [TOOLTIP]
@@ -129,6 +131,7 @@ namespace TestesMariana.WinApp
             buttonExcluir.ToolTipText = config.toolStripButtonExcluir;
             buttonExportarPDF.ToolTipText = config.toolStripButtonExportarPDF;
             buttonDuplicar.ToolTipText = config.toolStripButtonDuplicar;
+            buttonExportarGabarito.ToolTipText = config.toolStripButtonExportarGabarito;
         }
 
         private void buttonInserir_Click(object sender, EventArgs e)
@@ -149,10 +152,13 @@ namespace TestesMariana.WinApp
         {
             controlador!.ExtrairPDF();
         }
+        private void buttonExportarGabarito_Click(object sender, EventArgs e)
+        {
+            controlador!.Gabarito();
+        }
         private void buttonDuplicar_Click(object sender, EventArgs e)
         {
             controlador!.Duplicar();
-            ConfigurarListagem();
         }
 
         #endregion

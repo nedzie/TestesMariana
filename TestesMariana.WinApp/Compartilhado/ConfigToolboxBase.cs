@@ -14,12 +14,14 @@
 
         public abstract string toolStripButtonDuplicar { get; }
 
+        public abstract string toolStripButtonExportarGabarito { get; }
+
         // Botões
         public virtual bool StatusInserir { get { return true; } }
         public virtual bool StatusEditar { get { return true; } }
         public virtual bool StatusExcluir {  get { return true; } }
-        public abstract bool statusPDF { get; }
-
+        public virtual bool statusPDF { get { return false; } }
+        public virtual bool StatusGabarito { get { return false; } }
         public abstract bool StatusDuplicar { get; }
     }
 }

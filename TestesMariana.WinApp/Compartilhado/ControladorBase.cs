@@ -15,6 +15,10 @@ namespace TestesMariana.WinApp.Compartilhado
         {
 
         }
+        public virtual void Gabarito()
+        {
+
+        }
         public abstract UserControl ObtemListagem();
         public abstract ConfigToolboxBase ObtemConfiguracaoToolbox();
     }

@@ -39,8 +39,9 @@
             this.buttonInserir = new System.Windows.Forms.ToolStripButton();
             this.buttonEditar = new System.Windows.Forms.ToolStripButton();
             this.buttonExcluir = new System.Windows.Forms.ToolStripButton();
-            this.buttonExportarPDF = new System.Windows.Forms.ToolStripButton();
             this.buttonDuplicar = new System.Windows.Forms.ToolStripButton();
+            this.buttonExportarPDF = new System.Windows.Forms.ToolStripButton();
+            this.buttonExportarGabarito = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabelTipo = new System.Windows.Forms.ToolStripLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.labelRodape = new System.Windows.Forms.ToolStripStatusLabel();
@@ -117,8 +118,9 @@
             this.buttonInserir,
             this.buttonEditar,
             this.buttonExcluir,
-            this.buttonExportarPDF,
             this.buttonDuplicar,
+            this.buttonExportarPDF,
+            this.buttonExportarGabarito,
             this.toolStripLabelTipo});
             this.toolStripToolbox.Location = new System.Drawing.Point(0, 24);
             this.toolStripToolbox.Name = "toolStripToolbox";
@@ -159,6 +161,15 @@
             this.buttonExcluir.Text = "Deletar";
             this.buttonExcluir.Click += new System.EventHandler(this.buttonExcluir_Click);
             // 
+            // buttonDuplicar
+            // 
+            this.buttonDuplicar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonDuplicar.Image = global::TestesMariana.WinApp.Properties.Resources.content_copy_FILL1_wght400_GRAD0_opsz48;
+            this.buttonDuplicar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonDuplicar.Name = "buttonDuplicar";
+            this.buttonDuplicar.Size = new System.Drawing.Size(23, 28);
+            this.buttonDuplicar.Click += new System.EventHandler(this.buttonDuplicar_Click);
+            // 
             // buttonExportarPDF
             // 
             this.buttonExportarPDF.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -169,14 +180,14 @@
             this.buttonExportarPDF.Size = new System.Drawing.Size(28, 28);
             this.buttonExportarPDF.Click += new System.EventHandler(this.buttonExportarPDF_Click);
             // 
-            // buttonDuplicar
+            // buttonExportarGabarito
             // 
-            this.buttonDuplicar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonDuplicar.Image = global::TestesMariana.WinApp.Properties.Resources.content_copy_FILL1_wght400_GRAD0_opsz48;
-            this.buttonDuplicar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonDuplicar.Name = "buttonDuplicar";
-            this.buttonDuplicar.Size = new System.Drawing.Size(23, 28);
-            this.buttonDuplicar.Click += new System.EventHandler(this.buttonDuplicar_Click);
+            this.buttonExportarGabarito.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonExportarGabarito.Image = global::TestesMariana.WinApp.Properties.Resources.reviews_FILL1_wght400_GRAD0_opsz48;
+            this.buttonExportarGabarito.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonExportarGabarito.Name = "buttonExportarGabarito";
+            this.buttonExportarGabarito.Size = new System.Drawing.Size(23, 28);
+            this.buttonExportarGabarito.Click += new System.EventHandler(this.buttonExportarGabarito_Click);
             // 
             // toolStripLabelTipo
             // 
@@ -248,5 +259,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel labelRodape;
         private System.Windows.Forms.ToolStripButton buttonDuplicar;
+        private System.Windows.Forms.ToolStripButton buttonExportarGabarito;
     }
 }
