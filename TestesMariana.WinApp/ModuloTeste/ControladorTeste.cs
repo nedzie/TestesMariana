@@ -93,12 +93,18 @@ namespace TestesMariana.WinApp.ModuloTeste
             }
 
         }
-
         public override void Duplicar()
         {
             Teste testeParaDuplicar = ObtemTesteSelecionado();
 
             _repositorioTeste.Duplicar(testeParaDuplicar);
+        }
+
+        public override void ExtrairPDF()
+        {
+            Teste teste2PDF = ObtemTesteSelecionado();
+
+            _repositorioTeste.PDF(teste2PDF);
         }
 
         public override ConfigToolboxBase ObtemConfiguracaoToolbox() // Responsável por carregar o padrão da tela

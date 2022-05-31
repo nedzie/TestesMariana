@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using SautinSoft.Document;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -6,6 +7,7 @@ using TestesMariana.Dominio.ModuloDisciplina;
 using TestesMariana.Dominio.ModuloMateria;
 using TestesMariana.Dominio.ModuloQuestao;
 using TestesMariana.Dominio.ModuloTeste;
+using TestesMariana.Infra.BancoDeDados.ModuloQuestao;
 
 namespace TestesMariana.Infra.BancoDeDados.ModuloTeste
 {
@@ -99,12 +101,48 @@ namespace TestesMariana.Infra.BancoDeDados.ModuloTeste
             WHERE
                 T.NUMERO = @NUMERO";
 
-        private const string sqlPegarMaiorId =
-            @"SELECT 
-                TOP 1 NUMERO 
-            FROM 
-                TB_TESTE 
-            ORDER BY NUMERO DESC";
+        private const string sqlSelecionarAlternativasDaQuestao =
+            @"SELECT
+                    A.NUMERO AS NUMERO,
+	                A.OPCAO AS OPCAO,
+	                A.ESTA_CERTA AS CORRETA,
+                    Q.NUMERO AS NUMEROQUESTAO
+                FROM 
+	                TB_QUESTAO AS Q
+                INNER JOIN TB_ALTERNATIVA AS A
+	                ON A.QUESTAO_ID = Q.NUMERO
+                WHERE
+                    QUESTAO_ID = @NUMERO";
+
+        private const string sqlIDsQuestoesDoTeste =
+            @"SELECT
+                    TQ.QUESTAO_ID AS NUMEROQUESTAO
+                FROM
+                    TB_TESTE_QUESTAO AS TQ
+                WHERE
+                    TQ.TESTE_ID = @NUMERO";
+
+        private const string sqlSelecionarQuestoesPorNumero =
+            @"SELECT
+	                Q.NUMERO AS NUMERO,
+	                Q.ENUNCIADO AS ENUNCIADO
+                FROM
+	                TB_QUESTAO AS Q
+	                INNER JOIN TB_TESTE_QUESTAO AS TQ
+	                ON Q.NUMERO = TQ.QUESTAO_ID
+                WHERE
+		                TQ.TESTE_ID = @NUMERO";
+
+        private const string sqlSelecionarIdMaximo =
+                    @"SELECT MAX(NUMERO) AS ID
+                        FROM TB_TESTE";
+
+        private RepositorioQuestaoEmBancoDeDados repositorioQuestao;
+
+        public RepositorioTesteEmBancoDeDados(RepositorioQuestaoEmBancoDeDados repositorioQuestao)
+        {
+            this.repositorioQuestao = repositorioQuestao;
+        }
 
         public ValidationResult Inserir(Teste novoTeste)
         {
@@ -195,16 +233,56 @@ namespace TestesMariana.Infra.BancoDeDados.ModuloTeste
         {
             SqlConnection conexaoComBanco = new(enderecoBanco);
 
-            SqlCommand comandoDuplicar = new(sqlPegarMaiorId, conexaoComBanco);
+            SqlCommand comandoInsercao = new(sqlInserir, conexaoComBanco); // Aqui cria
 
-            ConfigurarParametrosTeste(testeParaDuplicar, comandoDuplicar);
+            ConfigurarParametrosTeste(testeParaDuplicar, comandoInsercao);
 
             conexaoComBanco.Open();
 
-            var id = comandoDuplicar.ExecuteScalar();
-            testeParaDuplicar.Numero = Convert.ToInt32(id);
+            comandoInsercao.ExecuteNonQuery();
 
-            conexaoComBanco.Close();
+            SqlCommand comandoInserirNParaN = new(sqlInserirQuestoesTabelaNN, conexaoComBanco);
+
+            foreach (var questao in testeParaDuplicar.Questoes)
+            {
+                comandoInserirNParaN.Parameters.Clear();
+                ConfigurarRegistroMultivalorado(questao, testeParaDuplicar, comandoInserirNParaN);
+                comandoInserirNParaN.ExecuteNonQuery();
+            }
+
+        }
+
+        public void PDF(Teste teste2PDF)
+        {
+            DocumentCore doc = new();
+
+            doc.Content.End.Insert(teste2PDF.Nome + "\n");
+            int i = 1;
+            int z = 1;
+            foreach (var questao in teste2PDF.Questoes)
+            {
+                doc.Content.End.Insert($"{i}. {questao.Enunciado}\n");
+                i++;
+                foreach (var alternativa in questao.Alternativas)
+                {
+                    doc.Content.End.Insert($"{z}. {alternativa.Opcao}\n");
+                    z++;
+                }
+                z = 1;
+            }
+
+            string caminho = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Teste"
+                + teste2PDF.Numero.ToString() + ".pdf";
+
+            doc.Save(caminho, new PdfSaveOptions()
+            {
+                Compliance = PdfCompliance.PDF_A1a,
+                PreserveFormFields = true
+            });
+
+            string arquivoGerado = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            System.Diagnostics.Process.Start("Explorer", arquivoGerado);
         }
 
         public List<Teste> SelecionarTodos()
@@ -266,6 +344,9 @@ namespace TestesMariana.Infra.BancoDeDados.ModuloTeste
             m.Numero = Convert.ToInt32(leitor["NUMEROMATERIA"]);
             m.Nome = Convert.ToString(leitor["NOMEMATERIA"]);
 
+
+            List<Questao> questoes = AdicionarQuestoes(numero);
+
             return new Teste
             {
                 Numero = numero,
@@ -274,7 +355,105 @@ namespace TestesMariana.Infra.BancoDeDados.ModuloTeste
                 Data = dataCriacao,
 
                 Disciplina = d,
-                Materia = m
+                Materia = m,
+                Questoes = questoes
+            };
+        }
+
+        private Questao ConverterParaQuestao(SqlDataReader leitor)
+        {
+            int numero = Convert.ToInt32(leitor["NUMERO"]);
+            string enunciado = Convert.ToString(leitor["ENUNCIADO"]);
+
+            List<Alternativa> alternativas = AdicionarAlternativas(numero);
+
+            return new Questao
+            {
+                Numero = numero,
+                Enunciado = enunciado,
+                Alternativas = alternativas
+            };
+        }
+
+        public List<Questao> AdicionarQuestoes(int numero)
+        {
+            SqlConnection conexaoComBanco = new(enderecoBanco);
+
+            SqlCommand comandoSelecaoQuestoes = new(sqlIDsQuestoesDoTeste, conexaoComBanco);
+
+            comandoSelecaoQuestoes.Parameters.AddWithValue("NUMERO", numero);
+
+            conexaoComBanco.Open();
+
+            SqlDataReader leitor = comandoSelecaoQuestoes.ExecuteReader();
+
+            List<int> idsQuestoes = new();
+
+            int i = 0;
+            while (leitor.Read())
+            {
+                idsQuestoes.Add(leitor.GetInt32(i));
+                i++;
+            }
+
+            conexaoComBanco.Close();
+
+            conexaoComBanco.Open();
+
+            List<Questao> questoes = new();
+
+            SqlCommand comandoSelecionarQuestoesDoTeste = new(sqlSelecionarQuestoesPorNumero, conexaoComBanco);
+
+            comandoSelecionarQuestoesDoTeste.Parameters.AddWithValue("NUMERO", numero);
+
+            SqlDataReader leitorQuestoes = comandoSelecionarQuestoesDoTeste.ExecuteReader();
+
+            while(leitorQuestoes.Read())
+            {
+                questoes.Add(ConverterParaQuestao(leitorQuestoes));
+            }
+
+            return questoes;
+        }
+
+        public List<Alternativa> AdicionarAlternativas(int numero)
+        {
+            SqlConnection conexaoComBanco = new(enderecoBanco);
+
+            SqlCommand comandoSelecaoAlternativas = new(sqlSelecionarAlternativasDaQuestao, conexaoComBanco);
+
+            comandoSelecaoAlternativas.Parameters.AddWithValue("NUMERO", numero);
+
+            conexaoComBanco.Open();
+
+            SqlDataReader leitor = comandoSelecaoAlternativas.ExecuteReader();
+
+            List<Alternativa> alternativas = new();
+            while (leitor.Read())
+                alternativas.Add(ConverterParaAlternativas(leitor));
+
+            conexaoComBanco.Close();
+
+            return alternativas;
+        }
+
+        private Alternativa ConverterParaAlternativas(SqlDataReader leitor)
+        {
+            int numero = Convert.ToInt32(leitor["NUMERO"]);
+            string opcao = Convert.ToString(leitor["OPCAO"]);
+            bool estaCerta = Convert.ToBoolean(leitor["CORRETA"]);
+
+            int numeroQuestao = Convert.ToInt32(leitor["NUMEROQUESTAO"]);
+
+            return new Alternativa
+            {
+                Numero = numero,
+                Opcao = opcao,
+                EstaCerta = estaCerta,
+                Questao = new Questao
+                {
+                    Numero = numeroQuestao,
+                }
             };
         }
 

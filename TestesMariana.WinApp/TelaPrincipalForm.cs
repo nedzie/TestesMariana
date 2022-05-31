@@ -34,7 +34,7 @@ namespace TestesMariana.WinApp
             var repositorioDisciplina = new RepositorioDisciplinaEmBancoDeDados();
             var repositorioMateria = new RepositorioMateriaEmBancoDeDados();
             var repositorioQuestao = new RepositorioQuestaoEmBancoDeDados();
-            var repositorioTeste = new RepositorioTesteEmBancoDeDados();
+            var repositorioTeste = new RepositorioTesteEmBancoDeDados(repositorioQuestao);
 
             controladores = new Dictionary<string, ControladorBase>();
 
@@ -147,11 +147,12 @@ namespace TestesMariana.WinApp
 
         private void buttonExportarPDF_Click(object sender, EventArgs e)
         {
-
+            controlador!.ExtrairPDF();
         }
         private void buttonDuplicar_Click(object sender, EventArgs e)
         {
             controlador!.Duplicar();
+            ConfigurarListagem();
         }
 
         #endregion

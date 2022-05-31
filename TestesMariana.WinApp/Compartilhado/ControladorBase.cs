@@ -11,6 +11,10 @@ namespace TestesMariana.WinApp.Compartilhado
         {
 
         }
+        public virtual void ExtrairPDF()
+        {
+
+        }
         public abstract UserControl ObtemListagem();
         public abstract ConfigToolboxBase ObtemConfiguracaoToolbox();
     }
